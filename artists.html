@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Músicos - SHYNONE MUSIC</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#FFFFFF;color:#000000;font-family:Arial}
+header{background:#004aad;padding:20px;text-align:center;display:flex;justify-content:space-between;align-items:center;max-width:100%}
+.back{padding:6px 14px;border-radius:999px;border:none;background:#FFFFFF;color:#000000;font-weight:700;font-size:12px;text-decoration:none}
+.langs{display:flex;gap:6px}
+.lang-btn{padding:5px 12px;border-radius:999px;border:1.5px solid #FFFFFF;background:#FFFFFF;color:#000000;font-size:11px;font-weight:700;cursor:pointer}
+.lang-btn.active{background:#000000;color:#FFFFFF}
+.title{text-align:center;margin:20px 0;font-weight:800;color:#000000;background:#FFFFFF}
+.list{max-width:500px;margin:0 auto;padding:0 20px;background:#FFFFFF}
+.card{background:#FFFFFF;border:1.5px solid #004aad;border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.avatar{width:44px;height:44px;background:#004aad;color:#000000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.info h3{font-size:13px;color:#000000}
+.info p{font-size:11px;color:#000000}
+.play{width:34px;height:34px;border-radius:999px;border:none;background:#004aad;color:#000000;cursor:pointer;font-weight:800}
+</style>
+</head>
+<body>
+
+<header>
+<a id="back-pt" class="back" href="index.html">← Voltar</a>
+<a id="back-en" class="back" style="display:none" href="index.html">← Go Back</a>
+<a id="back-ch" class="back" style="display:none" href="index.html">← Tlhelela Ndzhaku</a>
+<div class="langs">
+<button class="lang-btn active" onclick="setLang('pt',event)">PT</button>
+<button class="lang-btn" onclick="setLang('en',event)">EN</button>
+<button class="lang-btn" onclick="setLang('ch',event)">CH</button>
+</div>
+</header>
+
+<h2 class="title" id="title-pt">Lista de Músicos</h2>
+<h2 class="title" id="title-en" style="display:none">Artists List</h2>
+<h2 class="title" id="title-ch" style="display:none">Nxaxameto wa Vayimbeleli</h2>
+
+<div class="list">
+<div class="card"><div class="avatar">S</div><div class="info"><h3>SHYNONE</h3><p>Beira • Wunanga la Moçambique</p></div><button class="play">▶️</button></div>
+<div class="card"><div class="avatar">M1</div><div class="info"><h3>Músico 1</h3><p>Maputo</p></div><button class="play">▶️</button></div>
+<div class="card"><div class="avatar">M2</div><div class="info"><h3>Músico 2</h3><p>Beira</p></div><button class="play">▶️</button></div>
+</div>
+
+<script>
+function setLang(l,e){
+['pt','en','ch'].forEach(k=>{
+['back','title'].forEach(id=>{
+let el=document.getElementById(id+'-'+k);
+if(el) el.style.display=(k==l)?(id=='title'?'block':'inline-block'):'none';
+});
