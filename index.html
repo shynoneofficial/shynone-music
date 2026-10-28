@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SHYNONE MUSIC</title>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SHYNONE MUSIC - Tate</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}body{background:#f5f5f5;font-family:Arial,sans-serif;padding-top:108px}
 .fixed-header{position:fixed;top:0;left:0;right:0;z-index:1000;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
@@ -32,7 +32,7 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
 .hero-img{width:50%;background:url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800') center/cover}
 @media(max-width:700px){.hero{flex-direction:column}.hero-text,.hero-img{width:100%}.artists-grid{grid-template-columns:repeat(2,1fr)}.search input{width:110px}}
 .sister-float{position:fixed;bottom:16px;right:16px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.sister-btn{width:70px;height:70px;border-radius:50%;border:3px solid #fff;box-shadow:0 4px 18px rgba(0,0,0,0.35);cursor:pointer;overflow:hidden;background:#fff;position:relative;animation:pulse 2.5s infinite}
+.sister-btn{width:72px;height:72px;border-radius:50%;border:3px solid #fff;box-shadow:0 4px 18px rgba(0,0,0,0.35);cursor:pointer;overflow:hidden;background:#fff;position:relative;animation:pulse 2.5s infinite}
 .sister-btn img{width:100%;height:100%;object-fit:cover}
 .sister-btn .dot{position:absolute;top:3px;right:3px;width:14px;height:14px;background:#00e676;border-radius:50%;border:2px solid #fff}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,109,167,0.7)}70%{box-shadow:0 0 0 14px rgba(74,109,167,0)}100%{box-shadow:0 0 0 0 rgba(74,109,167,0)}}
@@ -50,16 +50,16 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
 <div class="cta-two"><a id="ct1" href="#">🎤 Ka Vayimbi</a><a id="ct2" href="#">🛒 Ka Varhandzi</a></div>
 <div id="artists" class="artists-wrap"><div class="artists-grid"><div class="artist-card"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400"><div class="artist-info"><b>SHYNONE</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=400"><div class="artist-info"><b>Dilon</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400"><div class="artist-info"><b>Lizha James</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400"><div class="artist-info"><b>Mr. Kuka</b></div></div></div></div>
 <div class="next-wrap"><a id="next" class="next-btn" href="#">LANDA →</a></div>
-<footer>© 2026 SHYNONE MUSIC • Beira</footer>
+<footer>© 2026 SHYNONE MUSIC • Beira • Tate</footer>
 
 <div class="sister-float">
   <div class="sister-panel" id="sisPanel">
-    <div class="sis-header"><b id="sis-title">Tate AI</b><span onclick="toggleSis()" style="cursor:pointer">✕</span></div>
+    <div class="sis-header"><b id="sis-title">Tate</b><span onclick="toggleSis()" style="cursor:pointer">✕</span></div>
     <div class="sis-body">
-      <div id="sis-desc" style="font-weight:700">Hi, I'm Tate - your siste in Changana, I answer calls in your voice when busy.</div>
+      <div id="sis-desc" style="font-weight:700">Hi, I'm Tate - your siste in Changana.</div>
       <div class="record-box">
-        <div id="sis-voice-title" style="font-weight:800;font-size:12px">Setup voice - Tate learns any user</div>
-        <div id="sis-voice-desc" style="font-size:11px;color:#555;margin:4px 0">Record 3 sec: "Ok do it" - Tate clones it</div>
+        <div id="sis-voice-title" style="font-weight:800;font-size:12px">Setup voice - Tate learns you</div>
+        <div id="sis-voice-desc" style="font-size:11px;color:#555;margin:4px 0">Record 3 sec: "Ok do it"</div>
         <button class="sis-btn2" onclick="recordVoice()" id="sis-record">🎙️ Record my voice (3s)</button>
         <div id="voiceStatus" style="font-size:11px;margin-top:6px;color:#2e7d32;display:none">✓ Voice saved</div>
       </div>
@@ -70,17 +70,17 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
       </select>
       <button class="sis-btn" onclick="activateSis()" id="sis-activate">Activate Tate</button>
       <button class="sis-btn2" onclick="deactivateSis()" id="sis-deactivate">Deactivate</button>
-      <div style="font-size:10px;color:#888;margin-top:12px;text-align:center" id="sis-note">Works even when phone off. Private secure server.</div>
+      <div style="font-size:10px;color:#888;margin-top:12px;text-align:center" id="sis-note">Private secure. Works even phone off.</div>
     </div>
   </div>
-  <div class="sister-btn" onclick="toggleSis()"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200" alt="Tate"><div class="dot"></div></div>
+  <div class="sister-btn" onclick="toggleSis()"><img src="./Tate.jpg" alt="Tate"><div class="dot"></div></div>
 </div>
 
 <script>
 const T={
- pt:{langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'MÚSICA',nv_l:'BIBLIOTECA',nv_n:'NOTÍCIAS',nv_a:'SOBRE NÓS',k:'COMPRE AGORA!',h1:'Agora Compre Música Direto no M-Pesa / eMola',p:'Sem complicação! Escolha sua música favorita e pague instantaneamente.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Comprar Agora',ab_t:'Sobre Shynone Music',ct1:'🎤 Para Músicos',ct2:'🛒 Para Fãs',next:'PRÓXIMO →',sis_t:'Tate AI',sis_d:'Olá, sou Tate - sua irmã em Changana, atendo suas chamadas na sua voz quando está ocupado.',sis_vt:'Configure voz - Tate aprende qualquer usuário',sis_vd:'Grave 3s: "Ok faz isso" - Tate vai clonar',sis_rec:'🎙️ Gravar minha voz (3s)',sis_a:'Ativar Tate',sis_da:'Desativar',sis_note:'Funciona mesmo com telefone desligado. Servidor privado seguro.'},
- en:{langName:'English',search:'Search',nv_h:'HOME',nv_w:'MUSIC',nv_l:'LIBRARY',nv_n:'NEWS',nv_a:'ABOUT',k:'BUY NOW!',h1:'Now Buy Music Directly via M-Pesa / eMola',p:'No hassle! Choose your favorite track and pay instantly.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Buy Now',ab_t:'About Shynone Music',ct1:'🎤 For Musicians',ct2:'🛒 For Fans',next:'NEXT →',sis_t:'Tate AI',sis_d:"Hi, I'm Tate - your siste in Changana, I answer calls in your voice when busy.",sis_vt:'Setup voice - Tate learns any user',sis_vd:'Record 3 sec: "Ok do it" - Tate clones it',sis_rec:'🎙️ Record my voice (3s)',sis_a:'Activate Tate',sis_da:'Deactivate',sis_note:'Works even when phone off. Private secure server.'},
- ch:{langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'TINSIMU',nv_l:'LAYIBULARI',nv_n:'MAHUNGU',nv_a:'HI WENA',k:'XAVA SWE SWI!',h1:'Sweswi U Xava Wunanga Hi M-Pesa / eMola',p:'Ku olova! Hlawula wunanga u xi rhandzaka u hakela hi ku hatlisa.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Xava Sweswi',ab_t:'Hi Wunanga la Moçambique',ab_p:'Shynone Music i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala.',ct1:'🎤 Ka Vayimbi',ct2:'🛒 Ka Varhandzi',next:'LANDA →',sis_t:'Tate AI',sis_d:'Hi, ni Tate - siste ra wena hi Changana, ni hlamula ti call ta wena hi rito ra wena loko u busy.',sis_vt:'Setup rito - Tate dyondza user wonkhe',sis_vd:'Record 3 sec: "Ok do it" - Tate ta yi clone',sis_rec:'🎙️ Record rito (3s)',sis_a:'Activate Tate',sis_da:'Deactivate',sis_note:'Ya tirha hambi phone yi timile. Server ya xihundla.'}
+ pt:{langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'MÚSICA',nv_l:'BIBLIOTECA',nv_n:'NOTÍCIAS',nv_a:'SOBRE NÓS',k:'COMPRE AGORA!',h1:'Agora Compre Música Direto no M-Pesa / eMola',p:'Sem complicação! Escolha sua música favorita e pague instantaneamente.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Comprar Agora',ab_t:'Sobre Shynone Music',ct1:'🎤 Para Músicos',ct2:'🛒 Para Fãs',next:'PRÓXIMO →',sis_t:'Tate',sis_d:'Olá, sou Tate - sua irmã em Changana, atendo suas chamadas na sua voz.',sis_vt:'Configure voz - Tate aprende você',sis_vd:'Grave 3s: "Ok faz isso"',sis_rec:'🎙️ Gravar minha voz (3s)',sis_a:'Ativar Tate',sis_da:'Desativar',sis_note:'Privado e seguro. Funciona mesmo telefone desligado.'},
+ en:{langName:'English',search:'Search',nv_h:'HOME',nv_w:'MUSIC',nv_l:'LIBRARY',nv_n:'NEWS',nv_a:'ABOUT',k:'BUY NOW!',h1:'Now Buy Music Directly via M-Pesa / eMola',p:'No hassle! Choose your favorite track and pay instantly.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Buy Now',ab_t:'About Shynone Music',ct1:'🎤 For Musicians',ct2:'🛒 For Fans',next:'NEXT →',sis_t:'Tate',sis_d:"Hi, I'm Tate - your siste in Changana.",sis_vt:'Setup voice - Tate learns you',sis_vd:'Record 3 sec: "Ok do it"',sis_rec:'🎙️ Record my voice (3s)',sis_a:'Activate Tate',sis_da:'Deactivate',sis_note:'Private secure. Works even phone off.'},
+ ch:{langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'TINSIMU',nv_l:'LAYIBULARI',nv_n:'MAHUNGU',nv_a:'HI WENA',k:'XAVA SWE SWI!',h1:'Sweswi U Xava Wunanga Hi M-Pesa / eMola',p:'Ku olova! Hlawula wunanga u xi rhandzaka u hakela hi ku hatlisa.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Xava Sweswi',ab_t:'Hi Wunanga la Moçambique',ab_p:'Shynone Music i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala.',ct1:'🎤 Ka Vayimbi',ct2:'🛒 Ka Varhandzi',next:'LANDA →',sis_t:'Tate',sis_d:'Hi, ni Tate - siste ra wena hi Changana.',sis_vt:'Setup rito - Tate dyondza wena',sis_vd:'Record 3 sec: "Ok do it"',sis_rec:'🎙️ Record rito (3s)',sis_a:'Activate Tate',sis_da:'Deactivate',sis_note:'Ya xihundla. Ya tirha hambi phone yi timile.'}
 };
 function setLang(lang){
  const t=T[lang];
@@ -106,9 +106,9 @@ function activateSis(){
 function deactivateSis(){localStorage.removeItem('sis_active');window.location.href="tel:"+encodeURIComponent("##002#");}
 function recordVoice(){
  const status=document.getElementById('voiceStatus');
- status.style.display='block';status.innerHTML='● Tate listening... say "Ok do it"';
- setTimeout(()=>{status.innerHTML='✓ Voice saved! Tate can now speak like you.';localStorage.setItem('voice_saved','1');},2500);
+ status.style.display='block';status.innerHTML='● Tate listening...';
+ setTimeout(()=>{status.innerHTML='✓ Voice saved!';localStorage.setItem('voice_saved','1');},2500);
 }
 let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
-if(localStorage.getItem('voice_saved')){document.getElementById('voiceStatus').style.display='block';document.getElementById('voiceStatus').innerText='✓ Voice saved for this number';}
+if(localStorage.getItem('voice_saved')){document.getElementById('voiceStatus').style.display='block';document.getElementById('voiceStatus').innerText='✓ Voice saved';}
 </script></body></html>
