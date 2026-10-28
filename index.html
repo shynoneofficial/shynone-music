@@ -113,21 +113,18 @@ footer h4{color:#fff;margin-bottom:8px;font-size:13px}
 </div>
 <footer><div class="foot-inner"><div><h4>SHYNONE MUSIC</h4><p>Wunanga la Moçambique<br>Beira, Sofala</p></div><div><h4>Contacto</h4><p>📱 M-Pesa: 84 123 4567<br>📱 eMola: 82 123 4567</p></div><div><h4>Links</h4><p>Sobre Nós • Artistas</p></div></div><div style="margin-top:25px;border-top:1px solid #444;padding-top:12px;font-size:11px">© 2026 SHYNONE MUSIC • Beira</div></footer>
 <script>
+
 function setLang(lang){
  const names={pt:'Português',en:'English',ch:'Changana'};
  document.getElementById('current-lang-name').innerText=names[lang];
- document.querySelectorAll('[id$="-pt"],[id$="-en"],[id$="-ch"]').forEach(el=>{
+ // Only hide content, NOT buttons (buttons start with lb-)
+ document.querySelectorAll('[id^="k-"],[id^="h1-"],[id^="p-"],[id^="b-"],[id^="ab-t-"],[id^="ab-p-"],[id^="ct1-"],[id^="ct2-"],[id^="nv-"],[id^="s-"]').forEach(el=>{
    let l=el.id.split('-').pop();
-   if(['pt','en','ch'].includes(l)){
-     el.style.display=(l===lang)?'':'none';
-     if(el.id.startsWith('nv-')&&l===lang) el.style.display='inline';
-     if(el.id.startsWith('ct')&&l===lang) el.style.display='inline-block';
-   }
+   el.style.display=(l===lang)?'':'none';
+   if(el.id.startsWith('nv-')&&l===lang) el.style.display='inline';
+   if(el.id.startsWith('ct')&&l===lang) el.style.display='inline-block';
+   if(el.id.startsWith('s-')&&l===lang) el.style.display='block';
  });
  ['pt','en','ch'].forEach(l=>{ let b=document.getElementById('lb-'+l); if(b) b.classList.toggle('active',l===lang); });
  localStorage.setItem('shynone_lang',lang);
 }
-let saved=localStorage.getItem('shynone_lang'); if(saved) setLang(saved); else setLang('ch');
-</script>
-</body>
-</html>
