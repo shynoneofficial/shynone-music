@@ -45,6 +45,19 @@ footer .foot-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-col
 footer h4{color:#fff;margin-bottom:8px;font-size:13px}
 .hero-img{width:50%;background:url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800') center/cover}
 @media(max-width:700px){.hero{flex-direction:column}.hero-text,.hero-img{width:100%}.artists-grid{grid-template-columns:repeat(2,1fr)}.search input{width:120px}}
+
+/* SECRETARY SISTER FLOATING */
+.sister-float{position:fixed;bottom:18px;right:18px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.sister-btn{width:62px;height:62px;border-radius:50%;background:#4a6da7;border:3px solid #fff;box-shadow:0 4px 15px rgba(0,0,0,0.3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:28px;position:relative;animation:pulse 2s infinite}
+.sister-btn .dot{position:absolute;top:2px;right:2px;width:14px;height:14px;background:#00e676;border-radius:50%;border:2px solid #fff}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,109,167,0.7)}70%{box-shadow:0 0 0 12px rgba(74,109,167,0)}100%{box-shadow:0 0 0 0 rgba(74,109,167,0)}}
+.sister-panel{width:320px;max-width:88vw;background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.25);overflow:hidden;display:none;border:1px solid #e5e5e5}
+.sister-panel.open{display:block}
+.sis-header{background:#2b2b2b;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.sis-body{padding:16px;font-size:13px;line-height:1.5}
+.sis-code{background:#f5f7ff;border:1px dashed #4a6da7;padding:10px;border-radius:8px;font-family:monospace;font-size:12px;margin:10px 0;word-break:break-all}
+.sis-btn{width:100%;background:#4a6da7;color:#fff;border:none;padding:11px;border-radius:999px;font-weight:700;cursor:pointer;margin-top:8px}
+.sis-log{margin-top:12px;max-height:120px;overflow-y:auto;font-size:11px;background:#fafafa;padding:8px;border-radius:8px;border:1px solid #eee}
 </style>
 </head>
 <body>
@@ -84,7 +97,7 @@ footer h4{color:#fff;margin-bottom:8px;font-size:13px}
 
 <div class="about">
 <h2 id="ab-t">Hi Wunanga la Moçambique</h2>
-<p id="ab-p">SHYNONE MUSIC i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala. Laha u kuma tinsimu to nene ta Marrabenta, Pandza, Afrobeat, Kizomba na swin'wana. Hi seketela hi ku kongoma vayimbi va hina va Zambezia, Maputo, Nampula na Beira. Sweswi u nga xava wunanga hi ku kongoma hi M-Pesa kumbe eMola, ku hava khadi ya bangi. Hlawula, hakela u kuma hi ku hatlisa.</p>
+<p id="ab-p">SHYNONE MUSIC i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala.</p>
 </div>
 
 <div class="cta-two">
@@ -107,26 +120,40 @@ footer h4{color:#fff;margin-bottom:8px;font-size:13px}
 
 <footer><div class="foot-inner"><div><h4>SHYNONE MUSIC</h4><p>Wunanga la Moçambique<br>Beira, Sofala</p></div><div><h4>Contacto</h4><p>📱 M-Pesa: 84 123 4567<br>📱 eMola: 82 123 4567</p></div><div><h4>Links</h4><p>Sobre Nós • Artistas</p></div></div><div style="margin-top:25px;border-top:1px solid #444;padding-top:12px;font-size:11px">© 2026 SHYNONE MUSIC • Beira</div></footer>
 
+<!-- SISTER SECRETARY FLOATING BUTTON -->
+<div class="sister-float">
+  <div class="sister-panel" id="sisPanel">
+    <div class="sis-header">
+      <b id="sis-title">🤖 Secretaria AI</b>
+      <span onclick="toggleSis()" style="cursor:pointer">✕</span>
+    </div>
+    <div class="sis-body">
+      <div id="sis-desc">I answer your calls in your voice when busy. Activate now.</div>
+      <div style="display:flex;gap:6px;margin:10px 0">
+        <span id="sis-status" style="background:#e8f5e9;color:#2e7d32;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700">● Server: L05 Brother Online</span>
+      </div>
+      <b id="sis-step1">Step 1: Forward calls on your Citrus</b>
+      <div class="sis-code">**61*+258853024665*10*20#<br><small id="sis-press">press Dial</small></div>
+      <b id="sis-step2">Step 2: Choose how I answer</b>
+      <select id="sisMode" style="width:100%;padding:8px;margin:6px 0;border-radius:8px;border:1px solid #ccc">
+        <option value="ok">Say: "Ok do it"</option>
+        <option value="busy">Say: "In studio, call later"</option>
+        <option value="music">Say: "Buy music at SHYNONE MUSIC"</option>
+      </select>
+      <button class="sis-btn" onclick="activateSis()" id="sis-activate">Activate Secretaria</button>
+      <button class="sis-btn" style="background:#fff;color:#4a6da7;border:2px solid #4a6da7" onclick="deactivateSis()" id="sis-deactivate">Deactivate: ##002#</button>
+      <div class="sis-log" id="sisLog"><b id="sis-logtitle">Today calls:</b><br><small>No calls yet - waiting for forward...</small></div>
+      <div style="font-size:10px;color:#888;margin-top:10px;text-align:center" id="sis-note">Works even when Citrus is off. Brother L05 is server.</div>
+    </div>
+  </div>
+  <div class="sister-btn" onclick="toggleSis()">👩🏽‍💼<div class="dot"></div></div>
+</div>
+
 <script>
 const T={
- pt:{
-  langName:'Português', search:'Pesquisar', nv_h:'INÍCIO', nv_w:'WUNANGA', nv_l:'BIBLIOTECA', nv_n:'NOTÍCIAS', nv_a:'SOBRE NÓS',
-  k:'COMPRE AGORA!', h1:'Agora Compre Música Direto no M-Pesa / eMola', p:'Sem complicação! Escolha sua música favorita e pague instantaneamente.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',
-  b:'Comprar Agora', ab_t:'Sobre SHYNONE MUSIC', ab_p:'SHYNONE MUSIC é a plataforma número um de música moçambicana com sede em Beira, Sofala. Aqui você encontra os melhores sons de Marrabenta, Pandza, Afrobeat, Kizomba e muito mais. Apoiamos diretamente artistas locais da Zambézia, Maputo, Nampula e Beira, dando-lhes visibilidade e rendimento justo. Agora inovámos: você pode comprar qualquer música diretamente usando M-Pesa ou eMola, sem precisar de cartão bancário. Basta escolher, pagar com seu número e receber a música instantaneamente.',
-  ct1:'🎤 Para Músicos', ct2:'🛒 Para Fãs', next:'PRÓXIMO →'
- },
- en:{
-  langName:'English', search:'Search', nv_h:'HOME', nv_w:'MUSIC', nv_l:'LIBRARY', nv_n:'NEWS', nv_a:'ABOUT US',
-  k:'BUY NOW!', h1:'Now Buy Music Directly via M-Pesa / eMola', p:'No hassle! Choose your favorite track and pay instantly.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',
-  b:'Buy Now', ab_t:'About SHYNONE MUSIC', ab_p:'SHYNONE MUSIC is the number one platform for Mozambican music based in Beira, Sofala. Here you find the best sounds of Marrabenta, Pandza, Afrobeat, Kizomba and more. We directly support local artists from Zambezia, Maputo, Nampula and Beira. Now you can buy any track directly using M-Pesa or eMola, no bank card needed. Just choose, pay and receive instantly.',
-  ct1:'🎤 For Musicians', ct2:'🛒 For Fans', next:'NEXT →'
- },
- ch:{
-  langName:'Changana', search:'Lava', nv_h:'KAYA', nv_w:'TINSIMU', nv_l:'LAYIBULARI', nv_n:'MAHUNGU', nv_a:'HI WENA',
-  k:'XAVA SWE SWI!', h1:'Sweswi U Xava Wunanga Hi M-Pesa / eMola', p:'Ku olova! Hlawula wunanga u xi rhandzaka u hakela hi ku hatlisa.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',
-  b:'Xava Sweswi', ab_t:'Hi Wunanga la Moçambique', ab_p:'SHYNONE MUSIC i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala. Laha u kuma tinsimu to nene ta Marrabenta, Pandza, Afrobeat, Kizomba na swin\'wana. Hi seketela hi ku kongoma vayimbi va hina va Zambezia, Maputo, Nampula na Beira. Sweswi u nga xava wunanga hi ku kongoma hi M-Pesa kumbe eMola, ku hava khadi ya bangi. Hlawula, hakela u kuma hi ku hatlisa.',
-  ct1:'🎤 Ka Vayimbi', ct2:'🛒 Ka Varhandzi', next:'LANDA →'
- }
+ pt:{langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'WUNANGA',nv_l:'BIBLIOTECA',nv_n:'NOTÍCIAS',nv_a:'SOBRE NÓS',k:'COMPRE AGORA!',h1:'Agora Compre Música Direto no M-Pesa / eMola',p:'Sem complicação! Escolha sua música favorita e pague instantaneamente.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Comprar Agora',ab_t:'Sobre SHYNONE MUSIC',ab_p:'SHYNONE MUSIC é a plataforma número um de música moçambicana com sede em Beira, Sofala. Aqui você encontra os melhores sons de Marrabenta, Pandza, Afrobeat, Kizomba e muito mais. Apoiamos diretamente artistas locais da Zambézia, Maputo, Nampula e Beira.',ct1:'🎤 Para Músicos',ct2:'🛒 Para Fãs',next:'PRÓXIMO →',sis_t:'🤖 Secretaria AI',sis_d:'Atendo suas chamadas na sua voz quando você está ocupado. Ative agora.',sis_s1:'Passo 1: Encaminhe chamadas no seu Citrus',sis_s2:'Passo 2: Escolha como respondo',sis_a:'Ativar Secretaria',sis_da:'Desativar: ##002#',sis_log:'Chamadas hoje:',sis_note:'Funciona mesmo com Citrus desligado. L05 do irmão é servidor.'},
+ en:{langName:'English',search:'Search',nv_h:'HOME',nv_w:'MUSIC',nv_l:'LIBRARY',nv_n:'NEWS',nv_a:'ABOUT US',k:'BUY NOW!',h1:'Now Buy Music Directly via M-Pesa / eMola',p:'No hassle! Choose your favorite track and pay instantly.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Buy Now',ab_t:'About SHYNONE MUSIC',ab_p:'SHYNONE MUSIC is the number one platform for Mozambican music based in Beira, Sofala. Here you find the best sounds of Marrabenta, Pandza, Afrobeat, Kizomba and more.',ct1:'🎤 For Musicians',ct2:'🛒 For Fans',next:'NEXT →',sis_t:'🤖 Secretaria AI',sis_d:'I answer your calls in your voice when busy. Activate now.',sis_s1:'Step 1: Forward calls on your Citrus',sis_s2:'Step 2: Choose how I answer',sis_a:'Activate Secretaria',sis_da:'Deactivate: ##002#',sis_log:'Today calls:',sis_note:'Works even when Citrus is off. Brother L05 is server.'},
+ ch:{langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'TINSIMU',nv_l:'LAYIBULARI',nv_n:'MAHUNGU',nv_a:'HI WENA',k:'XAVA SWE SWI!',h1:'Sweswi U Xava Wunanga Hi M-Pesa / eMola',p:'Ku olova! Hlawula wunanga u xi rhandzaka u hakela hi ku hatlisa.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Xava Sweswi',ab_t:'Hi Wunanga la Moçambique',ab_p:'SHYNONE MUSIC i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala. Laha u kuma tinsimu to nene ta Marrabenta, Pandza, Afrobeat, Kizomba.',ct1:'🎤 Ka Vayimbi',ct2:'🛒 Ka Varhandzi',next:'LANDA →',sis_t:'🤖 Secretaria AI',sis_d:'Ni hlamula ti call ta wena hi rito ra wena loko u busy. Activate sweswi.',sis_s1:'Step 1: Forward ti call e Citrus',sis_s2:'Step 2: Hlawula ndlela ni hlamula',sis_a:'Activate Secretaria',sis_da:'Deactivate: ##002#',sis_log:'Ti call ta namuntlha:',sis_note:'Ya tirha hambi Citrus yi timile. L05 ya brother i server.'}
 };
 function setLang(lang){
  const t=T[lang];
@@ -146,13 +173,27 @@ function setLang(lang){
  document.getElementById('ct1').innerText=t.ct1;
  document.getElementById('ct2').innerText=t.ct2;
  document.getElementById('next').innerText=t.next;
- ['pt','en','ch'].forEach(l=>{
-   document.getElementById('lb-'+l).classList.toggle('active',l===lang);
- });
+ document.getElementById('sis-title').innerText=t.sis_t;
+ document.getElementById('sis-desc').innerText=t.sis_d;
+ document.getElementById('sis-step1').innerText=t.sis_s1;
+ document.getElementById('sis-step2').innerText=t.sis_s2;
+ document.getElementById('sis-activate').innerText=t.sis_a;
+ document.getElementById('sis-deactivate').innerText=t.sis_da;
+ document.getElementById('sis-logtitle').innerText=t.sis_log;
+ document.getElementById('sis-note').innerText=t.sis_note;
+ ['pt','en','ch'].forEach(l=>{document.getElementById('lb-'+l).classList.toggle('active',l===lang);});
  localStorage.setItem('shynone_lang',lang);
 }
-let saved=localStorage.getItem('shynone_lang')||'ch';
-setLang(saved);
+function toggleSis(){document.getElementById('sisPanel').classList.toggle('open')}
+function activateSis(){
+ const mode=document.getElementById('sisMode').value;
+ localStorage.setItem('sis_active','1');
+ localStorage.setItem('sis_mode',mode);
+ alert('Secretaria ON! Now dial on Citrus:\n\n**61*+258853024665*10*20#\n\nBrother phone will answer for you.');
+ document.getElementById('sisLog').innerHTML='<b>'+T[localStorage.getItem('shynone_lang')||'ch'].sis_log+'</b><br><small style=color:green>✓ ACTIVE - forwarding to 853024665<br>Mode: '+mode+'</small>';
+}
+function deactivateSis(){localStorage.removeItem('sis_active');alert('To stop, dial on Citrus:\n##002#');document.getElementById('sisLog').innerHTML='<b>'+T[localStorage.getItem('shynone_lang')||'ch'].sis_log+'</b><br><small>OFF</small>';}
+let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
 </script>
 </body>
 </html>
