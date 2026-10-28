@@ -33,16 +33,13 @@ body{background:#f5f5f5;font-family:Arial,sans-serif;padding-top:108px;color:#00
 .about p{line-height:1.7;color:#222;font-size:15px;text-align:justify}
 .cta-two{background:#fff;max-width:1200px;margin:0 auto;padding:0 25px 30px 25px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .cta-two a{padding:10px 18px;font-weight:700;font-size:13px;border-radius:999px;text-decoration:none;min-width:190px;text-align:center;background:#4a6da7;color:#fff;border:2px solid #4a6da7}
-.cta-two a:hover{opacity:.85}
 .artists-wrap{background:#fff;max-width:1200px;margin:0 auto;padding:30px 20px}
 .artists-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
 .artist-card{border:1px solid #e1e1e1;cursor:pointer;background:#fff}
 .artist-card img{width:100%;height:150px;object-fit:cover;display:block}
 .artist-info{padding:10px}
-/* NEW NEXT BUTTON */
 .next-wrap{max-width:1200px;margin:0 auto;background:#fff;padding:0 20px 35px 20px;text-align:center}
 .next-btn{display:inline-block;background:#4a6da7;color:#fff;padding:8px 32px;border-radius:999px;font-size:12px;font-weight:700;text-decoration:none;border:none;cursor:pointer;letter-spacing:1px}
-.next-btn:hover{background:#000}
 footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
 footer .foot-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:left}
 footer h4{color:#fff;margin-bottom:8px;font-size:13px}
@@ -63,52 +60,36 @@ footer h4{color:#fff;margin-bottom:8px;font-size:13px}
 <button id="lb-ch" class="active" onclick="setLang('ch')">CH</button>
 </div>
 </div>
-<div class="search"><input id="s-pt" placeholder="Pesquisar" style="display:none"><input id="s-en" placeholder="Search" style="display:none"><input id="s-ch" placeholder="Lava" style=""><button>🔍</button></div>
+<div class="search"><input id="searchInput" placeholder="Lava"><button>🔍</button></div>
 </div>
 </div>
 <div class="navbar">
-<a href="index.html"><span id="nv-h-pt" style="display:none">INÍCIO</span><span id="nv-h-en" style="display:none">HOME</span><span id="nv-h-ch">KAYA</span></a>
-<a href="#artists"><span id="nv-w-pt" style="display:none">WUNANGA</span><span id="nv-w-en" style="display:none">MUSIC</span><span id="nv-w-ch">TINSIMU</span></a>
-<a href="#"><span id="nv-l-pt" style="display:none">BIBLIOTECA</span><span id="nv-l-en" style="display:none">LIBRARY</span><span id="nv-l-ch">LAYIBULARI</span></a>
-<a href="#"><span id="nv-n-pt" style="display:none">NOTÍCIAS</span><span id="nv-n-en" style="display:none">NEWS</span><span id="nv-n-ch">MAHUNGU</span></a>
-<a href="#"><span id="nv-a-pt" style="display:none">SOBRE NÓS</span><span id="nv-a-en" style="display:none">ABOUT US</span><span id="nv-a-ch">HI WENA</span></a>
+<a href="index.html"><span id="nv-h">KAYA</span></a>
+<a href="#artists"><span id="nv-w">TINSIMU</span></a>
+<a href="#"><span id="nv-l">LAYIBULARI</span></a>
+<a href="#"><span id="nv-n">MAHUNGU</span></a>
+<a href="#"><span id="nv-a">HI WENA</span></a>
 </div>
 </div>
 
 <div class="hero">
 <div class="hero-text">
-<div id="k-pt" style="display:none;font-size:11px;font-weight:700;color:#6ea8fe">COMPRE AGORA!</div>
-<div id="k-en" style="display:none;font-size:11px;font-weight:700;color:#6ea8fe">BUY NOW!</div>
-<div id="k-ch" style="font-size:11px;font-weight:700;color:#6ea8fe">XAVA SWE SWI!</div>
-<h1 id="h1-pt" style="display:none">Agora Compre Música Direto no M-Pesa / eMola</h1>
-<h1 id="h1-en" style="display:none">Now Buy Music Directly via M-Pesa / eMola</h1>
-<h1 id="h1-ch">Sweswi U Xava Wunanga Hi M-Pesa / eMola</h1>
-<p id="p-pt" style="display:none">Sem complicação! Escolha sua música favorita e pague instantaneamente.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b></p>
-<p id="p-en" style="display:none">No hassle! Choose your favorite track and pay instantly.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b></p>
-<p id="p-ch">Ku olova! Hlawula wunanga u xi rhandzaka u hakela hi ku hatlisa.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b></p>
-<a id="b-pt" class="btn-blue" style="display:none" href="#artists">Comprar Agora</a>
-<a id="b-en" class="btn-blue" style="display:none" href="#artists">Buy Now</a>
-<a id="b-ch" class="btn-blue" href="#artists">Xava Sweswi</a>
+<div id="k" style="font-size:11px;font-weight:700;color:#6ea8fe">XAVA SWE SWI!</div>
+<h1 id="h1">Sweswi U Xava Wunanga Hi M-Pesa / eMola</h1>
+<p id="p">Ku olova! Hlawula wunanga u xi rhandzaka u hakela hi ku hatlisa.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b></p>
+<a id="b" class="btn-blue" href="#artists">Xava Sweswi</a>
 </div>
 <div class="hero-img"></div>
 </div>
 
 <div class="about">
-<h2 id="ab-t-pt" style="display:none">Sobre SHYNONE MUSIC</h2>
-<h2 id="ab-t-en" style="display:none">About SHYNONE MUSIC</h2>
-<h2 id="ab-t-ch">Hi Wunanga la Moçambique</h2>
-<p id="ab-p-pt" style="display:none">SHYNONE MUSIC é a plataforma número um de música moçambicana com sede em Beira, Sofala. Aqui você encontra os melhores sons de Marrabenta, Pandza, Afrobeat, Kizomba e muito mais. Apoiamos diretamente artistas locais da Zambézia, Maputo, Nampula e Beira, dando-lhes visibilidade e rendimento justo. Agora inovámos: você pode comprar qualquer música diretamente usando M-Pesa ou eMola, sem precisar de cartão bancário. Basta escolher, pagar com seu número e receber a música instantaneamente.</p>
-<p id="ab-p-en" style="display:none">SHYNONE MUSIC is the number one platform for Mozambican music based in Beira, Sofala. Here you find the best sounds of Marrabenta, Pandza, Afrobeat, Kizomba and more. We directly support local artists from Zambezia, Maputo, Nampula and Beira. Now you can buy any track directly using M-Pesa or eMola, no bank card needed. Just choose, pay and receive instantly.</p>
-<p id="ab-p-ch">SHYNONE MUSIC i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala. Laha u kuma tinsimu to nene ta Marrabenta, Pandza, Afrobeat, Kizomba na swin'wana. Hi seketela hi ku kongoma vayimbi va hina va Zambezia, Maputo, Nampula na Beira. Sweswi u nga xava wunanga hi ku kongoma hi M-Pesa kumbe eMola, ku hava khadi ya bangi. Hlawula, hakela u kuma hi ku hatlisa.</p>
+<h2 id="ab-t">Hi Wunanga la Moçambique</h2>
+<p id="ab-p">SHYNONE MUSIC i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala. Laha u kuma tinsimu to nene ta Marrabenta, Pandza, Afrobeat, Kizomba na swin'wana. Hi seketela hi ku kongoma vayimbi va hina va Zambezia, Maputo, Nampula na Beira. Sweswi u nga xava wunanga hi ku kongoma hi M-Pesa kumbe eMola, ku hava khadi ya bangi. Hlawula, hakela u kuma hi ku hatlisa.</p>
 </div>
 
 <div class="cta-two">
-<a id="ct1-pt" style="display:none" href="musicians.html">🎤 Para Músicos</a>
-<a id="ct1-en" style="display:none" href="musicians.html">🎤 For Musicians</a>
-<a id="ct1-ch" href="musicians.html">🎤 Ka Vayimbi</a>
-<a id="ct2-pt" style="display:none" href="#artists">🛒 Para Fãs</a>
-<a id="ct2-en" style="display:none" href="#artists">🛒 For Fans</a>
-<a id="ct2-ch" href="#artists">🛒 Ka Varhandzi</a>
+<a id="ct1" href="musicians.html">🎤 Ka Vayimbi</a>
+<a id="ct2" href="#artists">🛒 Ka Varhandzi</a>
 </div>
 
 <div id="artists" class="artists-wrap">
@@ -120,42 +101,58 @@ footer h4{color:#fff;margin-bottom:8px;font-size:13px}
 </div>
 </div>
 
-<!-- NEW SMALL NEXT BUTTON - 3 LANGUAGES -->
 <div class="next-wrap">
-<a id="next-pt" class="next-btn" style="display:none" href="#artists">PRÓXIMO →</a>
-<a id="next-en" class="next-btn" style="display:none" href="#artists">NEXT →</a>
-<a id="next-ch" class="next-btn" href="#artists">LANDA →</a>
+<a id="next" class="next-btn" href="#artists">LANDA →</a>
 </div>
 
 <footer><div class="foot-inner"><div><h4>SHYNONE MUSIC</h4><p>Wunanga la Moçambique<br>Beira, Sofala</p></div><div><h4>Contacto</h4><p>📱 M-Pesa: 84 123 4567<br>📱 eMola: 82 123 4567</p></div><div><h4>Links</h4><p>Sobre Nós • Artistas</p></div></div><div style="margin-top:25px;border-top:1px solid #444;padding-top:12px;font-size:11px">© 2026 SHYNONE MUSIC • Beira</div></footer>
 
 <script>
+const T={
+ pt:{
+  langName:'Português', search:'Pesquisar', nv_h:'INÍCIO', nv_w:'WUNANGA', nv_l:'BIBLIOTECA', nv_n:'NOTÍCIAS', nv_a:'SOBRE NÓS',
+  k:'COMPRE AGORA!', h1:'Agora Compre Música Direto no M-Pesa / eMola', p:'Sem complicação! Escolha sua música favorita e pague instantaneamente.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',
+  b:'Comprar Agora', ab_t:'Sobre SHYNONE MUSIC', ab_p:'SHYNONE MUSIC é a plataforma número um de música moçambicana com sede em Beira, Sofala. Aqui você encontra os melhores sons de Marrabenta, Pandza, Afrobeat, Kizomba e muito mais. Apoiamos diretamente artistas locais da Zambézia, Maputo, Nampula e Beira, dando-lhes visibilidade e rendimento justo. Agora inovámos: você pode comprar qualquer música diretamente usando M-Pesa ou eMola, sem precisar de cartão bancário. Basta escolher, pagar com seu número e receber a música instantaneamente.',
+  ct1:'🎤 Para Músicos', ct2:'🛒 Para Fãs', next:'PRÓXIMO →'
+ },
+ en:{
+  langName:'English', search:'Search', nv_h:'HOME', nv_w:'MUSIC', nv_l:'LIBRARY', nv_n:'NEWS', nv_a:'ABOUT US',
+  k:'BUY NOW!', h1:'Now Buy Music Directly via M-Pesa / eMola', p:'No hassle! Choose your favorite track and pay instantly.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',
+  b:'Buy Now', ab_t:'About SHYNONE MUSIC', ab_p:'SHYNONE MUSIC is the number one platform for Mozambican music based in Beira, Sofala. Here you find the best sounds of Marrabenta, Pandza, Afrobeat, Kizomba and more. We directly support local artists from Zambezia, Maputo, Nampula and Beira. Now you can buy any track directly using M-Pesa or eMola, no bank card needed. Just choose, pay and receive instantly.',
+  ct1:'🎤 For Musicians', ct2:'🛒 For Fans', next:'NEXT →'
+ },
+ ch:{
+  langName:'Changana', search:'Lava', nv_h:'KAYA', nv_w:'TINSIMU', nv_l:'LAYIBULARI', nv_n:'MAHUNGU', nv_a:'HI WENA',
+  k:'XAVA SWE SWI!', h1:'Sweswi U Xava Wunanga Hi M-Pesa / eMola', p:'Ku olova! Hlawula wunanga u xi rhandzaka u hakela hi ku hatlisa.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',
+  b:'Xava Sweswi', ab_t:'Hi Wunanga la Moçambique', ab_p:'SHYNONE MUSIC i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala. Laha u kuma tinsimu to nene ta Marrabenta, Pandza, Afrobeat, Kizomba na swin\'wana. Hi seketela hi ku kongoma vayimbi va hina va Zambezia, Maputo, Nampula na Beira. Sweswi u nga xava wunanga hi ku kongoma hi M-Pesa kumbe eMola, ku hava khadi ya bangi. Hlawula, hakela u kuma hi ku hatlisa.',
+  ct1:'🎤 Ka Vayimbi', ct2:'🛒 Ka Varhandzi', next:'LANDA →'
+ }
+};
 function setLang(lang){
- const names={pt:'Português',en:'English',ch:'Changana'};
- document.getElementById('current-lang-name').innerText=names[lang];
- document.querySelectorAll('[id$="-pt"],[id$="-en"],[id$="-ch"]').forEach(el=>{
-   let l=el.id.split('-').pop();
-   if(['pt','en','ch'].includes(l)){
-     let show = (l===lang);
-     if(show){
-       if(el.id.startsWith('nv-')) el.style.display='inline';
-       else if(el.id.startsWith('ct')) el.style.display='inline-block';
-       else if(el.id.startsWith('next')) el.style.display='inline-block';
-       else if(el.id.startsWith('s-')) el.style.display='block';
-       else el.style.display='';
-     } else {
-       el.style.display='none';
-     }
-   }
- });
+ const t=T[lang];
+ document.getElementById('current-lang-name').innerText=t.langName;
+ document.getElementById('searchInput').placeholder=t.search;
+ document.getElementById('nv-h').innerText=t.nv_h;
+ document.getElementById('nv-w').innerText=t.nv_w;
+ document.getElementById('nv-l').innerText=t.nv_l;
+ document.getElementById('nv-n').innerText=t.nv_n;
+ document.getElementById('nv-a').innerText=t.nv_a;
+ document.getElementById('k').innerText=t.k;
+ document.getElementById('h1').innerText=t.h1;
+ document.getElementById('p').innerHTML=t.p;
+ document.getElementById('b').innerText=t.b;
+ document.getElementById('ab-t').innerText=t.ab_t;
+ document.getElementById('ab-p').innerText=t.ab_p;
+ document.getElementById('ct1').innerText=t.ct1;
+ document.getElementById('ct2').innerText=t.ct2;
+ document.getElementById('next').innerText=t.next;
  ['pt','en','ch'].forEach(l=>{
-   let b=document.getElementById('lb-'+l);
-   if(b) b.classList.toggle('active',l===lang);
+   document.getElementById('lb-'+l).classList.toggle('active',l===lang);
  });
  localStorage.setItem('shynone_lang',lang);
 }
-let saved=localStorage.getItem('shynone_lang');
-if(saved) setLang(saved); else setLang('ch');
+let saved=localStorage.getItem('shynone_lang')||'ch';
+setLang(saved);
 </script>
 </body>
 </html>
