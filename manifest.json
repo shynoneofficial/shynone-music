@@ -1,1 +1,15 @@
-
+{
+  "name": "Shynone Music - M-Pesa Music",
+  "short_name": "Shynone",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00ff88",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/512/00ff88/000000?text=SM",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
