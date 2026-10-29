@@ -1,64 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHYNONE MUSIC - Esmeraldo De'Singer</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHYNONE MUSIC - All Artists</title>
 <style>
-body{background:#000;color:#fff;font-family:Arial;margin:0}
-header{background:#111;padding:20px;text-align:center;border-bottom:3px solid #ff0055}
-header h1{color:#ff0055;margin:0;letter-spacing:3px}
-.artist-box{background:#1a1a1a;margin:15px;border-radius:15px;overflow:hidden;border:1px solid #333}
-.artist-header{display:flex;align-items:center;padding:15px;background:linear-gradient(90deg,#222,#111)}
-.artist-header img{width:75px;height:75px;border-radius:50%;object-fit:cover;margin-right:15px;border:3px solid #ff0055}
-.song-row{padding:15px;border-top:1px solid #333}
-audio{width:100%;margin-top:12px}
-.lock-box{background:#222;padding:12px;border-radius:8px;border:1px dashed #ff0055;margin-top:10px;font-size:13px}
+body{background:#f0f0f0;color:#222;font-family:Arial;margin:0}
+header{background:#000;padding:15px;text-align:center;border-bottom:3px solid #ff0055;position:sticky;top:0;z-index:10}
+header h1{color:#ff0055;margin:0;font-size:20px;letter-spacing:3px}
+.back{color:#ff0055;text-decoration:none;font-size:11px;border:1px solid #ff0055;padding:4px 10px;border-radius:999px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding:15px;max-width:1200px;margin:0 auto}
+.tile{background:#fff;border:1px solid #ddd;border-radius:4px;overflow:hidden;cursor:pointer;transition:0.2s;text-decoration:none;display:block}
+.tile:hover{border-color:#ff0055;box-shadow:0 2px 10px rgba(0,0,0,0.15);transform:translateY(-2px)}
+.tile img{width:100%;height:110px;object-fit:cover;display:block;background:#000}
+.tile-name{padding:6px;text-align:center}
+.tile-name b{font-size:11px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#111}
+.tile-name small{font-size:9px;color:#777;display:block}
 </style>
 </head>
 <body>
-
 <header>
 <h1>SHYNONE MUSIC</h1>
-<p>Official Label</p>
-<p style="font-size:11px;color:#888">M-Pesa: 84 033 1635 / 86 940 1491 - 50 MT per song</p>
+<p style="color:#888;font-size:10px">Click tile to see artist albums</p>
+<a class="back" href="index.html">← KAYA</a>
 </header>
+<div class="grid">
 
-<div class="artist-box">
-  <div class="artist-header">
-    <img src="Tate.jpg" onerror="this.src='https://via.placeholder.com/75/ff0055/fff?text=E'">
-    <div>
-      <div style="font-size:22px;font-weight:bold">Esmeraldo De'Singer</div>
-      <div style="font-size:11px;color:#ff0055">Stage Name of Esmeraldo Joaquim Manhique</div>
-      <div style="font-size:11px;color:#888">Soul Power Ballad • Mozambique</div>
-    </div>
-  </div>
+<a class="tile" href="artist.html?artist=esmeraldo">
+  <img src="Tate.jpg" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'">
+  <div class="tile-name"><b>Esmeraldo De'Singer</b><small>Soul Power Ballad • 1 Album</small></div>
+</a>
 
-  <div class="song-row">
-    <b style="font-size:18px">A Shoulder To Cry On</b><br>
-    <small style="color:#ff0055">Esmeraldo De'Singer</small> <small style="color:#666">• Ballad • 2026</small><br>
-    
-    <audio controls controlsList="nodownload" ontimeupdate="if(!localStorage.getItem('unlocked_shoulder')&&this.currentTime>30){this.pause();this.currentTime=0;alert('Preview 30s - Pay 50MT via M-Pesa 84 033 1635 to unlock full - SHYNONE MUSIC')}">
-      <source src="https://archive.org/download/a-shoulder-to-cry-on/A%20Shoulder%20To%20Cry%20On.mp3" type="audio/mpeg">
-      <source src="https://archive.org/download/a-shoulder-to-cry-on/A%20shoulder%20to%20cry%20on.mp3" type="audio/mpeg">
-      <source src="https://archive.org/download/a-shoulder-to-cry-on/a-shoulder-to-cry-on.mp3" type="audio/mpeg">
-    </audio>
+<a class="tile" href="artist.html?artist=shynone">
+  <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200">
+  <div class="tile-name"><b>SHYNONE</b><small>Hip Hop • 2 Albums</small></div>
+</a>
 
-    <div class="lock-box">
-      🔒 30s Preview - Full song locked<br>
-      <b>A Shoulder To Cry On - Soul Power Ballad</b><br>
-      Artist: Esmeraldo De'Singer<br>
-      M-Pesa: 84 033 1635 / 86 940 1491<br>
-      <small style="color:#888">Creator: Esmeraldo Joaquim Manhique</small>
-    </div>
-  </div>
+<a class="tile" href="artist.html?artist=dilon">
+  <img src="https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200">
+  <div class="tile-name"><b>Dilon</b><small>Afro • 1 Album</small></div>
+</a>
+
+<a class="tile" href="artist.html?artist=lizha">
+  <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200">
+  <div class="tile-name"><b>Lizha James</b><small>Marrabenta</small></div>
+</a>
+
+<a class="tile" href="artist.html?artist=kuka">
+  <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200">
+  <div class="tile-name"><b>Mr. Kuka</b><small>Pandza</small></div>
+</a>
+
 </div>
-
-<div style="text-align:center;padding:25px;color:#555;font-size:11px">
-  © 2026 SHYNONE MUSIC<br>
-  Esmeraldo Joaquim Manhique aka Esmeraldo De'Singer<br>
-  All Rights Reserved - Soul Power Ballad
-</div>
-
 </body>
 </html>
