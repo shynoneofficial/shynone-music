@@ -1,114 +1,64 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SHYNONE MUSIC - Tate</title>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHYNONE MUSIC - Esmeraldo De'Singer</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#f5f5f5;font-family:Arial,sans-serif;padding-top:108px}
-.fixed-header{position:fixed;top:0;left:0;right:0;z-index:1000;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
-.topbar{background:#fff;border-bottom:1px solid #e5e5e5;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;max-width:1200px;margin:0 auto}
-.logo-box{background:#4a6da7;color:#fff;width:58px;height:58px;display:flex;align-items:center;justify-content:center;font-weight:900}
-.right{display:flex;align-items:center;gap:16px;margin-left:auto}
-.lang-widget{display:flex;flex-direction:column;align-items:center;gap:2px}
-.current-lang{display:flex;gap:4px;font-size:13px}.lang-btns{display:flex;gap:4px}
-.lang-btns button{padding:4px 10px;border-radius:999px;border:1.5px solid #4a6da7;background:#fff;font-size:11px;font-weight:700;cursor:pointer}
-.lang-btns button.active{background:#4a6da7;color:#fff}
-.search{display:flex;border:1px solid #ccc;border-radius:2px;height:32px;overflow:hidden}
-.search input{border:none;padding:6px 10px;width:200px;outline:none;font-size:13px}
-.search button{background:#f1f1f1;border:none;border-left:1px solid #ccc;padding:0 12px}
-.navbar{background:#2b2b2b;height:44px;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:0 20px;max-width:1200px;margin:0 auto}
-.navbar a{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600}
-.hero{background:#000;color:#fff;max-width:1200px;margin:0 auto;display:flex;min-height:360px}
-.hero-text{width:50%;padding:40px 35px}.hero-text h1{font-size:28px;margin:12px 0;line-height:1.2;font-weight:800}
-.hero-text p{color:#d0d0d0;font-size:14px;line-height:1.6}
-.btn-blue{background:#4a6da7;color:#fff;border:none;padding:10px 22px;font-weight:700;cursor:pointer;border-radius:3px;margin-top:14px;display:inline-block;text-decoration:none;font-size:13px}
-.about{background:#fff;max-width:1200px;margin:0 auto;padding:30px 25px}
-.cta-two{background:#fff;max-width:1200px;margin:0 auto;padding:0 25px 30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.cta-two a{padding:10px 18px;font-weight:700;font-size:13px;border-radius:999px;text-decoration:none;min-width:190px;text-align:center;background:#4a6da7;color:#fff}
-.artists-wrap{background:#fff;max-width:1200px;margin:0 auto;padding:30px 20px}
-.artists-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
-.artist-card{border:1px solid #e1e1e1;background:#fff}.artist-card img{width:100%;height:150px;object-fit:cover;display:block}
-.artist-info{padding:10px}
-.next-wrap{max-width:1200px;margin:0 auto;background:#fff;padding:0 20px 35px;text-align:center}
-.next-btn{display:inline-block;background:#4a6da7;color:#fff;padding:8px 32px;border-radius:999px;font-size:12px;font-weight:700;text-decoration:none}
-footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
-.hero-img{width:50%;background:url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800') center/cover}
-@media(max-width:700px){.hero{flex-direction:column}.hero-text,.hero-img{width:100%}.artists-grid{grid-template-columns:repeat(2,1fr)}.search input{width:110px}}
-.sister-float{position:fixed;bottom:16px;right:16px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.sister-btn{width:74px;height:74px;border-radius:50%;border:3px solid #fff;box-shadow:0 4px 18px rgba(0,0,0,0.35);cursor:pointer;overflow:hidden;background:#fff;position:relative;animation:pulse 2.5s infinite}
-.sister-btn img{width:100%;height:100%;object-fit:cover}
-.sister-btn .dot{position:absolute;top:3px;right:3px;width:14px;height:14px;background:#00e676;border-radius:50%;border:2px solid #fff}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,109,167,0.7)}70%{box-shadow:0 0 0 14px rgba(74,109,167,0)}100%{box-shadow:0 0 0 0 rgba(74,109,167,0)}}
-.sister-panel{width:330px;max-width:90vw;background:#fff;border-radius:16px;box-shadow:0 12px 35px rgba(0,0,0,0.28);overflow:hidden;display:none;border:1px solid #e5e5e5}
-.sister-panel.open{display:block}
-.sis-header{background:#2b2b2b;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
-.sis-body{padding:18px;font-size:13.5px;line-height:1.5}
-.sis-btn{width:100%;background:#4a6da7;color:#fff;border:none;padding:12px;border-radius:999px;font-weight:800;cursor:pointer;margin-top:10px;font-size:13px}
-.sis-btn2{width:100%;background:#fff;color:#4a6da7;border:2px solid #4a6da7;padding:10px;border-radius:999px;font-weight:700;cursor:pointer;margin-top:8px}
-.record-box{background:#f5f7ff;border:1px dashed #4a6da7;padding:12px;border-radius:10px;margin:12px 0;text-align:center}
-</style></head><body>
-<div class="fixed-header"><div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava"><button>🔍</button></div></div></div><div class="navbar"><a href="#"><span id="nv-h">KAYA</span></a><a href="#artists"><span id="nv-w">TINSIMU</span></a><a href="#"><span id="nv-l">LAYIBULARI</span></a><a href="#"><span id="nv-n">MAHUNGU</span></a><a href="#"><span id="nv-a">HI WENA</span></a></div></div>
-<div class="hero"><div class="hero-text"><div id="k" style="font-size:11px;font-weight:700;color:#6ea8fe">XAVA SWE SWI!</div><h1 id="h1">Sweswi U Xava Wunanga Hi M-Pesa / eMola</h1><p id="p">Ku olova! Hlawula wunanga u xi rhandzaka u hakela hi ku hatlisa.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b></p><a id="b" class="btn-blue" href="#artists">Xava Sweswi</a></div><div class="hero-img"></div></div>
-<div class="about"><h2 id="ab-t">Hi Wunanga la Moçambique</h2><p id="ab-p">SHYNONE MUSIC i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala.</p></div>
-<div class="cta-two"><a id="ct1" href="#">🎤 Ka Vayimbi</a><a id="ct2" href="#">🛒 Ka Varhandzi</a></div>
-<div id="artists" class="artists-wrap"><div class="artists-grid"><div class="artist-card"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400"><div class="artist-info"><b>SHYNONE</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=400"><div class="artist-info"><b>Dilon</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400"><div class="artist-info"><b>Lizha James</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400"><div class="artist-info"><b>Mr. Kuka</b></div></div></div></div>
-<div class="next-wrap"><a id="next" class="next-btn" href="#">LANDA →</a></div>
-<footer>© 2026 SHYNONE MUSIC • Beira • Tate AI</footer>
+body{background:#000;color:#fff;font-family:Arial;margin:0}
+header{background:#111;padding:20px;text-align:center;border-bottom:3px solid #ff0055}
+header h1{color:#ff0055;margin:0;letter-spacing:3px}
+.artist-box{background:#1a1a1a;margin:15px;border-radius:15px;overflow:hidden;border:1px solid #333}
+.artist-header{display:flex;align-items:center;padding:15px;background:linear-gradient(90deg,#222,#111)}
+.artist-header img{width:75px;height:75px;border-radius:50%;object-fit:cover;margin-right:15px;border:3px solid #ff0055}
+.song-row{padding:15px;border-top:1px solid #333}
+audio{width:100%;margin-top:12px}
+.lock-box{background:#222;padding:12px;border-radius:8px;border:1px dashed #ff0055;margin-top:10px;font-size:13px}
+</style>
+</head>
+<body>
 
-<div class="sister-float">
-  <div class="sister-panel" id="sisPanel">
-    <div class="sis-header"><b id="sis-title">Tate</b><span onclick="toggleSis()" style="cursor:pointer">✕</span></div>
-    <div class="sis-body">
-      <div id="sis-desc" style="font-weight:700">Hi, I'm Tate - your siste in Changana.</div>
-      <div class="record-box">
-        <div id="sis-voice-title" style="font-weight:800;font-size:12px">Setup voice - Tate learns you</div>
-        <div id="sis-voice-desc" style="font-size:11px;color:#555;margin:4px 0">Record 3 sec: "Ok do it" - Tate clones it</div>
-        <button class="sis-btn2" onclick="recordVoice()" id="sis-record">🎙️ Record my voice (3s)</button>
-        <div id="voiceStatus" style="font-size:11px;margin-top:6px;color:#2e7d32;display:none">✓ Voice saved</div>
-      </div>
-      <select id="sisMode" style="width:100%;padding:9px;margin:6px 0;border-radius:8px;border:1px solid #ccc">
-        <option value="ok">Say: "Ok do it" - in my voice</option>
-        <option value="busy">Say: "In studio, call later"</option>
-        <option value="music">Say: "Buy music at Shynone Music"</option>
-      </select>
-      <button class="sis-btn" onclick="activateSis()" id="sis-activate">Activate Tate</button>
-      <button class="sis-btn2" onclick="deactivateSis()" id="sis-deactivate">Deactivate</button>
-      <div style="font-size:10px;color:#888;margin-top:12px;text-align:center" id="sis-note">Private secure. Works even phone off.</div>
+<header>
+<h1>SHYNONE MUSIC</h1>
+<p>Official Label</p>
+<p style="font-size:11px;color:#888">M-Pesa: 84 033 1635 / 86 940 1491 - 50 MT per song</p>
+</header>
+
+<div class="artist-box">
+  <div class="artist-header">
+    <img src="Tate.jpg" onerror="this.src='https://via.placeholder.com/75/ff0055/fff?text=E'">
+    <div>
+      <div style="font-size:22px;font-weight:bold">Esmeraldo De'Singer</div>
+      <div style="font-size:11px;color:#ff0055">Stage Name of Esmeraldo Joaquim Manhique</div>
+      <div style="font-size:11px;color:#888">Soul Power Ballad • Mozambique</div>
     </div>
   </div>
-  <div class="sister-btn" onclick="toggleSis()"><img src="./Tate.jpg" alt="Tate"><div class="dot"></div></div>
+
+  <div class="song-row">
+    <b style="font-size:18px">A Shoulder To Cry On</b><br>
+    <small style="color:#ff0055">Esmeraldo De'Singer</small> <small style="color:#666">• Ballad • 2026</small><br>
+    
+    <audio controls controlsList="nodownload" ontimeupdate="if(!localStorage.getItem('unlocked_shoulder')&&this.currentTime>30){this.pause();this.currentTime=0;alert('Preview 30s - Pay 50MT via M-Pesa 84 033 1635 to unlock full - SHYNONE MUSIC')}">
+      <source src="https://archive.org/download/a-shoulder-to-cry-on/A%20Shoulder%20To%20Cry%20On.mp3" type="audio/mpeg">
+      <source src="https://archive.org/download/a-shoulder-to-cry-on/A%20shoulder%20to%20cry%20on.mp3" type="audio/mpeg">
+      <source src="https://archive.org/download/a-shoulder-to-cry-on/a-shoulder-to-cry-on.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="lock-box">
+      🔒 30s Preview - Full song locked<br>
+      <b>A Shoulder To Cry On - Soul Power Ballad</b><br>
+      Artist: Esmeraldo De'Singer<br>
+      M-Pesa: 84 033 1635 / 86 940 1491<br>
+      <small style="color:#888">Creator: Esmeraldo Joaquim Manhique</small>
+    </div>
+  </div>
 </div>
 
-<script>
-const T={
- pt:{langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'MÚSICA',nv_l:'BIBLIOTECA',nv_n:'NOTÍCIAS',nv_a:'SOBRE NÓS',k:'COMPRE AGORA!',h1:'Agora Compre Música Direto no M-Pesa / eMola',p:'Sem complicação! Escolha sua música favorita e pague instantaneamente.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Comprar Agora',ab_t:'Sobre Shynone Music',ct1:'🎤 Para Músicos',ct2:'🛒 Para Fãs',next:'PRÓXIMO →',sis_t:'Tate',sis_d:'Olá, sou Tate - sua irmã em Changana.',sis_vt:'Configure voz - Tate aprende você',sis_vd:'Grave 3s: "Ok faz isso" - Tate clona',sis_rec:'🎙️ Gravar minha voz (3s)',sis_a:'Ativar Tate',sis_da:'Desativar',sis_note:'Privado e seguro. Funciona mesmo telefone desligado.'},
- en:{langName:'English',search:'Search',nv_h:'HOME',nv_w:'MUSIC',nv_l:'LIBRARY',nv_n:'NEWS',nv_a:'ABOUT',k:'BUY NOW!',h1:'Now Buy Music Directly via M-Pesa / eMola',p:'No hassle! Choose your favorite track and pay instantly.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Buy Now',ab_t:'About Shynone Music',ct1:'🎤 For Musicians',ct2:'🛒 For Fans',next:'NEXT →',sis_t:'Tate',sis_d:"Hi, I'm Tate - your siste in Changana.",sis_vt:'Setup voice - Tate learns you',sis_vd:'Record 3 sec: "Ok do it" - Tate clones it',sis_rec:'🎙️ Record my voice (3s)',sis_a:'Activate Tate',sis_da:'Deactivate',sis_note:'Private secure. Works even phone off.'},
- ch:{langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'TINSIMU',nv_l:'LAYIBULARI',nv_n:'MAHUNGU',nv_a:'HI WENA',k:'XAVA SWE SWI!',h1:'Sweswi U Xava Wunanga Hi M-Pesa / eMola',p:'Ku olova! Hlawula wunanga u xi rhandzaka u hakela hi ku hatlisa.<br><br>📱 M-Pesa: <b>84 123 4567</b><br>📱 eMola: <b>82 123 4567</b>',b:'Xava Sweswi',ab_t:'Hi Wunanga la Moçambique',ab_p:'Shynone Music i platform ya #1 ya wunanga la Moçambique hi le Beira, Sofala.',ct1:'🎤 Ka Vayimbi',ct2:'🛒 Ka Varhandzi',next:'LANDA →',sis_t:'Tate',sis_d:'Hi, ni Tate - siste ra wena hi Changana.',sis_vt:'Setup rito - Tate dyondza wena',sis_vd:'Record 3 sec: "Ok do it" - Tate ta yi clone',sis_rec:'🎙️ Record rito (3s)',sis_a:'Activate Tate',sis_da:'Deactivate',sis_note:'Ya xihundla. Ya tirha hambi phone yi timile.'}
-};
-function setLang(lang){
- const t=T[lang];
- document.getElementById('current-lang-name').innerText=t.langName;
- document.getElementById('searchInput').placeholder=t.search;
- document.getElementById('nv-h').innerText=t.nv_h;document.getElementById('nv-w').innerText=t.nv_w;
- document.getElementById('nv-l').innerText=t.nv_l;document.getElementById('nv-n').innerText=t.nv_n;document.getElementById('nv-a').innerText=t.nv_a;
- document.getElementById('k').innerText=t.k;document.getElementById('h1').innerText=t.h1;document.getElementById('p').innerHTML=t.p;
- document.getElementById('b').innerText=t.b;document.getElementById('ab-t').innerText=t.ab_t;document.getElementById('ct1').innerText=t.ct1;document.getElementById('ct2').innerText=t.ct2;
- document.getElementById('next').innerText=t.next;document.getElementById('sis-title').innerText=t.sis_t;document.getElementById('sis-desc').innerText=t.sis_d;
- document.getElementById('sis-voice-title').innerText=t.sis_vt;document.getElementById('sis-voice-desc').innerText=t.sis_vd;document.getElementById('sis-record').innerText=t.sis_rec;
- document.getElementById('sis-activate').innerText=t.sis_a;document.getElementById('sis-deactivate').innerText=t.sis_da;document.getElementById('sis-note').innerText=t.sis_note;
- ['pt','en','ch'].forEach(l=>document.getElementById('lb-'+l).classList.toggle('active',l===lang));
- localStorage.setItem('shynone_lang',lang);
-}
-function toggleSis(){document.getElementById('sisPanel').classList.toggle('open')}
-function activateSis(){
- const fwd="**61*+258853024665*10*20#";
- localStorage.setItem('sis_active','1');
- localStorage.setItem('sis_mode',document.getElementById('sisMode').value);
- window.location.href="tel:"+encodeURIComponent(fwd);
-}
-function deactivateSis(){localStorage.removeItem('sis_active');window.location.href="tel:"+encodeURIComponent("##002#");}
-function recordVoice(){
- const s=document.getElementById('voiceStatus');
- s.style.display='block';s.innerHTML='● Tate listening...';
- setTimeout(()=>{s.innerHTML='✓ Voice saved! Tate can now speak like you.';localStorage.setItem('voice_saved','1');},2500);
-}
-let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
-if(localStorage.getItem('voice_saved')){document.getElementById('voiceStatus').style.display='block';document.getElementById('voiceStatus').innerText='✓ Voice saved';}
-</script></body></html>
+<div style="text-align:center;padding:25px;color:#555;font-size:11px">
+  © 2026 SHYNONE MUSIC<br>
+  Esmeraldo Joaquim Manhique aka Esmeraldo De'Singer<br>
+  All Rights Reserved - Soul Power Ballad
+</div>
+
+</body>
+</html>
