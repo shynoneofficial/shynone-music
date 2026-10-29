@@ -2,54 +2,110 @@
 <html>
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHYNONE MUSIC - All Artists</title>
+<title>Artist - SHYNONE MUSIC</title>
 <style>
-body{background:#f0f0f0;color:#222;font-family:Arial;margin:0}
-header{background:#000;padding:15px;text-align:center;border-bottom:3px solid #ff0055;position:sticky;top:0;z-index:10}
-header h1{color:#ff0055;margin:0;font-size:20px;letter-spacing:3px}
-.back{color:#ff0055;text-decoration:none;font-size:11px;border:1px solid #ff0055;padding:4px 10px;border-radius:999px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding:15px;max-width:1200px;margin:0 auto}
-.tile{background:#fff;border:1px solid #ddd;border-radius:4px;overflow:hidden;cursor:pointer;transition:0.2s;text-decoration:none;display:block}
-.tile:hover{border-color:#ff0055;box-shadow:0 2px 10px rgba(0,0,0,0.15);transform:translateY(-2px)}
-.tile img{width:100%;height:110px;object-fit:cover;display:block;background:#000}
-.tile-name{padding:6px;text-align:center}
-.tile-name b{font-size:11px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#111}
-.tile-name small{font-size:9px;color:#777;display:block}
+body{background:#000;color:#fff;font-family:Arial;margin:0}
+header{background:#111;padding:15px;border-bottom:3px solid #ff0055;position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center}
+header a{color:#ff0055;text-decoration:none;font-size:11px;border:1px solid #ff0055;padding:5px 12px;border-radius:999px}
+.artist-hero{display:flex;gap:15px;padding:20px;background:linear-gradient(180deg,#222,#000);align-items:center;max-width:1000px;margin:0 auto}
+.artist-hero img{width:90px;height:90px;border-radius:50%;border:3px solid #ff0055;object-fit:cover}
+.album{background:#1a1a1a;margin:15px auto;max-width:1000px;border-radius:10px;overflow:hidden;border:1px solid #333}
+.album-head{background:#222;padding:12px 15px;display:flex;gap:12px;align-items:center}
+.album-head img{width:60px;height:60px;object-fit:cover;border-radius:4px}
+.album-head b{font-size:15px}
+.album-head small{font-size:10px;color:#888;display:block}
+.song-row{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;border-top:1px solid #2a2a2a;gap:10px}
+.song-row b{font-size:13px}
+.song-row small{font-size:10px;color:#888}
+.song-row audio{width:140px;height:30px}
+@media(max-width:600px){.song-row{flex-direction:column;align-items:flex-start}.song-row audio{width:100%}}
 </style>
 </head>
 <body>
+
 <header>
-<h1>SHYNONE MUSIC</h1>
-<p style="color:#888;font-size:10px">Click tile to see artist albums</p>
-<a class="back" href="index.html">← KAYA</a>
-</header>
-<div class="grid">
-
-<a class="tile" href="artist.html?artist=esmeraldo">
-  <img src="Tate.jpg" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'">
-  <div class="tile-name"><b>Esmeraldo De'Singer</b><small>Soul Power Ballad • 1 Album</small></div>
-</a>
-
-<a class="tile" href="artist.html?artist=shynone">
-  <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200">
-  <div class="tile-name"><b>SHYNONE</b><small>Hip Hop • 2 Albums</small></div>
-</a>
-
-<a class="tile" href="artist.html?artist=dilon">
-  <img src="https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200">
-  <div class="tile-name"><b>Dilon</b><small>Afro • 1 Album</small></div>
-</a>
-
-<a class="tile" href="artist.html?artist=lizha">
-  <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200">
-  <div class="tile-name"><b>Lizha James</b><small>Marrabenta</small></div>
-</a>
-
-<a class="tile" href="artist.html?artist=kuka">
-  <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200">
-  <div class="tile-name"><b>Mr. Kuka</b><small>Pandza</small></div>
-</a>
-
+<div><b id="hdr-name" style="color:#ff0055">SHYNONE MUSIC</b></div>
+<div style="display:flex;gap:8px">
+<a href="music.html">← All Artists</a>
+<a href="index.html">KAYA</a>
 </div>
+</header>
+
+<div class="artist-hero">
+<img id="a-img" src="">
+<div>
+<h2 id="a-name" style="margin:0"></h2>
+<p id="a-bio" style="font-size:11px;color:#aaa;margin:4px 0"></p>
+<p style="font-size:10px;color:#555">Creator: <span id="a-creator"></span> • M-Pesa: 84 033 1635 / 86 940 1491</p>
+</div>
+</div>
+
+<div id="albums"></div>
+
+<script>
+// DATABASE - Add all artists here!
+const DB={
+ esmeraldo:{
+   name:"Esmeraldo De'Singer",
+   creator:"Esmeraldo Joaquim Manhique",
+   img:"Tate.jpg",
+   bio:"Soul Power Ballad • Mozambique • 1 Album • 1 Song",
+   albums:[
+     {
+       title:"Soul Power Ballad - Vol 1",
+       year:"2026",
+       cover:"Tate.jpg",
+       songs:[
+         {title:"A Shoulder To Cry On", file:"https://archive.org/download/a-shoulder-to-cry-on/A%20Shoulder%20To%20Cry%20On.mp3"},
+         {title:"Love Will Stay (Demo)", file:""},
+       ]
+     },
+     {
+       title:"Heart Hits",
+       year:"2025",
+       cover:"Tate.jpg",
+       songs:[
+         {title:"Coming Soon", file:""},
+       ]
+     }
+   ]
+ },
+ shynone:{
+   name:"SHYNONE",
+   creator:"SHYNONE Official",
+   img:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200",
+   bio:"Hip Hop • Maputo • 2 Albums",
+   albums:[
+     {title:"Street King", year:"2026", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200", songs:[{title:"Track 1",file:""},{title:"Track 2",file:""}]},
+   ]
+ },
+ dilon:{name:"Dilon",creator:"Dilon",img:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200",bio:"Afro • Matola",albums:[{title:"Afro Hits",year:"2026",cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200",songs:[{title:"Song 1",file:""}]}]},
+ lizha:{name:"Lizha James",creator:"Lizha James",img:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200",bio:"Marrabenta Queen",albums:[{title:"Best Of",year:"2026",cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200",songs:[{title:"Song 1",file:""}]}]},
+ kuka:{name:"Mr. Kuka",creator:"Mr. Kuka",img:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200",bio:"Pandza",albums:[{title:"Pandza King",year:"2026",cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200",songs:[{title:"Song 1",file:""}]}]},
+};
+
+function load(){
+ let id=new URLSearchParams(location.search).get('artist')||'esmeraldo';
+ let d=DB[id]; if(!d) d=DB.esmeraldo;
+ document.getElementById('a-name').innerText=d.name;
+ document.getElementById('a-creator').innerText=d.creator;
+ document.getElementById('a-bio').innerText=d.bio;
+ document.getElementById('a-img').src=d.img;
+ document.getElementById('hdr-name').innerText=d.name;
+ let html='';
+ d.albums.forEach(al=>{
+   html+=`<div class="album"><div class="album-head"><img src="${al.cover}" onerror="this.src='${d.img}'"><div><b>${al.title}</b><small>${al.year} • ${al.songs.length} songs</small></div></div>`;
+   al.songs.forEach(s=>{
+     html+=`<div class="song-row"><div><b>${s.title}</b><br><small>${d.name} • 50 MT via M-Pesa 84 033 1635</small></div>
+     ${s.file?`<audio controls controlsList="nodownload" src="${s.file}" ontimeupdate="if(!localStorage.getItem('unlocked_${s.title}')&&this.currentTime>30){this.pause();this.currentTime=0;alert('Preview 30s - Pay 50MT')}"></audio>`:`<small style="color:#555">Coming soon</small>`}
+     </div>`;
+   });
+   html+=`</div>`;
+ });
+ document.getElementById('albums').innerHTML=html;
+}
+load();
+</script>
+
 </body>
 </html>
