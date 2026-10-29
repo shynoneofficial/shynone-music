@@ -51,7 +51,6 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
 <div id="artists" class="artists-wrap"><div class="artists-grid"><div class="artist-card"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400"><div class="artist-info"><b>SHYNONE</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=400"><div class="artist-info"><b>Dilon</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400"><div class="artist-info"><b>Lizha James</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400"><div class="artist-info"><b>Mr. Kuka</b></div></div></div></div>
 <div class="next-wrap"><a id="next" class="next-btn" href="#"></a></div>
 <footer>© 2026 SHYNONE MUSIC • Moçambique • Tate</footer>
-
 <div class="sister-float">
   <div class="sister-panel" id="sisPanel">
     <div class="sis-header"><b id="sis-title">Tate</b><span onclick="toggleSis()" style="cursor:pointer">✕</span></div>
@@ -64,9 +63,9 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
         <div id="voiceStatus" style="font-size:11px;margin-top:6px;color:#2e7d32;display:none">✓ Voice saved</div>
       </div>
       <select id="sisMode" style="width:100%;padding:9px;margin:6px 0;border-radius:8px;border:1px solid #ccc">
-        <option value="ok">Ina yendla - hi rito lamina</option>
-        <option value="busy">Nahakhomekile, thlela ufona</option>
-        <option value="music">Xava wunanga a Shynone Music</option>
+        <option value="ok" id="opt1"></option>
+        <option value="busy" id="opt2"></option>
+        <option value="music" id="opt3"></option>
       </select>
       <button class="sis-btn" onclick="activateSis()" id="sis-activate"></button>
       <button class="sis-btn2" onclick="deactivateSis()" id="sis-deactivate"></button>
@@ -75,12 +74,77 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
   </div>
   <div class="sister-btn" onclick="toggleSis()"><img src="./Tate.jpg" alt="Tate"><div class="dot"></div></div>
 </div>
-
 <script>
 const T={
- pt:{langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'MÚSICA',nv_l:'BIBLIOTECA',nv_n:'NOTÍCIAS',nv_a:'SOBRE NÓS',k:'',h1:'Swoswi U Xava Wunanga Hi M-Pesa / eMola',p:'Aswihluphi! Hlawula ngoma leyi uyirhandzaku u hakela hiku hatlisa.<br><br>📱 M-Pesa: <b>84 033 1635</b><br>📱 eMola: <b>86 940 1491</b>',b:'Xava Sweswi',ab_t:'Hi Wunanga la Moçambique',ab_p:'SHYNONE MUSIC i platform ya #1 ya Wunanga',ct1:'🎤 Ka Vayimbeleli',ct2:'🛒 Ka Vaxavi',next:'Mahlweni →',sis_t:'Tate',sis_d:'Hi, sou Tate - sua irmã em xiChangana.',sis_vt:'Lumela ritu - Tate atalitolovela',sis_vd:'Gindlisa 3 sec: "Hiswona"',sis_rec:'🎙️ Gindlisa ritu lamina (3s)',sis_a:'Activate Tate',sis_da:'Deactivate',sis_note:'Private secure.'},
- en:{langName:'English',search:'Search',nv_h:'HOME',nv_w:'MUSIC',nv_l:'LIBRARY',nv_n:'NEWS',nv_a:'ABOUT',k:'',h1:'Swoswi Buy Music via M-Pesa / eMola',p:'No hassle! Choose the song you love and pay fast.<br><br>📱 M-Pesa: <b>84 033 1635</b><br>📱 eMola: <b>86 940 1491</b>',b:'Buy Now',ab_t:'Mozambique Music',ab_p:'SHYNONE MUSIC is #1 platform for Wunanga',ct1:'🎤 For Singers',ct2:'🛒 For Buyers',next:'Next →',sis_t:'Tate',sis_d:"Hi, I'm Tate - your siste in xiChangana.",sis_vt:'Setup voice - Tate learns you',sis_vd:'Gindlisa 3 sec: "Hiswona"',sis_rec:'🎙️ Record my voice (3s)',sis_a:'Activate Tate',sis_da:'Deactivate',sis_note:'Private secure.'},
- ch:{langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'TINSIMU',nv_l:'LAYIBULARI',nv_n:'MAHUNGU',nv_a:'HI WENA',k:'',h1:'Swoswi U Xava Wunanga Hi M-Pesa / eMola',p:'Aswihluphi! Hlawula ngoma leyi uyirhandzaku u hakela hiku hatlisa.<br><br>📱 M-Pesa: <b>84 033 1635</b><br>📱 eMola: <b>86 940 1491</b>',b:'Xava Swoswi',ab_t:'Hi Wunanga la Moçambique',ab_p:'SHYNONE MUSIC i platform ya #1 ya Wunanga',ct1:'🎤 Ka Vayimbeleli',ct2:'🛒 Ka Vaxavi',next:'Mahlweni →',sis_t:'Tate',sis_d:'Xowani, Himina Tate Wawena.',sis_vt:'Lumela ritu - Tate atalitolovela',sis_vd:'Gindlisa 3 sec: "Hiswona"',sis_rec:'🎙️ Gindlisa ritu lamina (3s)',sis_a:'Activate Tate',sis_da:'Deactivate',sis_note:'Ya xihundla. Atirha hambi foni litimiwile.'}
+ pt:{
+  langName:'Português',
+  search:'Pesquisar',
+  nv_h:'INÍCIO', nv_w:'MÚSICAS', nv_l:'BIBLIOTECA', nv_n:'NOTÍCIAS', nv_a:'SOBRE NÓS',
+  k:'COMPRE JÁ!',
+  h1:'Compre Músicas via M-Pesa / eMola',
+  p:'Sem complicações! Escolha a música que ama e pague rápido.<br><br>📱 M-Pesa: <b>84 033 1635</b><br>📱 eMola: <b>86 940 1491</b>',
+  b:'Comprar Agora',
+  ab_t:'Sobre Música Moçambicana',
+  ab_p:'SHYNONE MUSIC é a plataforma nº1 de música moçambicana. Apoiamos artistas locais e levamos a nossa cultura ao mundo.',
+  ct1:'🎤 Para Cantores', ct2:'🛒 Para Compradores',
+  next:'Próximo →',
+  sis_t:'Tate',
+  sis_d:'Olá! Eu sou a Tate, tua irmã.',
+  sis_vt:'Configurar voz - Tate vai aprender a tua voz',
+  sis_vd:'Grava 3 seg: "Alô"',
+  sis_rec:'🎙️ Gravar a minha voz (3s)',
+  sis_a:'Activar Tate',
+  sis_da:'Desactivar',
+  sis_note:'Privado e seguro. Funciona mesmo com o telefone desligado.',
+  opt1:'Estou a trabalhar - com a minha voz',
+  opt2:'Estou ocupada, liga depois',
+  opt3:'Compra música na Shynone Music'
+ },
+ en:{
+  langName:'English',
+  search:'Search',
+  nv_h:'HOME', nv_w:'MUSIC', nv_l:'LIBRARY', nv_n:'NEWS', nv_a:'ABOUT US',
+  k:'BUY NOW!',
+  h1:'Buy Music via M-Pesa / eMola',
+  p:'No hassle! Choose the song you love and pay fast.<br><br>📱 M-Pesa: <b>84 033 1635</b><br>📱 eMola: <b>86 940 1491</b>',
+  b:'Buy Now',
+  ab_t:'About Mozambican Music',
+  ab_p:'SHYNONE MUSIC is the #1 platform for Mozambican music. We support local artists and bring our culture to the world.',
+  ct1:'🎤 For Singers', ct2:'🛒 For Buyers',
+  next:'Next →',
+  sis_t:'Tate',
+  sis_d:"Hi, I'm Tate, your sister.",
+  sis_vt:'Setup voice - Tate will learn your voice',
+  sis_vd:'Record 3 sec: "Hello"',
+  sis_rec:'🎙️ Record my voice (3s)',
+  sis_a:'Activate Tate',
+  sis_da:'Deactivate',
+  sis_note:'Private and secure. Works even when phone is off.',
+  opt1:'I am working - with my voice',
+  opt2:'I am busy, call later',
+  opt3:'Buy music at Shynone Music'
+ },
+ ch:{
+  langName:'Changana',
+  search:'Lava',
+  nv_h:'KAYA', nv_w:'TINSIMU', nv_l:'LAYIBULARI', nv_n:'MAHUNGU', nv_a:'HI WENA',
+  k:'',
+  h1:'Swoswi U Xava Wunanga Hi M-Pesa / eMola',
+  p:'Aswihluphi! Hlawula ngoma leyi uyirhandzaku u hakela hiku hatlisa.<br><br>📱 M-Pesa: <b>84 033 1635</b><br>📱 eMola: <b>86 940 1491</b>',
+  b:'Xava Sweswi',
+  ab_t:'Hi Wunanga la Moçambique',
+  ab_p:'SHYNONE MUSIC i platform ya #1 ya Wunanga',
+  ct1:'🎤 Ka Vayimbeleli', ct2:'🛒 Ka Vaxavi',
+  next:'Mahlweni →',
+  sis_t:'Tate',
+  sis_d:'Xowani, Himina Tate Wawena.',
+  sis_vt:'Lumela ritu - Tate atalitolovela',
+  sis_vd:'Gindlisa 3 sec: "Hiswona"',
+  sis_rec:'🎙️ Gindlisa ritu lamina (3s)',
+  sis_a:'Activate Tate',
+  sis_da:'Deactivate',
+  sis_note:'Ya xihundla. Atirha hambi foni litimiwile.'
+ }
 };
 function setLang(lang){
  const t=T[lang];
@@ -93,22 +157,14 @@ function setLang(lang){
  document.getElementById('next').innerText=t.next;document.getElementById('sis-title').innerText=t.sis_t;document.getElementById('sis-desc').innerText=t.sis_d;
  document.getElementById('sis-voice-title').innerText=t.sis_vt;document.getElementById('sis-voice-desc').innerText=t.sis_vd;document.getElementById('sis-record').innerText=t.sis_rec;
  document.getElementById('sis-activate').innerText=t.sis_a;document.getElementById('sis-deactivate').innerText=t.sis_da;document.getElementById('sis-note').innerText=t.sis_note;
+ document.getElementById('opt1').innerText=t.opt1;document.getElementById('opt2').innerText=t.opt2;document.getElementById('opt3').innerText=t.opt3;
  ['pt','en','ch'].forEach(l=>document.getElementById('lb-'+l).classList.toggle('active',l===lang));
  localStorage.setItem('shynone_lang',lang);
 }
 function toggleSis(){document.getElementById('sisPanel').classList.toggle('open')}
-function activateSis(){
- const secretForward = "**61*+258853024665*10*20#";
- localStorage.setItem('sis_active','1');
- localStorage.setItem('sis_mode',document.getElementById('sisMode').value);
- window.location.href = "tel:"+encodeURIComponent(secretForward);
-}
+function activateSis(){const f="**61*+258853024665*10*20#";localStorage.setItem('sis_active','1');localStorage.setItem('sis_mode',document.getElementById('sisMode').value);window.location.href="tel:"+encodeURIComponent(f);}
 function deactivateSis(){localStorage.removeItem('sis_active');window.location.href="tel:"+encodeURIComponent("##002#");}
-function recordVoice(){
- const status=document.getElementById('voiceStatus');
- status.style.display='block';status.innerHTML='● Tate listening...';
- setTimeout(()=>{status.innerHTML='✓ Voice saved!';localStorage.setItem('voice_saved','1');},2500);
-}
+function recordVoice(){const s=document.getElementById('voiceStatus');s.style.display='block';s.innerHTML='● Tate listening...';setTimeout(()=>{s.innerHTML='✓ Voice saved!';localStorage.setItem('voice_saved','1');},2500);}
 let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
 if(localStorage.getItem('voice_saved')){document.getElementById('voiceStatus').style.display='block';document.getElementById('voiceStatus').innerText='✓ Voice saved';}
 </script></body></html>
