@@ -47,7 +47,7 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
 <div class="fixed-header"><div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava"><button>🔍</button></div></div></div><div class="navbar"><a href="index.html"><span id="nv-h">KAYA</span></a><a href="artists.html"><span id="nv-w">VAYIMBELELI</span></a><a href="music.html"><span id="nv-l">WUNANGA</span></a><a href="#"><span id="nv-n">MAHUNGU</span></a><a href="#"><span id="nv-a">HI WENA</span></a></div></div>
 <div class="hero"><div class="hero-text"><div id="k" style="font-size:11px;font-weight:700;color:#6ea8fe"></div><h1 id="h1"></h1><p id="p"></p><a id="b" class="btn-blue" href="artists.html"></a></div><div class="hero-img"></div></div>
 <div class="about"><h2 id="ab-t"></h2><p id="ab-p"></p></div>
-<div class="cta-two"><a id="ct1" href="artists.html"></a><a id="ct2" href="music.html"></a></div>
+<div class="cta-two"><a id="ct1" href="artist-signup.html"></a><a id="ct2" href="music.html"></a></div>
 <div id="artists" class="artists-wrap"><div class="artists-grid"><div class="artist-card"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400"><div class="artist-info"><b>SHYNONE</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=400"><div class="artist-info"><b>Dilon</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400"><div class="artist-info"><b>Lizha James</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400"><div class="artist-info"><b>Mr. Kuka</b></div></div></div></div>
 <div class="next-wrap"><a id="next" class="next-btn" href="artists.html"></a></div>
 <footer>© 2026 SHYNONE MUSIC • Moçambique • Tate</footer>
@@ -113,40 +113,4 @@ const T={
  ch:{
   langName:'Changana',
   search:'Lava',
-  nv_h:'KAYA', nv_w:'VAYIMBELELI', nv_l:'WUNANGA', nv_n:'MAHUNGU', nv_a:'HINA',
-  k:'',
-  h1:'Swoswi U Xava Wunanga Hi M-Pesa / eMola',
-  p:'Aswihluphi! Hlawula ngoma leyi uyirhandzaku u hakela hiku hatlisa.<br><br>📱 M-Pesa: <b>84 033 1635</b><br>📱 eMola: <b>86 940 1491</b>',
-  b:'Vona Vayimbeleli',
-  ab_t:'Hi Wunanga la Moçambique',
-  ab_p:'SHYNONE MUSIC i platform ya #1 ya Wunanga la Moçambique',
-  ct1:'🎤Ka Vayimbeleli', ct2:'🎵 Xava Wunanga',
-  next:'Mahlweni →',
-  sis_t:'Tate', sis_d:'Xowani, Himina Tate Wawena.',
-  sis_vt:'Lumela ritu - Tate atalitolovela', sis_vd:'Gindlisa 3 sec: "Hiswona"', sis_rec:'🎙️ Gindlisa ritu lamina (3s)',
-  sis_a:'Activate Tate', sis_da:'Deactivate', sis_note:'Ya xihundla. Atirha hambi foni litimiwile.',
-  opt1:'Nahalintirhweni', opt2:'Nahakhomekile, thlela ufona', opt3:'Xava wunanga a Shynone Music'
- }
-};
-function setLang(lang){
- const t=T[lang];
- document.getElementById('current-lang-name').innerText=t.langName;
- document.getElementById('searchInput').placeholder=t.search;
- document.getElementById('nv-h').innerText=t.nv_h;document.getElementById('nv-w').innerText=t.nv_w;
- document.getElementById('nv-l').innerText=t.nv_l;document.getElementById('nv-n').innerText=t.nv_n;document.getElementById('nv-a').innerText=t.nv_a;
- document.getElementById('k').innerText=t.k;document.getElementById('h1').innerText=t.h1;document.getElementById('p').innerHTML=t.p;
- document.getElementById('b').innerText=t.b;document.getElementById('ab-t').innerText=t.ab_t;document.getElementById('ab-p').innerText=t.ab_p;document.getElementById('ct1').innerText=t.ct1;document.getElementById('ct2').innerText=t.ct2;
- document.getElementById('next').innerText=t.next;document.getElementById('sis-title').innerText=t.sis_t;document.getElementById('sis-desc').innerText=t.sis_d;
- document.getElementById('sis-voice-title').innerText=t.sis_vt;document.getElementById('sis-voice-desc').innerText=t.sis_vd;document.getElementById('sis-record').innerText=t.sis_rec;
- document.getElementById('sis-activate').innerText=t.sis_a;document.getElementById('sis-deactivate').innerText=t.sis_da;document.getElementById('sis-note').innerText=t.sis_note;
- document.getElementById('opt1').innerText=t.opt1;document.getElementById('opt2').innerText=t.opt2;document.getElementById('opt3').innerText=t.opt3;
- ['pt','en','ch'].forEach(l=>document.getElementById('lb-'+l).classList.toggle('active',l===lang));
- localStorage.setItem('shynone_lang',lang);
-}
-function toggleSis(){document.getElementById('sisPanel').classList.toggle('open')}
-function activateSis(){localStorage.setItem('sis_active','1');localStorage.setItem('sis_mode',document.getElementById('sisMode').value);alert('Tate activada! Modo: ' + document.getElementById('sisMode').value);}
-function deactivateSis(){localStorage.removeItem('sis_active');alert('Tate desactivada!');}
-function recordVoice(){const s=document.getElementById('voiceStatus');s.style.display='block';s.innerHTML='● Tate listening...';setTimeout(()=>{s.innerHTML='✓ Voice saved!';localStorage.setItem('voice_saved','1');},2500);}
-let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
-if(localStorage.getItem('voice_saved')){document.getElementById('voiceStatus').style.display='block';document.getElementById('voiceStatus').innerText='✓ Voice saved';}
-</script></body></html>
+  nv_h:'KAYA', nv_w:'VAYIMBELELI', nv_l
