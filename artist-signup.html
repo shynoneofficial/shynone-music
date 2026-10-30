@@ -19,19 +19,27 @@
 .form-wrap h2{text-align:center;margin-bottom:6px}
 .form-wrap .sub{text-align:center;color:#555;font-size:13px;margin-bottom:18px;line-height:1.5}
 label{font-weight:700;font-size:13px;margin-top:12px;display:block}
-input{width:100%;padding:11px;border:1px solid #ccc;border-radius:6px;margin-top:4px;font-size:14px}
+input,select{width:100%;padding:11px;border:1px solid #ccc;border-radius:6px;margin-top:4px;font-size:14px}
+.row{display:flex;gap:10px}.row>div{flex:1}
 .price-box{background:#fff7e6;border:2px solid #ff9800;padding:14px;border-radius:10px;margin:14px 0;text-align:center}
 .price-box b{color:#e65100;font-size:18px}
+.pay-box{background:#f0f8ff;border:2px solid #4a6da7;padding:16px;border-radius:12px;margin:16px 0;display:none}
+.pay-box.show{display:block;animation:pop 0.3s}
+@keyframes pop{0%{transform:scale(0.9);opacity:0}100%{transform:scale(1);opacity:1}}
+.pay-box h3{color:#4a6da7;font-size:15px;margin-bottom:10px;text-align:center}
+.pay-item{background:#fff;border:1px solid #c9d8f5;padding:10px;border-radius:8px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.pay-item b{font-size:16px;color:#000}
+.copy-btn{background:#4a6da7;color:#fff;border:none;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer}
 .split-box{background:#eef2ff;border:1.5px solid #4a6da7;padding:12px;border-radius:8px;margin:14px 0;font-size:13px;line-height:1.6}
 .btn-submit{width:100%;background:#4a6da7;color:#fff;border:none;padding:14px;border-radius:999px;font-weight:800;margin-top:18px;cursor:pointer;font-size:15px}
 footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center;margin-top:30px;font-size:13px}
-@media(max-width:700px){.search input{width:110px}}
+@media(max-width:700px){.search input{width:110px}.row{flex-direction:column}}
 </style></head><body>
 <div class="fixed-header"><div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava"><button>🔍</button></div></div></div><div class="navbar"><a href="index.html"><span id="nv-h">KAYA</span></a><a href="artists.html"><span id="nv-w">VAYIMBELELI</span></a><a href="music.html"><span id="nv-l">WUNANGA</span></a><a href="news.html"><span id="nv-n">MAHUNGU</span></a><a href="about.html"><span id="nv-a">HI WENA</span></a></div></div>
 
 <div class="form-wrap">
 <h2 id="f-t">🎤 Cadastro de Artista</h2>
-<div class="sub" id="f-sub">Taxa única para vender tuas músicas na plataforma</div>
+<div class="sub" id="f-sub">Taxa única 500MT para vender tuas músicas</div>
 
 <div class="price-box">
 <div id="reg-label" style="font-size:13px;color:#666">TAXA DE REGISTO ÚNICA</div>
@@ -39,19 +47,45 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center;margin-
 <div id="reg-note" style="font-size:12px;color:#666;margin-top:4px">Paga uma vez para começar a vender</div>
 </div>
 
-<label id="l-name">Nome do Artista</label><input id="artistName" placeholder="Ex: SHYNONE">
-<label id="l-phone">Telefone / WhatsApp</label><input id="artistPhone" placeholder="84... / 82...">
-<label id="l-mpesa">Teu M-Pesa para receber vendas</label><input id="artistMpesa" placeholder="84...">
-<label id="l-song">Nome da Primeira Música</label><input id="songName" placeholder="Ex: Minha Música">
-
-<div class="split-box">
-<b id="split-title">Como funciona a venda:</b><br>
-<span id="split-line1">🎵 Preço da música para fãs: <b>50 MT</b></span><br>
-<span id="split-line2">💰 Tu recebes: <b>40 MT</b> direto no teu M-Pesa</span><br>
-<span id="split-line3">🏦 Shynone Music mantém: <b>10 MT</b> (para plataforma)</span>
+<label id="l-fullname">Nome Completo</label><input id="fullName" placeholder="Ex: João Paulo">
+<label id="l-stagename">Nome Artístico / Stage Name</label><input id="stageName" placeholder="Ex: SHYNONE">
+<div class="row">
+<div><label id="l-phone">Telefone / WhatsApp</label><input id="artistPhone" placeholder="84..."></div>
+<div><label id="l-mpesa">M-Pesa para receber vendas</label><input id="artistMpesa" placeholder="84..."></div>
+</div>
+<label id="l-song">Primeira Música</label><input id="songName" placeholder="Ex: Minha Música">
+<div class="row">
+<div><label id="l-qty-type">O que vais carregar?</label><select id="qtyType"><option value="songs" id="opt-songs">Músicas (Songs)</option><option value="albums" id="opt-albums">Álbuns (Albums)</option></select></div>
+<div><label id="l-qty-num">Quantas?</label><select id="qtyNum"><option>1</option><option>2</option><option>3</option><option>5</option><option>10</option><option>15</option><option>20</option><option>30</option><option>50+</option></select></div>
 </div>
 
-<button class="btn-submit" id="btnSub" onclick="submitArtist()">Registar Agora - 500 MT</button>
+<div class="split-box">
+<b id="split-title">Como funciona:</b><br>
+<span id="split-line1">🎵 Preço para fãs: 50 MT por música</span><br>
+<span id="split-line2">💰 Tu recebes: 40 MT no M-Pesa</span><br>
+<span id="split-line3">🏦 Shynone: 10 MT</span>
+</div>
+
+<button class="btn-submit" id="btnSub" onclick="submitArtist()">Registar - 500 MT</button>
+
+<!-- NUMBERS HIDDEN - SHOWS ONLY AFTER CLICK -->
+<div id="payBox" class="pay-box">
+<h3 id="pay-title">📱 ENVIE O PAGAMENTO PARA:</h3>
+<div class="pay-item">
+<span>📱 M-Pesa</span>
+<b>84 033 1635</b>
+<button class="copy-btn" onclick="copyNum('840331635')">Copiar</button>
+</div>
+<div class="pay-item">
+<span>📱 eMola</span>
+<b>86 940 1491</b>
+<button class="copy-btn" onclick="copyNum('869401491')">Copiar</button>
+</div>
+<div style="font-size:11px;color:#666;text-align:center;margin-top:8px" id="pay-note">Nome: SHYNONE MUSIC • Envie comprovativo no WhatsApp após pagar</div>
+<label id="l-proof" style="margin-top:12px">Comprovativo / ID da Transação M-Pesa</label><input id="proof" placeholder="Ex: PP240...">
+<button class="btn-submit" style="background:#00c853;margin-top:10px" id="btnProof" onclick="sendProof()">Já Paguei - Enviar Comprovativo</button>
+</div>
+
 <div id="msg" style="text-align:center;margin-top:14px;font-size:13px;font-weight:700"></div>
 </div>
 
@@ -59,9 +93,9 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center;margin-
 
 <script>
 const T={
- pt:{langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'ARTISTAS',nv_l:'MÚSICA',nv_n:'NOTÍCIAS',nv_a:'SOBRE NÓS',f_t:'🎤 Cadastro de Artista',f_sub:'Taxa única para vender tuas músicas na plataforma',reg_label:'TAXA DE REGISTO ÚNICA',reg_note:'Paga uma vez para começar a vender',l_name:'Nome do Artista',l_phone:'Telefone / WhatsApp',l_mpesa:'Teu M-Pesa para receber vendas',l_song:'Nome da Primeira Música',split_title:'Como funciona a venda:',split_l1:'🎵 Preço da música para fãs: 50 MT',split_l2:'💰 Tu recebes: 40 MT direto no teu M-Pesa',split_l3:'🏦 Shynone Music mantém: 10 MT (para plataforma)',btn:'Registar Agora - 500 MT'},
- en:{langName:'English',search:'Search',nv_h:'HOME',nv_w:'ARTISTS',nv_l:'MUSIC',nv_n:'NEWS',nv_a:'ABOUT',f_t:'🎤 Artist Registration',f_sub:'One-time fee to sell your music on the platform',reg_label:'ONE-TIME REGISTRATION FEE',reg_note:'Pay once to start selling',l_name:'Artist Name',l_phone:'Phone / WhatsApp',l_mpesa:'Your M-Pesa to receive sales',l_song:'First Song Name',split_title:'How sales work:',split_l1:'🎵 Song price for fans: 50 MT',split_l2:'💰 You receive: 40 MT directly to your M-Pesa',split_l3:'🏦 Shynone Music keeps: 10 MT (for platform)',btn:'Register Now - 500 MT'},
- ch:{langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'VAYIMBELELI',nv_l:'WUNANGA',nv_n:'MAHUNGU',nv_a:'HINA',f_t:'🎤 Tsarisa Vito Ra Wena',f_sub:'Ntsengo wunwe ku sungula ku xavisa wunanga',reg_label:'NXAVO WU TSHAMA WUNWE',reg_note:'Hakela kanwe ku sungula',l_name:'Vito ra Wena',l_phone:'Nomboro ya Foni',l_mpesa:'Nomboro ya M-Pesa',l_song:'Vito ra Risimu',split_title:'Leswi ku xavisaka swi tirhaka:',split_l1:'🎵 Nxavo wa risimu: 50 MT',split_l2:'💰 U kuma: 40 MT e M-Pesa yawena',split_l3:'🏦 Shynone yi teka: 10 MT',btn:'Tsarisa Sweswi - 500 MT'}
+ pt:{langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'ARTISTAS',nv_l:'MÚSICA',nv_n:'NOTÍCIAS',nv_a:'SOBRE NÓS',f_t:'🎤 Cadastro de Artista',f_sub:'Taxa única 500MT para vender tuas músicas',reg_label:'TAXA DE REGISTO ÚNICA',reg_note:'Paga uma vez para começar a vender',pay_t:'📱 ENVIE O PAGAMENTO PARA:',pay_note:'Nome: SHYNONE MUSIC • Envie comprovativo no WhatsApp após pagar',l_full:'Nome Completo',l_stage:'Nome Artístico / Stage Name',l_phone:'Telefone / WhatsApp',l_mpesa:'M-Pesa para receber vendas',l_song:'Primeira Música',l_qtyt:'O que vais carregar?',l_qtyn:'Quantas?',l_proof:'Comprovativo / ID da Transação M-Pesa',opt_s:'Músicas (Songs)',opt_a:'Álbuns (Albums)',split_t:'Como funciona:',split1:'🎵 Preço para fãs: 50 MT por música',split2:'💰 Tu recebes: 40 MT no M-Pesa',split3:'🏦 Shynone: 10 MT',btn:'Registar - 500 MT',btnProof:'Já Paguei - Enviar Comprovativo'},
+ en:{langName:'English',search:'Search',nv_h:'HOME',nv_w:'ARTISTS',nv_l:'MUSIC',nv_n:'NEWS',nv_a:'ABOUT',f_t:'🎤 Artist Registration',f_sub:'One-time 500MT fee to sell your music',reg_label:'ONE-TIME FEE',reg_note:'Pay once to start selling',pay_t:'📱 SEND PAYMENT TO:',pay_note:'Name: SHYNONE MUSIC • Send proof on WhatsApp after paying',l_full:'Full Name',l_stage:'Stage Name',l_phone:'Phone / WhatsApp',l_mpesa:'M-Pesa to receive sales',l_song:'First Song',l_qtyt:'What will you upload?',l_qtyn:'How many?',l_proof:'M-Pesa Transaction Proof / ID',opt_s:'Songs',opt_a:'Albums',split_t:'How it works:',split1:'🎵 Fan price: 50 MT per song',split2:'💰 You get: 40 MT to M-Pesa',split3:'🏦 Shynone: 10 MT',btn:'Register - 500 MT',btnProof:'I Paid - Send Proof'},
+ ch:{langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'VAYIMBELELI',nv_l:'WUNANGA',nv_n:'MAHUNGU',nv_a:'HINA',f_t:'🎤 Tsarisa Vito',f_sub:'500MT wunwe ku xavisa',reg_label:'NXAVO WU TSHAMA',reg_note:'Hakela kanwe',pay_t:'📱 RHUMELA MALI KA:',pay_note:'Vito: SHYNONE MUSIC • Rhumela comprovativo e WhatsApp',l_full:'Vito ra Xiviri',l_stage:'Vito ra Wunanga / Stage',l_phone:'Nomboro ya Foni',l_mpesa:'M-Pesa',l_song:'Risimu ro sungula',l_qtyt:'U ta rhumela yini?',l_qtyn:'Tingani?',l_proof:'Comprovativo ya M-Pesa',opt_s:'Tinsimu (Songs)',opt_a:'Ti-Albums',split_t:'Leswi swi tirhaka:',split1:'🎵 Nxavo: 50 MT',split2:'💰 U kuma: 40 MT',split3:'🏦 Shynone: 10 MT',btn:'Tsarisa - 500 MT',btnProof:'Ni Hakelile - Rhumela Comprovativo'}
 };
 function setLang(lang){
  const t=T[lang];
@@ -70,17 +104,29 @@ function setLang(lang){
  document.getElementById('nv-h').innerText=t.nv_h;document.getElementById('nv-w').innerText=t.nv_w;document.getElementById('nv-l').innerText=t.nv_l;document.getElementById('nv-n').innerText=t.nv_n;document.getElementById('nv-a').innerText=t.nv_a;
  document.getElementById('f-t').innerText=t.f_t;document.getElementById('f-sub').innerText=t.f_sub;
  document.getElementById('reg-label').innerText=t.reg_label;document.getElementById('reg-note').innerText=t.reg_note;
- document.getElementById('l-name').innerText=t.l_name;document.getElementById('l-phone').innerText=t.l_phone;document.getElementById('l-mpesa').innerText=t.l_mpesa;document.getElementById('l-song').innerText=t.l_song;
- document.getElementById('split-title').innerText=t.split_title;document.getElementById('split-line1').innerText=t.split_l1;document.getElementById('split-line2').innerText=t.split_l2;document.getElementById('split-line3').innerText=t.split_l3;
- document.getElementById('btnSub').innerText=t.btn;
+ document.getElementById('pay-title').innerText=t.pay_t;document.getElementById('pay-note').innerText=t.pay_note;
+ document.getElementById('l-fullname').innerText=t.l_full;document.getElementById('l-stagename').innerText=t.l_stage;document.getElementById('l-phone').innerText=t.l_phone;document.getElementById('l-mpesa').innerText=t.l_mpesa;document.getElementById('l-song').innerText=t.l_song;document.getElementById('l-qty-type').innerText=t.l_qtyt;document.getElementById('l-qty-num').innerText=t.l_qtyn;document.getElementById('l-proof').innerText=t.l_proof;document.getElementById('opt-songs').innerText=t.opt_s;document.getElementById('opt-albums').innerText=t.opt_a;
+ document.getElementById('split-title').innerText=t.split_t;document.getElementById('split-line1').innerText=t.split1;document.getElementById('split-line2').innerText=t.split2;document.getElementById('split-line3').innerText=t.split3;
+ document.getElementById('btnSub').innerText=t.btn;document.getElementById('btnProof').innerText=t.btnProof;
  ['pt','en','ch'].forEach(l=>document.getElementById('lb-'+l).classList.toggle('active',l===lang));
  localStorage.setItem('shynone_lang',lang);
 }
+function copyNum(num){navigator.clipboard.writeText(num);alert('Copiado: '+num);}
 function submitArtist(){
- const n=document.getElementById('artistName').value;
+ const n=document.getElementById('fullName').value;
+ const s=document.getElementById('stageName').value;
  const m=document.getElementById('artistMpesa').value;
- if(!n||!m){alert('Preencha nome e M-Pesa!');return;}
- document.getElementById('msg').innerText='✓ Pedido recebido! Taxa 500MT - Vamos contactar no M-Pesa: '+m;
+ if(!n||!s||!m){alert('Preencha Nome, Stage Name e M-Pesa!');return;}
+ // SHOW PAYMENT BOX NOW - AFTER CLICK BLUE BUTTON
+ document.getElementById('payBox').classList.add('show');
+ document.getElementById('msg').innerHTML='✓ '+s+' registado! Agora pague 500MT abaixo:';
+ document.getElementById('msg').style.color='green';
+ document.getElementById('payBox').scrollIntoView({behavior:'smooth'});
+}
+function sendProof(){
+ const p=document.getElementById('proof').value;
+ if(!p){alert('Coloque ID da transação!');return;}
+ document.getElementById('msg').innerHTML='✓ Comprovativo recebido: '+p+'<br>Vamos confirmar e activar tua conta em 24h!';
  document.getElementById('msg').style.color='green';
 }
 let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
