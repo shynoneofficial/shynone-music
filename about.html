@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SHYNONE MUSIC - About Us</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#f5f5f5;font-family:Arial,sans-serif;padding-top:108px}
+.fixed-header{position:fixed;top:0;left:0;right:0;z-index:1000;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.topbar{background:#fff;border-bottom:1px solid #e5e5e5;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;max-width:1200px;margin:0 auto}
+.logo-box{background:#4a6da7;color:#fff;width:58px;height:58px;display:flex;align-items:center;justify-content:center;font-weight:900}
+.right{display:flex;align-items:center;gap:16px;margin-left:auto}
+.lang-widget{display:flex;flex-direction:column;align-items:center;gap:2px}
+.current-lang{display:flex;gap:4px;font-size:13px}.lang-btns{display:flex;gap:4px}
+.lang-btns button{padding:4px 10px;border-radius:999px;border:1.5px solid #4a6da7;background:#fff;font-size:11px;font-weight:700;cursor:pointer}
+.lang-btns button.active{background:#4a6da7;color:#fff}
+.search{display:flex;border:1px solid #ccc;border-radius:2px;height:32px;overflow:hidden}
+.search input{border:none;padding:6px 10px;width:150px;outline:none;font-size:13px}
+.search button{background:#f1f1f1;border:none;border-left:1px solid #ccc;padding:0 12px;cursor:pointer}
+.navbar{background:#2b2b2b;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;max-width:1200px;margin:0 auto}
+.navbar a{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600}
+.date-box{color:#aaa;font-size:10px}
+.about-wrap{max-width:900px;margin:25px auto;background:#fff;border:1px solid #ddd;border-radius:10px;overflow:hidden}
+.about-header{background:#2b2b2b;color:#fff;padding:22px;text-align:center}
+.about-header h1{font-size:22px;margin-bottom:6px}.about-header p{font-size:12px;color:#ccc}
+.about-body{padding:22px;line-height:1.8}
+.about-body p{font-size:13.5px;color:#333;margin-bottom:14px}
+.about-body .highlight{background:#f5f7ff;border-left:4px solid #4a6da7;padding:12px 14px;border-radius:0 8px 8px 0;margin:16px 0;font-size:13px}
+.about-footer{background:#f9f9f9;padding:16px;text-align:center;border-top:1px solid #eee;font-size:12px;color:#666}
+.cta-two{display:flex;gap:10px;justify-content:center;margin:20px 0}
+.cta-two a{background:#4a6da7;color:#fff;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:700;font-size:12px}
+footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center;margin-top:30px}
+@media(max-width:700px){.search input{width:90px}.date-box{display:none}}
+</style></head><body>
+<div class="fixed-header">
+<div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava"><button>🔍</button></div></div></div>
+<div class="navbar"><div style="display:flex;gap:22px"><a href="index.html"><span id="nv-h">KAYA</span></a><a href="artists.html"><span id="nv-w">VAYIMBELELI</span></a><a href="music.html"><span id="nv-l">WUNANGA</span></a><a href="#"><span id="nv-n">MAHUNGU</span></a><a href="about.html"><span id="nv-a">HINA</span></a></div><div class="date-box" id="dateNow"></div></div>
+</div>
+
+<div class="about-wrap">
+<div class="about-header"><h1 id="ab-t">Hi Hina - About Us</h1><p id="ab-sub">SHYNONE MUSIC - Matola, Moçambique</p></div>
+<div class="about-body">
+<p id="ab-p1"></p>
+<p id="ab-p2"></p>
+<p id="ab-p3"></p>
+<div class="highlight" id="ab-p4"></div>
+<div class="cta-two"><a href="signup.html" id="btn1">🎤 Tsarisa</a><a href="music.html" id="btn2">🎵 Wunanga</a></div>
+</div>
+<div class="about-footer" id="ab-foot">© 2026 SHYNONE MUSIC</div>
+</div>
+
+<footer>© 2026 SHYNONE MUSIC • Moçambique • Tate • <span id="footerDate"></span></footer>
+
+<script>
+const T={
+ pt:{
+  langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'ARTISTAS',nv_l:'WUNANGA',nv_n:'NOTÍCIAS',nv_a:'HINA',
+  ab_t:'Sobre Nós',ab_sub:'SHYNONE MUSIC - Matola, Moçambique',
+  ab_p1:'SHYNONE MUSIC nasceu em Matola, Maputo, em 2023. Somos uma equipa pequena de jovens moçambicanos que ama música. Criámos esta plataforma porque vimos que os nossos artistas trabalham muito, mas não têm onde vender a sua música de forma justa e direta. A nossa missão é simples: dar voz à música de Moçambique e levar o nosso som para o mundo.',
+  ab_p2:'Aqui, você compra música diretamente do artista. Sem intermediários complicados. Você escolhe a música que ama, paga com M-Pesa 84 033 1635 ou eMola 86 940 1491, e recebe o link para download no seu WhatsApp. É rápido, seguro e 100% moçambicano. O artista recebe o valor em 24 horas e você apoia diretamente quem cria.',
+  ab_p3:'Acreditamos que a nossa cultura é rica - Xitsonga, Marrabenta, Pandza, Afro House, Kizomba. Cada batida conta uma história de Moçambique. Queremos que qualquer pessoa, em qualquer canto do país, com apenas um telefone e M-Pesa, possa comprar e ouvir música local. Sem precisar de cartão bancário, sem precisar de conta estrangeira. Feito por moçambicanos, para moçambicanos.',
+  ab_p4:'📍 Escritório: Matola, Maputo | 📞 Atendimento 8h-20h: 84 033 1635 | M-Pesa: 84 033 1635 | eMola: 86 940 1491 | Tate - tua irmã virtual está sempre aqui para te ajudar.',
+  btn1:'🎤 Inscrição de Artista',btn2:'🎵 Ver Músicas',foot:'© 2026 SHYNONE MUSIC - Feito em Matola com amor pela música moçambicana.'
+ },
+ en:{
+  langName:'English',search:'Search',nv_h:'HOME',nv_w:'ARTISTS',nv_l:'MUSIC',nv_n:'NEWS',nv_a:'ABOUT US',
+  ab_t:'About Us',ab_sub:'SHYNONE MUSIC - Matola, Mozambique',
+  ab_p1:'SHYNONE MUSIC was born in Matola, Maputo, in 2023. We are a small team of young Mozambicans who love music. We created this platform because we saw that our local artists work hard but have no fair and direct place to sell their music. Our mission is simple: to give a voice to Mozambican music and take our sound to the world.',
+  ab_p2:'Here, you buy music directly from the artist. No complicated middlemen. You choose the song you love, pay with M-Pesa 84 033 1635 or eMola 86 940 1491, and receive the download link on your WhatsApp. It is fast, safe, and 100% Mozambican. The artist gets paid within 24 hours and you directly support the creator.',
+  ab_p3:'We believe our culture is rich - from traditional rhythms to modern Afro beats. Every beat tells a story of Mozambique. We want anyone, anywhere in the country, with just a phone and M-Pesa, to be able to buy and listen to local music. No bank card needed, no foreign account needed. Made by Mozambicans, for Mozambicans.',
+  ab_p4:'📍 Office: Matola, Maputo | 📞 Support 8am-8pm: 84 033 1635 | M-Pesa: 84 033 1635 | eMola: 86 940 1491 | Tate - your virtual sister is always here to help.',
+  btn1:'🎤 Artist Sign Up',btn2:'🎵 See Music',foot:'© 2026 SHYNONE MUSIC - Made in Matola with love for Mozambican music.'
+ },
+ ch:{
+  langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'VAYIMBELELI',nv_l:'WUNANGA',nv_n:'MAHUNGU',nv_a:'HINA',
+  ab_t:'Hi Hina',ab_sub:'SHYNONE MUSIC - Matola, Moçambique',
+  ab_p1:'SHYNONE MUSIC yi sunguriwe e Matola, Maputo, hi 2023. Hi ntlawa wa majaha ya Muzambiki lama rhandzaka wunanga. Hi sungule platform leyi hiku hi vonile leswaku vayimbeleli va hina va tirha ngopfu, kambe a va na ndhawu ya ku xavisa wunanga wa vona hi ndlela yo lulama. Xikongomelo xa hina xi olovile: ku nyika rito eka wunanga wa Moçambique ni ku yisa mbeu ya hina misaveni.',
+  ab_p2:'Laha, u xava wunanga hi ku kongoma eka muyimbeleli. Ku hava swihluphi. U hlawula ngoma leyi u yi rhandzaka, u hakela hi M-Pesa 84 033 1635 kumbe eMola 86 940 1491, u kuma link hi WhatsApp. Hi hatlisa, hi tshembekile, ni 100% ya Muzambiki. Muyimbeleli u kuma mali hi 24 hours na wena u seketela loyi a tumbuluxaka.',
+  ab_p3:'Hi kholwa leswaku ndhavuko wa hina wu fuwile - ku suka eka Xitsonga ku ya eka Afro ya namuntlha. Xidzhumba xin\'wana na xin\'wana xi vulavula ta Moçambique. Hi lava leswaku munhu un\'wana na un\'wana, hinkwako tikweni, hi foni ntsena na M-Pesa, a kota ku xava na ku yingisela wunanga la kaya. Ku hava khadi ra banki, ku hava account ya le handle. Yi endliwe hi va-Mozambiki, eka va-Mozambiki.',
+  ab_p4:'📍 Hofisi: Matola, Maputo | 📞 8h-20h: 84 033 1635 | M-Pesa: 84 033 1635 | eMola: 86 940 1491 | Tate - manana wa wena wa virtual u lha ka ku ku pfuna.',
+  btn1:'🎤 Tsarisa Vayimbeleli',btn2:'🎵 Vona Wunanga',foot:'© 2026 SHYNONE MUSIC - Yi endliwe e Matola hi rirhandzu ra wunanga wa Muzambiki.'
+ }
+};
+function setLang(lang){
+ const t=T[lang];
+ document.getElementById('current-lang-name').innerText=t.langName;
+ document.getElementById('searchInput').placeholder=t.search;
+ document.getElementById('nv-h').innerText=t.nv_h;document.getElementById('nv-w').innerText=t.nv_w;document.getElementById('nv-l').innerText=t.nv_l;document.getElementById('nv-n').innerText=t.nv_n;document.getElementById('nv-a').innerText=t.nv_a;
+ document.getElementById('ab-t').innerText=t.ab_t;document.getElementById('ab-sub').innerText=t.ab_sub;
+ document.getElementById('ab-p1').innerText=t.ab_p1;document.getElementById('ab-p2').innerText=t.ab_p2;document.getElementById('ab-p3').innerText=t.ab_p3;
+ document.getElementById('ab-p4').innerText=t.ab_p4;document.getElementById('btn1').innerText=t.btn1;document.getElementById('btn2').innerText=t.btn2;
+ document.getElementById('ab-foot').innerText=t.foot;
+ ['pt','en','ch'].forEach(l=>document.getElementById('lb-'+l).classList.toggle('active',l===lang));
+ localStorage.setItem('shynone_lang',lang);
+}
+function updateDate(){const now=new Date();const opts={weekday:'short',month:'short',day:'numeric',year:'numeric'};const s=now.toLocaleDateString('en-US',opts);document.getElementById('dateNow').innerText=s;document.getElementById('footerDate').innerText=s;}
+updateDate();let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
+</script></body></html>
