@@ -1,84 +1,101 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SHYNONE MUSIC - Wunanga</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#f0f0f0;font-family:Arial,sans-serif}
-header{background:#000;padding:12px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;border-bottom:3px solid #4a6da7;max-width:1200px;margin:0 auto}
-header h2{color:#4a6da7;font-size:16px}header a{color:#fff;text-decoration:none;font-size:11px;border:1px solid #4a6da7;padding:5px 12px;border-radius:999px;margin-left:5px}
-.artist-hero{background:#fff;max-width:1200px;margin:0 auto;padding:20px;display:flex;gap:15px;align-items:center;border-bottom:1px solid #ddd}
-.artist-hero img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #4a6da7}
-.artist-hero h1{font-size:20px} .artist-hero p{font-size:12px;color:#666;margin-top:4px}
-.container{max-width:1200px;margin:0 auto;padding:15px}
-.album-block{background:#fff;border:1px solid #ddd;border-radius:8px;overflow:hidden;margin-bottom:20px;max-width:420px}
-.album-tile{display:flex;gap:12px;padding:12px;background:#f9f9ff;border-bottom:1px solid #eee}
-.album-tile img{width:80px;height:80px;object-fit:cover;border-radius:4px;background:#000}
-.album-info b{font-size:14px;display:block} .album-info small{font-size:11px;color:#666;display:block;margin:3px 0}
-.album-info span{font-size:10px;background:#4a6da7;color:#fff;padding:2px 6px;border-radius:999px}
+*{margin:0;padding:0;box-sizing:border-box}body{background:#f0f0f0;font-family:Arial,sans-serif;padding-top:112px}
+header{background:#000;padding:0;position:fixed;top:0;left:0;right:0;z-index:20;border-bottom:3px solid #4a6da7}
+.toprow{max-width:1200px;margin:0 auto;padding:12px 15px;display:flex;justify-content:space-between;align-items:center}
+.toprow h2{color:#4a6da7;font-size:16px} .toprow a{color:#fff;text-decoration:none;font-size:11px;border:1px solid #4a6da7;padding:5px 12px;border-radius:999px;margin-left:5px}
+.search-row{background:#fff;border-top:1px solid #eee;padding:10px 15px;max-width:1200px;margin:0 auto;display:flex;gap:8px}
+.search-row input{flex:1;padding:10px 14px;border:1.5px solid #4a6da7;border-radius:999px;outline:none;font-size:13px}
+.search-row button{background:#4a6da7;color:#fff;border:none;padding:10px 18px;border-radius:999px;font-weight:700;cursor:pointer;font-size:12px}
+.artist-section{background:#fff;max-width:1200px;margin:15px auto 0;border:1px solid #ddd;border-radius:8px;overflow:hidden}
+.artist-header{display:flex;gap:12px;padding:14px;background:#f9f9ff;border-bottom:1px solid #eee;align-items:center}
+.artist-header img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #4a6da7}
+.artist-header h3{font-size:16px} .artist-header p{font-size:11px;color:#666;margin-top:2px}
+.container{padding:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.album-block{background:#fff;border:1px solid #ddd;border-radius:8px;overflow:hidden;max-width:420px}
+.album-tile{display:flex;gap:10px;padding:10px;background:#fff;border-bottom:1px solid #eee}
+.album-tile img{width:70px;height:70px;object-fit:cover;border-radius:4px}
+.album-info b{font-size:13px;display:block} .album-info small{font-size:11px;color:#666} .album-info span{font-size:9px;background:#4a6da7;color:#fff;padding:2px 6px;border-radius:999px;margin-top:4px;display:inline-block}
 .track-list{padding:0}
-.track{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #f0f0f0}
-.track:last-child{border:none}
-.track-num{font-size:11px;color:#999;width:18px}
-.track-title{flex:1;font-size:13px;font-weight:600}
-.track-time{font-size:10px;color:#888}
-.track audio{width:100%;height:32px;margin-top:6px}
+.track{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid #f5f5f5}
+.track-num{font-size:10px;color:#999;width:14px}
+.play-btn{width:26px;height:26px;border-radius:50%;background:#4a6da7;color:#fff;border:none;cursor:pointer;font-size:10px}
 .track-col{flex:1}
-.play-btn{width:28px;height:28px;border-radius:50%;background:#4a6da7;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px}
-.buy-btn{background:#00c853;color:#fff;border:none;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:700;cursor:pointer}
-@media(min-width:700px){.container{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.album-block{margin-bottom:0}}
+.track-title{font-size:12.5px;font-weight:600}
+.track audio{width:100%;height:28px;margin-top:4px}
+.track-time{font-size:10px;color:#888}
+.buy-btn{background:#00c853;color:#fff;border:none;padding:3px 8px;border-radius:999px;font-size:9px;font-weight:700;cursor:pointer}
+.hidden{display:none !important}
+.no-result{text-align:center;padding:30px;color:#888;font-size:13px}
 </style></head><body>
-<header><h2 id="hdr">WUNANGA</h2><div><a href="index.html">KAYA</a><a href="artists.html">VAYIMBELELI</a></div></header>
-<div class="artist-hero" id="artistHero"></div>
-<div class="container" id="albumContainer"></div>
-<script>
-// ===== DATA - YOU EDIT HERE WHEN YOU GET NEW ARTIST =====
-const MUSIC_DATA = {
-  esmeraldo: {
-    name:"Esmeraldo De'Singer", photo:"./Tate.jpg", bio:"Wunanga la Xitsonga • 5 Albums • Moçambique",
-    albums:[
-      {id:"a1", title:"Tate Wamina", cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300", year:"2024", tracks:[
-        {title:"Tate Wamina (Original)", time:"3:42", file:"music/esmeraldo-tate.mp3"},
-        {title:"Tate Wamina - Acoustic", time:"3:10", file:""},
-        {title:"Rhandza Wamina", time:"4:05", file:""}
-      ]},
-      {id:"a2", title:"Xiluva", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300", year:"2023", tracks:[
-        {title:"Xiluva", time:"3:15", file:""},
-        {title:"Nyeleti", time:"3:55", file:""}
-      ]},
-      {id:"a3", title:"Mahlahla", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2022", tracks:[
-        {title:"Mahlahla", time:"3:30", file:""},
-        {title:"Ku Famba", time:"4:00", file:""},
-        {title:"Vutomi", time:"3:20", file:""}
-      ]}
-    ]
-  },
-  shynone: {
-    name:"SHYNONE", photo:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200", bio:"Hip Hop • Moçambique",
-    albums:[{id:"s1", title:"Street Life", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300", year:"2024", tracks:[{title:"Street Life", time:"3:40", file:""},{title:"Matola", time:"3:20", file:""}]}]
-  },
-  dilon: {name:"Dilon", photo:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200", bio:"Afro", albums:[{id:"d1", title:"Dilon Hits", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2024", tracks:[{title:"Nikuthanda", time:"3:10", file:""}]}]},
-  lizha: {name:"Lizha James", photo:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200", bio:"Marrabenta", albums:[{id:"l1", title:"Best of Lizha", cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300", year:"2023", tracks:[{title:"Mama Africa", time:"4:10", file:""}]}]},
-  kuka: {name:"Mr. Kuka", photo:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200", bio:"Pandza", albums:[{id:"k1", title:"Pandza Hits", cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300", year:"2024", tracks:[{title:"Pandza", time:"3:00", file:""}]}]}
-};
+<header>
+<div class="toprow"><h2>WUNANGA - ALL ARTISTS</h2><div><a href="index.html">KAYA</a><a href="artists.html">VAYIMBELELI</a></div></div>
+<div class="search-row"><input id="search" placeholder="Lava vayimbeleli... Search artist, album, song..." oninput="filterAll()"><button onclick="filterAll()">🔍 LAVA</button></div>
+</header>
+<div id="allArtists"></div>
+<div id="noResult" class="no-result hidden">No artist found - A ku na vayimbeleli... Try other name</div>
 
-function getArtist(){
-  const p=new URLSearchParams(location.search); return p.get('artist')||'esmeraldo';
-}
-function render(){
-  const key=getArtist(); const data=MUSIC_DATA[key]||MUSIC_DATA.esmeraldo;
-  document.getElementById('hdr').innerText = data.name + " - WUNANGA";
-  document.getElementById('artistHero').innerHTML = `<img src="${data.photo}" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'"><div><h1>${data.name}</h1><p>${data.bio}</p><p style="margin-top:8px"><span style="background:#4a6da7;color:#fff;padding:3px 8px;border-radius:999px;font-size:10px">${data.albums.length} Albums</span></p></div>`;
+<script>
+const DATA = [
+{name:"Esmeraldo De'Singer", photo:"./Tate.jpg", bio:"Xitsonga • 5 Albums", albums:[
+{title:"Tate Wamina", cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300", year:"2024", tracks:[{title:"Tate Wamina", time:"3:42", file:""},{title:"Rhandza Wamina", time:"4:05", file:""},{title:"Xiluva Langa", time:"3:18", file:""}]},
+{title:"Xiluva", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300", year:"2023", tracks:[{title:"Xiluva", time:"3:15", file:""},{title:"Nyeleti", time:"3:55", file:""}]}
+]},
+{name:"SHYNONE", photo:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200", bio:"Hip Hop • Matola", albums:[
+{title:"Street Life", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300", year:"2024", tracks:[{title:"Street Life", time:"3:40", file:""},{title:"Matola City", time:"3:20", file:""}]},
+{title:"Moz Hits", cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300", year:"2023", tracks:[{title:"Moza", time:"3:30", file:""}]}
+]},
+{name:"Lizha James", photo:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200", bio:"Marrabenta Queen", albums:[
+{title:"Best of Lizha", cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300", year:"2023", tracks:[{title:"Mama Africa", time:"4:10", file:""},{title:"Sofala", time:"3:50", file:""}]}
+]},
+{name:"Mr. Kuka", photo:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200", bio:"Pandza", albums:[
+{title:"Pandza Hits", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2024", tracks:[{title:"Pandza Power", time:"3:00", file:""}]}
+]},
+{name:"Dilon Dj", photo:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200", bio:"Afro House", albums:[
+{title:"Dilon Mix", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2024", tracks:[{title:"Nikuthanda", time:"3:10", file:""},{title:"Baila", time:"3:45", file:""}]}
+]},
+{name:"Twenty Fingers", photo:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200", bio:"Kizomba", albums:[
+{title:"Amor", cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300", year:"2024", tracks:[{title:"Amor Verdadeiro", time:"4:00", file:""}]}
+]},
+{name:"Ubakka", photo:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200", bio:"Hip Hop • Maputo", albums:[
+{title:"Ubakka Life", cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300", year:"2023", tracks:[{title:"Vida", time:"3:25", file:""}]}
+]},
+{name:"Ziqo", photo:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200", bio:"Pandza", albums:[
+{title:"Ziqo Hits", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2022", tracks:[{title:"Magumba", time:"3:15", file:""}]}
+]},
+{name:"Liloca", photo:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200", bio:"Afro • Diva", albums:[
+{title:"Liloca Queen", cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300", year:"2024", tracks:[{title:"Muyi Nguena", time:"3:40", file:""}]}
+]},
+{name:"Hernani", photo:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200", bio:"Hip Hop • Vet", albums:[
+{title:"Old School", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300", year:"2023", tracks:[{title:"Maputo", time:"4:05", file:""}]}
+]}
+];
+
+function renderAll(list){
+  const container=document.getElementById('allArtists');
   let html='';
-  data.albums.forEach(album=>{
-    html+=`<div class="album-block"><div class="album-tile"><img src="${album.cover}"><div class="album-info"><b>${album.title}</b><small>Album • ${album.year}</small><span>${album.tracks.length} tinsimu</span></div></div><div class="track-list">`;
-    album.tracks.forEach((t,i)=>{
-      html+=`<div class="track"><div class="track-num">${i+1}</div><button class="play-btn">▶</button><div class="track-col"><div class="track-title">${t.title}</div>${t.file?`<audio controls src="${t.file}"></audio>`:``}</div><div class="track-time">${t.time}</div><button class="buy-btn" onclick="buyTrack('${t.title}')">M-Pesa</button></div>`;
+  list.forEach(artist=>{
+    html+=`<div class="artist-section" data-name="${artist.name.toLowerCase()}"><div class="artist-header"><img src="${artist.photo}" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'"><div><h3>${artist.name}</h3><p>${artist.bio} • ${artist.albums.length} Albums</p></div></div><div class="container">`;
+    artist.albums.forEach(al=>{
+      html+=`<div class="album-block"><div class="album-tile"><img src="${al.cover}"><div class="album-info"><b>${al.title}</b><small>Album • ${al.year}</small><br><span>${al.tracks.length} tinsimu</span></div></div><div class="track-list">`;
+      al.tracks.forEach((t,i)=>{
+        html+=`<div class="track"><div class="track-num">${i+1}</div><button class="play-btn">▶</button><div class="track-col"><div class="track-title">${t.title}</div>${t.file?`<audio controls src="${t.file}"></audio>`:``}</div><div class="track-time">${t.time}</div><button class="buy-btn" onclick="alert('Buy ${t.title}\\nM-Pesa: 84 033 1635\\neMola: 86 940 1491')">M-Pesa</button></div>`;
+      });
+      html+=`</div></div>`;
     });
     html+=`</div></div>`;
   });
-  document.getElementById('albumContainer').innerHTML=html;
+  container.innerHTML=html;
+  document.getElementById('noResult').classList.toggle('hidden', list.length>0);
 }
-function buyTrack(title){
-  alert(title + "\\n\\nPay via:\\nM-Pesa: 84 033 1635\\neMola: 86 940 1491\\n\\nSend proof on WhatsApp!");
+
+function filterAll(){
+  const q=document.getElementById('search').value.toLowerCase().trim();
+  if(!q){renderAll(DATA); return;}
+  const filtered=DATA.filter(a=> a.name.toLowerCase().includes(q) || a.albums.some(al=> al.title.toLowerCase().includes(q) || al.tracks.some(t=> t.title.toLowerCase().includes(q))));
+  renderAll(filtered);
 }
-render();
+renderAll(DATA);
 </script>
 </body></html>
