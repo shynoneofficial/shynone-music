@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Artist Signup - SHYNONE MUSIC</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#f5f5f5;font-family:Arial,sans-serif;padding-top:108px}
+.fixed-header{position:fixed;top:0;left:0;right:0;z-index:1000;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.topbar{background:#fff;border-bottom:1px solid #e5e5e5;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;max-width:1200px;margin:0 auto}
+.logo-box{background:#4a6da7;color:#fff;width:58px;height:58px;display:flex;align-items:center;justify-content:center;font-weight:900}
+.navbar{background:#2b2b2b;height:44px;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:0 20px;max-width:1200px;margin:0 auto}
+.navbar a{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600}
+.form-wrap{background:#fff;max-width:600px;margin:30px auto;padding:30px 25px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
+.form-wrap h1{font-size:22px;margin-bottom:6px;color:#2b2b2b}
+.form-wrap p.sub{font-size:13px;color:#666;margin-bottom:20px}
+label{font-size:12.5px;font-weight:700;color:#333;display:block;margin:14px 0 5px}
+input, select, textarea{width:100%;padding:10px 12px;border:1.5px solid #ccc;border-radius:8px;font-size:13px;outline:none}
+input:focus, select:focus, textarea:focus{border-color:#4a6da7}
+.price-box{background:#f5f7ff;border:1.5px solid #4a6da7;padding:12px 14px;border-radius:8px;margin:14px 0;display:flex;justify-content:space-between;align-items:center}
+.price-box b{color:#4a6da7;font-size:14px}
+.btn-submit{width:100%;background:#4a6da7;color:#fff;border:none;padding:13px;border-radius:999px;font-weight:800;font-size:14px;cursor:pointer;margin-top:18px}
+.note{font-size:11px;color:#888;margin-top:12px;text-align:center}
+footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center;margin-top:40px}
+</style></head><body>
+<div class="fixed-header"><div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b></div><div class="navbar"><a href="index.html">KAYA</a><a href="artists.html">VAYIMBELELI</a><a href="music.html">WUNANGA</a><a href="about.html">HINA</a></div></div>
+
+<div class="form-wrap">
+<h1>🎤 Registo de Artista - Shynone Music</h1>
+<p class="sub">Preencha para vender suas músicas - Preço fixo 50MT por música</p>
+
+<form id="artistForm" onsubmit="submitArtist(event)">
+<label>Nome Artístico *</label><input id="artistName" required placeholder="Ex: SHYNONE">
+
+<label>Nome Real</label><input id="realName" placeholder="Seu nome completo">
+
+<label>WhatsApp / Telefone *</label><input id="phone" required placeholder="84 033 1635">
+
+<label>Número M-Pesa *</label><input id="mpesa" required placeholder="84 033 1635">
+
+<label>Número eMola</label><input id="emola" placeholder="86 940 1491">
+
+<label>Localização</label><select id="location"><option>Matola</option><option>Maputo</option><option>Beira</option><option>Nampula</option><option>Outro</option></select>
+
+<label>Género Musical</label><select id="genre"><option>Marrabenta</option><option>Pandza</option><option>Kizomba</option><option>Afro House</option><option>Amapiano</option><option>Hip Hop</option><option>Outro</option></select>
+
+<label>Quantas músicas quer vender?</label><input id="songs" type="number" placeholder="Ex: 5" required>
+
+<div class="price-box">
+<span style="font-size:13px">💰 Preço por música (fixo):</span>
+<b>50 MT</b>
+</div>
+
+<div style="background:#fff3cd;border:1px solid #ffe69c;padding:10px 12px;border-radius:8px;font-size:12px;color:#664d03">
+<b>Como funciona pagamento:</b><br>
+• Cliente paga 50MT → Você recebe 35MT (70%) → Shynone fica 15MT (30%) para custos M-Pesa e site<br>
+• Exemplo: Vendeu 10 músicas = 500MT total → Você recebe 350MT via M-Pesa em 24h
+</div>
+
+<label>Biografia curta</label><textarea id="bio" rows="3" placeholder="Fale um pouco sobre você..."></textarea>
+
+<label style="display:flex;gap:8px;align-items:center;font-weight:400;margin-top:16px"><input type="checkbox" required style="width:16px"> Concordo: preço fixo 50MT, recebo 70% (35MT) por venda, pago em 24h via M-Pesa/eMola</label>
+
+<button class="btn-submit" type="submit">✓ Registar Agora - 50MT por música</button>
+<div class="note">Seus dados ficam seguros. Entraremos em contacto via WhatsApp em 24h. M-Pesa: 84 033 1635</div>
+</form>
+
+<div id="success" style="display:none;text-align:center;padding:20px">
+<h2 style="color:#2e7d32">✓ Obrigado!</h2><p style="font-size:14px;margin:10px 0">Recebemos seu registo. Preço fixo: 50MT por música. Vamos falar contigo no WhatsApp em 24h.</p><br><a href="index.html" style="background:#4a6da7;color:#fff;padding:10px 20px;border-radius:999px;text-decoration:none;font-weight:700">← Voltar ao Início</a>
+</div>
+
+</div>
+
+<footer>© 2026 SHYNONE MUSIC • Moçambique • 50MT por música • Tate</footer>
+
+<script>
+function submitArtist(e){
+ e.preventDefault();
+ const data = {
+  artistName: document.getElementById('artistName').value,
+  realName: document.getElementById('realName').value,
+  phone: document.getElementById('phone').value,
+  mpesa: document.getElementById('mpesa').value,
+  emola: document.getElementById('emola').value,
+  location: document.getElementById('location').value,
+  genre: document.getElementById('genre').value,
+  songs: document.getElementById('songs').value,
+  price_fixed: "50MT",
+  artist_earns: "35MT per sale (70%)",
+  shynone_earns: "15MT per sale (30%)",
+  bio: document.getElementById('bio').value,
+  date: new Date().toISOString()
+ };
+ let list = JSON.parse(localStorage.getItem('artists_signup')||'[]');
+ list.push(data);
+ localStorage.setItem('artists_signup', JSON.stringify(list));
+ const msg = `NOVO ARTISTA SHYNONE (50MT fixo):%0AArtista: ${data.artistName}%0ATel: ${data.phone}%0AM-Pesa: ${data.mpesa}%0AMusicas: ${data.songs}%0APreco: 50MT fixo`;
+ window.open(`https://wa.me/258840331635?text=${msg}`, '_blank');
+ document.getElementById('artistForm').style.display='none';
+ document.getElementById('success').style.display='block';
+}
+</script>
+</body></html>
