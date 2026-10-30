@@ -1,101 +1,128 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SHYNONE MUSIC - Wunanga</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#f0f0f0;font-family:Arial,sans-serif;padding-top:112px}
-header{background:#000;padding:0;position:fixed;top:0;left:0;right:0;z-index:20;border-bottom:3px solid #4a6da7}
-.toprow{max-width:1200px;margin:0 auto;padding:12px 15px;display:flex;justify-content:space-between;align-items:center}
-.toprow h2{color:#4a6da7;font-size:16px} .toprow a{color:#fff;text-decoration:none;font-size:11px;border:1px solid #4a6da7;padding:5px 12px;border-radius:999px;margin-left:5px}
-.search-row{background:#fff;border-top:1px solid #eee;padding:10px 15px;max-width:1200px;margin:0 auto;display:flex;gap:8px}
-.search-row input{flex:1;padding:10px 14px;border:1.5px solid #4a6da7;border-radius:999px;outline:none;font-size:13px}
-.search-row button{background:#4a6da7;color:#fff;border:none;padding:10px 18px;border-radius:999px;font-weight:700;cursor:pointer;font-size:12px}
+*{margin:0;padding:0;box-sizing:border-box}body{background:#f5f5f5;font-family:Arial,sans-serif;padding-top:108px}
+.fixed-header{position:fixed;top:0;left:0;right:0;z-index:1000;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.topbar{background:#fff;border-bottom:1px solid #e5e5e5;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;max-width:1200px;margin:0 auto}
+.logo-box{background:#4a6da7;color:#fff;width:58px;height:58px;display:flex;align-items:center;justify-content:center;font-weight:900}
+.right{display:flex;align-items:center;gap:16px;margin-left:auto}
+.lang-widget{display:flex;flex-direction:column;align-items:center;gap:2px}
+.current-lang{display:flex;gap:4px;font-size:13px}.lang-btns{display:flex;gap:4px}
+.lang-btns button{padding:4px 10px;border-radius:999px;border:1.5px solid #4a6da7;background:#fff;font-size:11px;font-weight:700;cursor:pointer}
+.lang-btns button.active{background:#4a6da7;color:#fff}
+.search{display:flex;border:1px solid #ccc;border-radius:2px;height:32px;overflow:hidden}
+.search input{border:none;padding:6px 10px;width:150px;outline:none;font-size:13px}
+.search button{background:#f1f1f1;border:none;border-left:1px solid #ccc;padding:0 12px;cursor:pointer}
+.navbar{background:#2b2b2b;height:44px;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:0 20px;max-width:1200px;margin:0 auto}
+.navbar a{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600}
 .artist-section{background:#fff;max-width:1200px;margin:15px auto 0;border:1px solid #ddd;border-radius:8px;overflow:hidden}
 .artist-header{display:flex;gap:12px;padding:14px;background:#f9f9ff;border-bottom:1px solid #eee;align-items:center}
 .artist-header img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #4a6da7}
 .artist-header h3{font-size:16px} .artist-header p{font-size:11px;color:#666;margin-top:2px}
 .container{padding:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
-.album-block{background:#fff;border:1px solid #ddd;border-radius:8px;overflow:hidden;max-width:420px}
+.album-block{background:#fff;border:1px solid #ddd;border-radius:8px;overflow:hidden;max-width:400px}
 .album-tile{display:flex;gap:10px;padding:10px;background:#fff;border-bottom:1px solid #eee}
 .album-tile img{width:70px;height:70px;object-fit:cover;border-radius:4px}
 .album-info b{font-size:13px;display:block} .album-info small{font-size:11px;color:#666} .album-info span{font-size:9px;background:#4a6da7;color:#fff;padding:2px 6px;border-radius:999px;margin-top:4px;display:inline-block}
-.track-list{padding:0}
 .track{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid #f5f5f5}
 .track-num{font-size:10px;color:#999;width:14px}
 .play-btn{width:26px;height:26px;border-radius:50%;background:#4a6da7;color:#fff;border:none;cursor:pointer;font-size:10px}
-.track-col{flex:1}
-.track-title{font-size:12.5px;font-weight:600}
-.track audio{width:100%;height:28px;margin-top:4px}
-.track-time{font-size:10px;color:#888}
-.buy-btn{background:#00c853;color:#fff;border:none;padding:3px 8px;border-radius:999px;font-size:9px;font-weight:700;cursor:pointer}
-.hidden{display:none !important}
-.no-result{text-align:center;padding:30px;color:#888;font-size:13px}
+.track-col{flex:1}.track-title{font-size:12.5px;font-weight:600}.track audio{width:100%;height:28px;margin-top:4px}
+.track-time{font-size:10px;color:#888}.buy-btn{background:#00c853;color:#fff;border:none;padding:3px 8px;border-radius:999px;font-size:9px;font-weight:700;cursor:pointer}
+footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center;margin-top:20px}
+.hidden{display:none !important}.no-result{text-align:center;padding:30px;color:#888;font-size:13px;max-width:1200px;margin:20px auto;background:#fff;border:1px solid #ddd;border-radius:8px}
+@media(max-width:700px){.search input{width:90px}}
 </style></head><body>
-<header>
-<div class="toprow"><h2>WUNANGA - ALL ARTISTS</h2><div><a href="index.html">KAYA</a><a href="artists.html">VAYIMBELELI</a></div></div>
-<div class="search-row"><input id="search" placeholder="Lava vayimbeleli... Search artist, album, song..." oninput="filterAll()"><button onclick="filterAll()">🔍 LAVA</button></div>
-</header>
+<div class="fixed-header">
+<div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava" oninput="filterAll()"><button onclick="filterAll()">🔍</button></div></div></div>
+<div class="navbar"><a href="index.html"><span id="nv-h">KAYA</span></a><a href="artists.html"><span id="nv-w">VAYIMBELELI</span></a><a href="music.html"><span id="nv-l">WUNANGA</span></a><a href="#"><span id="nv-n">MAHUNGU</span></a><a href="#"><span id="nv-a">HI WENA</span></a></div>
+</div>
+
 <div id="allArtists"></div>
-<div id="noResult" class="no-result hidden">No artist found - A ku na vayimbeleli... Try other name</div>
+<div id="noResult" class="no-result hidden">No artist found - A ku na vayimbeleli...</div>
+<footer>© 2026 SHYNONE MUSIC • Moçambique • Tate</footer>
 
 <script>
+const T={
+ pt:{langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'ARTISTAS',nv_l:'MUSICAS',nv_n:'NOTÍCIAS',nv_a:'SOBRE'},
+ en:{langName:'English',search:'Search',nv_h:'HOME',nv_w:'ARTISTS',nv_l:'MUSIC',nv_n:'NEWS',nv_a:'ABOUT'},
+ ch:{langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'VAYIMBELELI',nv_l:'WUNANGA',nv_n:'MAHUNGU',nv_a:'HI WENA'}
+};
+function setLang(lang){
+ const t=T[lang];
+ document.getElementById('current-lang-name').innerText=t.langName;
+ document.getElementById('searchInput').placeholder=t.search;
+ document.getElementById('nv-h').innerText=t.nv_h;document.getElementById('nv-w').innerText=t.nv_w;
+ document.getElementById('nv-l').innerText=t.nv_l;document.getElementById('nv-n').innerText=t.nv_n;document.getElementById('nv-a').innerText=t.nv_a;
+ ['pt','en','ch'].forEach(l=>document.getElementById('lb-'+l).classList.toggle('active',l===lang));
+ localStorage.setItem('shynone_lang',lang);
+}
+
+// ===== HOW TO ADD SONGS - TATE YOU EDIT HERE =====
+// To add more songs: add new {title:"...", time:"...", file:""} inside tracks
+// To add more albums: copy one {title:"...", ... tracks:[...]} and paste
+// They will appear LEFT TO RIGHT and go down automatically!
 const DATA = [
-{name:"Esmeraldo De'Singer", photo:"./Tate.jpg", bio:"Xitsonga • 5 Albums", albums:[
-{title:"Tate Wamina", cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300", year:"2024", tracks:[{title:"Tate Wamina", time:"3:42", file:""},{title:"Rhandza Wamina", time:"4:05", file:""},{title:"Xiluva Langa", time:"3:18", file:""}]},
-{title:"Xiluva", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300", year:"2023", tracks:[{title:"Xiluva", time:"3:15", file:""},{title:"Nyeleti", time:"3:55", file:""}]}
+{id:"esmeraldo", name:"Esmeraldo De'Singer", photo:"./Tate.jpg", bio:"Xitsonga • 5 Albums", albums:[
+{title:"Tate Wamina", cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300", year:"2024", tracks:[
+{title:"Tate Wamina - Original", time:"3:42", file:""},
+{title:"Rhandza Wamina", time:"4:05", file:""},
+{title:"Xiluva Langa", time:"3:18", file:""}
+// ADD MORE SONGS HERE: ,{title:"New Song", time:"3:00", file:""}
 ]},
-{name:"SHYNONE", photo:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200", bio:"Hip Hop • Matola", albums:[
-{title:"Street Life", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300", year:"2024", tracks:[{title:"Street Life", time:"3:40", file:""},{title:"Matola City", time:"3:20", file:""}]},
-{title:"Moz Hits", cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300", year:"2023", tracks:[{title:"Moza", time:"3:30", file:""}]}
+{title:"Xiluva", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300", year:"2023", tracks:[
+{title:"Xiluva", time:"3:15", file:""},
+{title:"Nyeleti", time:"3:55", file:""},
+{title:"Mahlahla", time:"3:30", file:""}
 ]},
-{name:"Lizha James", photo:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200", bio:"Marrabenta Queen", albums:[
+{title:"Mahlahla", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2022", tracks:[
+{title:"Mahlahla", time:"3:30", file:""},
+{title:"Ku Famba", time:"4:00", file:""}
+]}
+// ADD MORE ALBUMS HERE: ,{title:"New Album", cover:"...", year:"2025", tracks:[...]}
+]},
+{id:"shynone", name:"SHYNONE", photo:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200", bio:"Hip Hop • Matola", albums:[
+{title:"Street Life", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300", year:"2024", tracks:[{title:"Street Life", time:"3:40", file:""},{title:"Matola City", time:"3:20", file:""}]}
+]},
+{id:"lizha", name:"Lizha James", photo:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200", bio:"Marrabenta Queen", albums:[
 {title:"Best of Lizha", cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300", year:"2023", tracks:[{title:"Mama Africa", time:"4:10", file:""},{title:"Sofala", time:"3:50", file:""}]}
 ]},
-{name:"Mr. Kuka", photo:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200", bio:"Pandza", albums:[
-{title:"Pandza Hits", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2024", tracks:[{title:"Pandza Power", time:"3:00", file:""}]}
-]},
-{name:"Dilon Dj", photo:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200", bio:"Afro House", albums:[
-{title:"Dilon Mix", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2024", tracks:[{title:"Nikuthanda", time:"3:10", file:""},{title:"Baila", time:"3:45", file:""}]}
-]},
-{name:"Twenty Fingers", photo:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200", bio:"Kizomba", albums:[
-{title:"Amor", cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300", year:"2024", tracks:[{title:"Amor Verdadeiro", time:"4:00", file:""}]}
-]},
-{name:"Ubakka", photo:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200", bio:"Hip Hop • Maputo", albums:[
-{title:"Ubakka Life", cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300", year:"2023", tracks:[{title:"Vida", time:"3:25", file:""}]}
-]},
-{name:"Ziqo", photo:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200", bio:"Pandza", albums:[
-{title:"Ziqo Hits", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2022", tracks:[{title:"Magumba", time:"3:15", file:""}]}
-]},
-{name:"Liloca", photo:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200", bio:"Afro • Diva", albums:[
-{title:"Liloca Queen", cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300", year:"2024", tracks:[{title:"Muyi Nguena", time:"3:40", file:""}]}
-]},
-{name:"Hernani", photo:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200", bio:"Hip Hop • Vet", albums:[
-{title:"Old School", cover:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300", year:"2023", tracks:[{title:"Maputo", time:"4:05", file:""}]}
-]}
+{id:"kuka", name:"Mr. Kuka", photo:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200", bio:"Pandza", albums:[{title:"Pandza Hits", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2024", tracks:[{title:"Pandza Power", time:"3:00", file:""}]}]},
+{id:"dilon", name:"Dilon Dj", photo:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200", bio:"Afro House", albums:[{title:"Dilon Mix", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2024", tracks:[{title:"Nikuthanda", time:"3:10", file:""},{title:"Baila", time:"3:45", file:""}]}]},
+{id:"twenty", name:"Twenty Fingers", photo:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200", bio:"Kizomba", albums:[{title:"Amor", cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300", year:"2024", tracks:[{title:"Amor Verdadeiro", time:"4:00", file:""}]}]},
+{id:"ubakka", name:"Ubakka", photo:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200", bio:"Hip Hop", albums:[{title:"Ubakka Life", cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300", year:"2023", tracks:[{title:"Vida", time:"3:25", file:""}]}]},
+{id:"ziqo", name:"Ziqo", photo:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200", bio:"Pandza", albums:[{title:"Ziqo Hits", cover:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=300", year:"2022", tracks:[{title:"Magumba", time:"3:15", file:""}]}]},
+{id:"liloca", name:"Liloca", photo:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200", bio:"Afro Diva", albums:[{title:"Liloca Queen", cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300", year:"2024", tracks:[{title:"Muyi Nguena", time:"3:40", file:""}]}]},
+{id:"hernani", name:"Hernani", photo:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200", bio:"Hip Hop Vet", albums:[{title:"Old School", cover:"https://images.unsplash.com/photo-1511379938547-a3eb161ffa5f?w=300", year:"2023", tracks:[{title:"Maputo", time:"4:05", file:""}]}]}
 ];
 
 function renderAll(list){
-  const container=document.getElementById('allArtists');
   let html='';
   list.forEach(artist=>{
-    html+=`<div class="artist-section" data-name="${artist.name.toLowerCase()}"><div class="artist-header"><img src="${artist.photo}" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'"><div><h3>${artist.name}</h3><p>${artist.bio} • ${artist.albums.length} Albums</p></div></div><div class="container">`;
+    html+=`<div class="artist-section" id="${artist.id}" data-name="${artist.name.toLowerCase()}"><div class="artist-header"><img src="${artist.photo}" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'"><div><h3>${artist.name}</h3><p>${artist.bio} • ${artist.albums.length} Albums</p></div></div><div class="container">`;
     artist.albums.forEach(al=>{
-      html+=`<div class="album-block"><div class="album-tile"><img src="${al.cover}"><div class="album-info"><b>${al.title}</b><small>Album • ${al.year}</small><br><span>${al.tracks.length} tinsimu</span></div></div><div class="track-list">`;
+      html+=`<div class="album-block"><div class="album-tile"><img src="${al.cover}"><div class="album-info"><b>${al.title}</b><small>Album • ${al.year}</small><br><span>${al.tracks.length} tinsimu</span></div></div>`;
       al.tracks.forEach((t,i)=>{
-        html+=`<div class="track"><div class="track-num">${i+1}</div><button class="play-btn">▶</button><div class="track-col"><div class="track-title">${t.title}</div>${t.file?`<audio controls src="${t.file}"></audio>`:``}</div><div class="track-time">${t.time}</div><button class="buy-btn" onclick="alert('Buy ${t.title}\\nM-Pesa: 84 033 1635\\neMola: 86 940 1491')">M-Pesa</button></div>`;
+        html+=`<div class="track"><div class="track-num">${i+1}</div><button class="play-btn">▶</button><div class="track-col"><div class="track-title">${t.title}</div>${t.file?`<audio controls src="${t.file}"></audio>`:``}</div><div class="track-time">${t.time}</div><button class="buy-btn" onclick="alert('Buy ${t.title}\\nM-Pesa: 84 033 1635')">M-Pesa</button></div>`;
       });
-      html+=`</div></div>`;
+      html+=`</div>`;
     });
     html+=`</div></div>`;
   });
-  container.innerHTML=html;
+  document.getElementById('allArtists').innerHTML=html;
   document.getElementById('noResult').classList.toggle('hidden', list.length>0);
+  // If link has #esmeraldo, scroll to him
+  if(location.hash){
+    const id=location.hash.replace('#',''); const el=document.getElementById(id);
+    if(el){setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),300);}
+  }
 }
-
 function filterAll(){
-  const q=document.getElementById('search').value.toLowerCase().trim();
-  if(!q){renderAll(DATA); return;}
-  const filtered=DATA.filter(a=> a.name.toLowerCase().includes(q) || a.albums.some(al=> al.title.toLowerCase().includes(q) || al.tracks.some(t=> t.title.toLowerCase().includes(q))));
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  if(!q){renderAll(DATA);return;}
+  const filtered=DATA.filter(a=>a.name.toLowerCase().includes(q) || a.albums.some(al=>al.title.toLowerCase().includes(q) || al.tracks.some(t=>t.title.toLowerCase().includes(q))));
   renderAll(filtered);
 }
 renderAll(DATA);
-</script>
-</body></html>
+let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
+</script></body></html>
