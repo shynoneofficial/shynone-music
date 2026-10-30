@@ -44,12 +44,12 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
 .sis-btn2{width:100%;background:#fff;color:#4a6da7;border:2px solid #4a6da7;padding:10px;border-radius:999px;font-weight:700;cursor:pointer;margin-top:8px}
 .record-box{background:#f5f7ff;border:1px dashed #4a6da7;padding:12px;border-radius:10px;margin:12px 0;text-align:center}
 </style></head><body>
-<div class="fixed-header"><div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava"><button>🔍</button></div></div></div><div class="navbar"><a href="index.html"><span id="nv-h">KAYA</span></a><a href="artist.html"><span id="nv-w">VAYIMBELELI</span></a><a href="music.html"><span id="nv-l">WUNANGA</span></a><a href="#"><span id="nv-n">MAHUNGU</span></a><a href="#"><span id="nv-a">HI WENA</span></a></div></div>
-<div class="hero"><div class="hero-text"><div id="k" style="font-size:11px;font-weight:700;color:#6ea8fe"></div><h1 id="h1"></h1><p id="p"></p><a id="b" class="btn-blue" href="artist.html"></a></div><div class="hero-img"></div></div>
+<div class="fixed-header"><div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava"><button>🔍</button></div></div></div><div class="navbar"><a href="index.html"><span id="nv-h">KAYA</span></a><a href="artists.html"><span id="nv-w">VAYIMBELELI</span></a><a href="music.html"><span id="nv-l">WUNANGA</span></a><a href="#"><span id="nv-n">MAHUNGU</span></a><a href="#"><span id="nv-a">HI WENA</span></a></div></div>
+<div class="hero"><div class="hero-text"><div id="k" style="font-size:11px;font-weight:700;color:#6ea8fe"></div><h1 id="h1"></h1><p id="p"></p><a id="b" class="btn-blue" href="artists.html"></a></div><div class="hero-img"></div></div>
 <div class="about"><h2 id="ab-t"></h2><p id="ab-p"></p></div>
-<div class="cta-two"><a id="ct1" href="artist.html"></a><a id="ct2" href="music.html"></a></div>
+<div class="cta-two"><a id="ct1" href="artists.html"></a><a id="ct2" href="music.html"></a></div>
 <div id="artists" class="artists-wrap"><div class="artists-grid"><div class="artist-card"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400"><div class="artist-info"><b>SHYNONE</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=400"><div class="artist-info"><b>Dilon</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400"><div class="artist-info"><b>Lizha James</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400"><div class="artist-info"><b>Mr. Kuka</b></div></div></div></div>
-<div class="next-wrap"><a id="next" class="next-btn" href="artist.html"></a></div>
+<div class="next-wrap"><a id="next" class="next-btn" href="artists.html"></a></div>
 <footer>© 2026 SHYNONE MUSIC • Moçambique • Tate</footer>
 <div class="sister-float">
   <div class="sister-panel" id="sisPanel">
@@ -86,19 +86,12 @@ const T={
   b:'Ver Artistas',
   ab_t:'Sobre Música Moçambicana',
   ab_p:'SHYNONE MUSIC é a plataforma nº1 de música moçambicana. Apoiamos artistas locais e levamos a nossa cultura ao mundo.',
-  ct1:'🎤 Ver Artistas', ct2:'🎵 Ver Wunanga / Músicas',
+  ct1:'🎤 Ver Artistas', ct2:'🎵 Wunanga / Músicas',
   next:'Próximo → Ver Artistas',
-  sis_t:'Tate',
-  sis_d:'Olá! Eu sou a Tate, tua irmã.',
-  sis_vt:'Configurar voz - Tate vai aprender a tua voz',
-  sis_vd:'Grava 3 seg: "Alô"',
-  sis_rec:'🎙️ Gravar a minha voz (3s)',
-  sis_a:'Activar Tate',
-  sis_da:'Desactivar',
-  sis_note:'Privado e seguro.',
-  opt1:'Estou a trabalhar - com a minha voz',
-  opt2:'Estou ocupada, liga depois',
-  opt3:'Compra música na Shynone Music'
+  sis_t:'Tate', sis_d:'Olá! Eu sou a Tate, tua irmã.',
+  sis_vt:'Configurar voz - Tate vai aprender a tua voz', sis_vd:'Grava 3 seg: "Alô"', sis_rec:'🎙️ Gravar a minha voz (3s)',
+  sis_a:'Activar Tate', sis_da:'Desactivar', sis_note:'Privado e seguro.',
+  opt1:'Estou a trabalhar - com a minha voz', opt2:'Estou ocupada, liga depois', opt3:'Compra música na Shynone Music'
  },
  en:{
   langName:'English',
@@ -110,19 +103,12 @@ const T={
   b:'See Artists',
   ab_t:'About Mozambican Music',
   ab_p:'SHYNONE MUSIC is the #1 platform for Mozambican music. We support local artists and bring our culture to the world.',
-  ct1:'🎤 See Artists', ct2:'🎵 See Music',
+  ct1:'🎤 See Artists', ct2:'🎵 Music / Wunanga',
   next:'Next → See Artists',
-  sis_t:'Tate',
-  sis_d:"Hi, I'm Tate, your sister.",
-  sis_vt:'Setup voice - Tate will learn your voice',
-  sis_vd:'Record 3 sec: "Hello"',
-  sis_rec:'🎙️ Record my voice (3s)',
-  sis_a:'Activate Tate',
-  sis_da:'Deactivate',
-  sis_note:'Private and secure.',
-  opt1:'I am working - with my voice',
-  opt2:'I am busy, call later',
-  opt3:'Buy music at Shynone Music'
+  sis_t:'Tate', sis_d:"Hi, I'm Tate, your sister.",
+  sis_vt:'Setup voice - Tate will learn your voice', sis_vd:'Record 3 sec: "Hello"', sis_rec:'🎙️ Record my voice (3s)',
+  sis_a:'Activate Tate', sis_da:'Deactivate', sis_note:'Private and secure.',
+  opt1:'I am working - with my voice', opt2:'I am busy, call later', opt3:'Buy music at Shynone Music'
  },
  ch:{
   langName:'Changana',
@@ -134,19 +120,12 @@ const T={
   b:'Vona Vayimbeleli',
   ab_t:'Hi Wunanga la Moçambique',
   ab_p:'SHYNONE MUSIC i platform ya #1 ya Wunanga la Moçambique',
-  ct1:'🎤 Vona Vayimbeleli', ct2:'🎵 Vona Wunanga',
+  ct1:'🎤 Vona Vayimbeleli', ct2:'🎵 Wunanga',
   next:'Mahlweni → Vona Vayimbeleli',
-  sis_t:'Tate',
-  sis_d:'Xowani, Himina Tate Wawena.',
-  sis_vt:'Lumela ritu - Tate atalitolovela',
-  sis_vd:'Gindlisa 3 sec: "Hiswona"',
-  sis_rec:'🎙️ Gindlisa ritu lamina (3s)',
-  sis_a:'Activate Tate',
-  sis_da:'Deactivate',
-  sis_note:'Ya xihundla. Atirha hambi foni litimiwile.',
-  opt1:'Nahalintirhweni',
-  opt2:'Nahakhomekile, thlela ufona',
-  opt3:'Xava wunanga a Shynone Music'
+  sis_t:'Tate', sis_d:'Xowani, Himina Tate Wawena.',
+  sis_vt:'Lumela ritu - Tate atalitolovela', sis_vd:'Gindlisa 3 sec: "Hiswona"', sis_rec:'🎙️ Gindlisa ritu lamina (3s)',
+  sis_a:'Activate Tate', sis_da:'Deactivate', sis_note:'Ya xihundla. Atirha hambi foni litimiwile.',
+  opt1:'Nahalintirhweni', opt2:'Nahakhomekile, thlela ufona', opt3:'Xava wunanga a Shynone Music'
  }
 };
 function setLang(lang){
@@ -165,15 +144,8 @@ function setLang(lang){
  localStorage.setItem('shynone_lang',lang);
 }
 function toggleSis(){document.getElementById('sisPanel').classList.toggle('open')}
-function activateSis(){
-  localStorage.setItem('sis_active','1');
-  localStorage.setItem('sis_mode',document.getElementById('sisMode').value);
-  alert('Tate activada! Modo: ' + document.getElementById('sisMode').value);
-}
-function deactivateSis(){
-  localStorage.removeItem('sis_active');
-  alert('Tate desactivada!');
-}
+function activateSis(){localStorage.setItem('sis_active','1');localStorage.setItem('sis_mode',document.getElementById('sisMode').value);alert('Tate activada! Modo: ' + document.getElementById('sisMode').value);}
+function deactivateSis(){localStorage.removeItem('sis_active');alert('Tate desactivada!');}
 function recordVoice(){const s=document.getElementById('voiceStatus');s.style.display='block';s.innerHTML='● Tate listening...';setTimeout(()=>{s.innerHTML='✓ Voice saved!';localStorage.setItem('voice_saved','1');},2500);}
 let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
 if(localStorage.getItem('voice_saved')){document.getElementById('voiceStatus').style.display='block';document.getElementById('voiceStatus').innerText='✓ Voice saved';}
