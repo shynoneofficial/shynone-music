@@ -1,99 +1,87 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Artist Signup - SHYNONE MUSIC</title>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Para Artistas - SHYNONE MUSIC</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}body{background:#f5f5f5;font-family:Arial,sans-serif;padding-top:108px}
 .fixed-header{position:fixed;top:0;left:0;right:0;z-index:1000;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
 .topbar{background:#fff;border-bottom:1px solid #e5e5e5;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;max-width:1200px;margin:0 auto}
 .logo-box{background:#4a6da7;color:#fff;width:58px;height:58px;display:flex;align-items:center;justify-content:center;font-weight:900}
+.right{display:flex;align-items:center;gap:16px;margin-left:auto}
+.lang-widget{display:flex;flex-direction:column;align-items:center;gap:2px}
+.current-lang{display:flex;gap:4px;font-size:13px}.lang-btns{display:flex;gap:4px}
+.lang-btns button{padding:4px 10px;border-radius:999px;border:1.5px solid #4a6da7;background:#fff;font-size:11px;font-weight:700;cursor:pointer}
+.lang-btns button.active{background:#4a6da7;color:#fff}
+.search{display:flex;border:1px solid #ccc;border-radius:2px;height:32px;overflow:hidden}
+.search input{border:none;padding:6px 10px;width:200px;outline:none;font-size:13px}
+.search button{background:#f1f1f1;border:none;border-left:1px solid #ccc;padding:0 12px}
 .navbar{background:#2b2b2b;height:44px;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:0 20px;max-width:1200px;margin:0 auto}
 .navbar a{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600}
-.form-wrap{background:#fff;max-width:600px;margin:30px auto;padding:30px 25px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
-.form-wrap h1{font-size:22px;margin-bottom:6px;color:#2b2b2b}
-.form-wrap p.sub{font-size:13px;color:#666;margin-bottom:20px}
-label{font-size:12.5px;font-weight:700;color:#333;display:block;margin:14px 0 5px}
-input, select, textarea{width:100%;padding:10px 12px;border:1.5px solid #ccc;border-radius:8px;font-size:13px;outline:none}
-input:focus, select:focus, textarea:focus{border-color:#4a6da7}
-.price-box{background:#f5f7ff;border:1.5px solid #4a6da7;padding:12px 14px;border-radius:8px;margin:14px 0;display:flex;justify-content:space-between;align-items:center}
-.price-box b{color:#4a6da7;font-size:14px}
-.btn-submit{width:100%;background:#4a6da7;color:#fff;border:none;padding:13px;border-radius:999px;font-weight:800;font-size:14px;cursor:pointer;margin-top:18px}
-.note{font-size:11px;color:#888;margin-top:12px;text-align:center}
-footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center;margin-top:40px}
+.form-wrap{max-width:650px;margin:20px auto;background:#fff;padding:25px;border-radius:8px;border:1px solid #e5e5e5}
+.form-wrap h2{text-align:center;margin-bottom:6px}
+.form-wrap .sub{text-align:center;color:#555;font-size:13px;margin-bottom:18px;line-height:1.5}
+label{font-weight:700;font-size:13px;margin-top:12px;display:block}
+input{width:100%;padding:11px;border:1px solid #ccc;border-radius:6px;margin-top:4px;font-size:14px}
+.price-box{background:#fff7e6;border:2px solid #ff9800;padding:14px;border-radius:10px;margin:14px 0;text-align:center}
+.price-box b{color:#e65100;font-size:18px}
+.split-box{background:#eef2ff;border:1.5px solid #4a6da7;padding:12px;border-radius:8px;margin:14px 0;font-size:13px;line-height:1.6}
+.btn-submit{width:100%;background:#4a6da7;color:#fff;border:none;padding:14px;border-radius:999px;font-weight:800;margin-top:18px;cursor:pointer;font-size:15px}
+footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center;margin-top:30px;font-size:13px}
+@media(max-width:700px){.search input{width:110px}}
 </style></head><body>
-<div class="fixed-header"><div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b></div><div class="navbar"><a href="index.html">KAYA</a><a href="artists.html">VAYIMBELELI</a><a href="music.html">WUNANGA</a><a href="about.html">HINA</a></div></div>
+<div class="fixed-header"><div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava"><button>🔍</button></div></div></div><div class="navbar"><a href="index.html"><span id="nv-h">KAYA</span></a><a href="artists.html"><span id="nv-w">VAYIMBELELI</span></a><a href="music.html"><span id="nv-l">WUNANGA</span></a><a href="news.html"><span id="nv-n">MAHUNGU</span></a><a href="about.html"><span id="nv-a">HI WENA</span></a></div></div>
 
 <div class="form-wrap">
-<h1>🎤 Registo de Artista - Shynone Music</h1>
-<p class="sub">Preencha para vender suas músicas - Preço fixo 50MT por música</p>
-
-<form id="artistForm" onsubmit="submitArtist(event)">
-<label>Nome Artístico *</label><input id="artistName" required placeholder="Ex: SHYNONE">
-
-<label>Nome Real</label><input id="realName" placeholder="Seu nome completo">
-
-<label>WhatsApp / Telefone *</label><input id="phone" required placeholder="84 033 1635">
-
-<label>Número M-Pesa *</label><input id="mpesa" required placeholder="84 033 1635">
-
-<label>Número eMola</label><input id="emola" placeholder="86 940 1491">
-
-<label>Localização</label><select id="location"><option>Matola</option><option>Maputo</option><option>Beira</option><option>Nampula</option><option>Outro</option></select>
-
-<label>Género Musical</label><select id="genre"><option>Marrabenta</option><option>Pandza</option><option>Kizomba</option><option>Afro House</option><option>Amapiano</option><option>Hip Hop</option><option>Outro</option></select>
-
-<label>Quantas músicas quer vender?</label><input id="songs" type="number" placeholder="Ex: 5" required>
+<h2 id="f-t">🎤 Cadastro de Artista</h2>
+<div class="sub" id="f-sub">Taxa única para vender tuas músicas na plataforma</div>
 
 <div class="price-box">
-<span style="font-size:13px">💰 Preço por música (fixo):</span>
-<b>50 MT</b>
+<div id="reg-label" style="font-size:13px;color:#666">TAXA DE REGISTO ÚNICA</div>
+<b>500 MT</b>
+<div id="reg-note" style="font-size:12px;color:#666;margin-top:4px">Paga uma vez para começar a vender</div>
 </div>
 
-<div style="background:#fff3cd;border:1px solid #ffe69c;padding:10px 12px;border-radius:8px;font-size:12px;color:#664d03">
-<b>Como funciona pagamento:</b><br>
-• Cliente paga 50MT → Você recebe 35MT (70%) → Shynone fica 15MT (30%) para custos M-Pesa e site<br>
-• Exemplo: Vendeu 10 músicas = 500MT total → Você recebe 350MT via M-Pesa em 24h
+<label id="l-name">Nome do Artista</label><input id="artistName" placeholder="Ex: SHYNONE">
+<label id="l-phone">Telefone / WhatsApp</label><input id="artistPhone" placeholder="84... / 82...">
+<label id="l-mpesa">Teu M-Pesa para receber vendas</label><input id="artistMpesa" placeholder="84...">
+<label id="l-song">Nome da Primeira Música</label><input id="songName" placeholder="Ex: Minha Música">
+
+<div class="split-box">
+<b id="split-title">Como funciona a venda:</b><br>
+<span id="split-line1">🎵 Preço da música para fãs: <b>50 MT</b></span><br>
+<span id="split-line2">💰 Tu recebes: <b>40 MT</b> direto no teu M-Pesa</span><br>
+<span id="split-line3">🏦 Shynone Music mantém: <b>10 MT</b> (para plataforma)</span>
 </div>
 
-<label>Biografia curta</label><textarea id="bio" rows="3" placeholder="Fale um pouco sobre você..."></textarea>
-
-<label style="display:flex;gap:8px;align-items:center;font-weight:400;margin-top:16px"><input type="checkbox" required style="width:16px"> Concordo: preço fixo 50MT, recebo 70% (35MT) por venda, pago em 24h via M-Pesa/eMola</label>
-
-<button class="btn-submit" type="submit">✓ Registar Agora - 50MT por música</button>
-<div class="note">Seus dados ficam seguros. Entraremos em contacto via WhatsApp em 24h. M-Pesa: 84 033 1635</div>
-</form>
-
-<div id="success" style="display:none;text-align:center;padding:20px">
-<h2 style="color:#2e7d32">✓ Obrigado!</h2><p style="font-size:14px;margin:10px 0">Recebemos seu registo. Preço fixo: 50MT por música. Vamos falar contigo no WhatsApp em 24h.</p><br><a href="index.html" style="background:#4a6da7;color:#fff;padding:10px 20px;border-radius:999px;text-decoration:none;font-weight:700">← Voltar ao Início</a>
+<button class="btn-submit" id="btnSub" onclick="submitArtist()">Registar Agora - 500 MT</button>
+<div id="msg" style="text-align:center;margin-top:14px;font-size:13px;font-weight:700"></div>
 </div>
 
-</div>
-
-<footer>© 2026 SHYNONE MUSIC • Moçambique • 50MT por música • Tate</footer>
+<footer>© 2026 SHYNONE MUSIC • Moçambique • Tate</footer>
 
 <script>
-function submitArtist(e){
- e.preventDefault();
- const data = {
-  artistName: document.getElementById('artistName').value,
-  realName: document.getElementById('realName').value,
-  phone: document.getElementById('phone').value,
-  mpesa: document.getElementById('mpesa').value,
-  emola: document.getElementById('emola').value,
-  location: document.getElementById('location').value,
-  genre: document.getElementById('genre').value,
-  songs: document.getElementById('songs').value,
-  price_fixed: "50MT",
-  artist_earns: "35MT per sale (70%)",
-  shynone_earns: "15MT per sale (30%)",
-  bio: document.getElementById('bio').value,
-  date: new Date().toISOString()
- };
- let list = JSON.parse(localStorage.getItem('artists_signup')||'[]');
- list.push(data);
- localStorage.setItem('artists_signup', JSON.stringify(list));
- const msg = `NOVO ARTISTA SHYNONE (50MT fixo):%0AArtista: ${data.artistName}%0ATel: ${data.phone}%0AM-Pesa: ${data.mpesa}%0AMusicas: ${data.songs}%0APreco: 50MT fixo`;
- window.open(`https://wa.me/258840331635?text=${msg}`, '_blank');
- document.getElementById('artistForm').style.display='none';
- document.getElementById('success').style.display='block';
+const T={
+ pt:{langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'ARTISTAS',nv_l:'MÚSICA',nv_n:'NOTÍCIAS',nv_a:'SOBRE NÓS',f_t:'🎤 Cadastro de Artista',f_sub:'Taxa única para vender tuas músicas na plataforma',reg_label:'TAXA DE REGISTO ÚNICA',reg_note:'Paga uma vez para começar a vender',l_name:'Nome do Artista',l_phone:'Telefone / WhatsApp',l_mpesa:'Teu M-Pesa para receber vendas',l_song:'Nome da Primeira Música',split_title:'Como funciona a venda:',split_l1:'🎵 Preço da música para fãs: 50 MT',split_l2:'💰 Tu recebes: 40 MT direto no teu M-Pesa',split_l3:'🏦 Shynone Music mantém: 10 MT (para plataforma)',btn:'Registar Agora - 500 MT'},
+ en:{langName:'English',search:'Search',nv_h:'HOME',nv_w:'ARTISTS',nv_l:'MUSIC',nv_n:'NEWS',nv_a:'ABOUT',f_t:'🎤 Artist Registration',f_sub:'One-time fee to sell your music on the platform',reg_label:'ONE-TIME REGISTRATION FEE',reg_note:'Pay once to start selling',l_name:'Artist Name',l_phone:'Phone / WhatsApp',l_mpesa:'Your M-Pesa to receive sales',l_song:'First Song Name',split_title:'How sales work:',split_l1:'🎵 Song price for fans: 50 MT',split_l2:'💰 You receive: 40 MT directly to your M-Pesa',split_l3:'🏦 Shynone Music keeps: 10 MT (for platform)',btn:'Register Now - 500 MT'},
+ ch:{langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'VAYIMBELELI',nv_l:'WUNANGA',nv_n:'MAHUNGU',nv_a:'HINA',f_t:'🎤 Tsarisa Vito Ra Wena',f_sub:'Ntsengo wunwe ku sungula ku xavisa wunanga',reg_label:'NXAVO WU TSHAMA WUNWE',reg_note:'Hakela kanwe ku sungula',l_name:'Vito ra Wena',l_phone:'Nomboro ya Foni',l_mpesa:'Nomboro ya M-Pesa',l_song:'Vito ra Risimu',split_title:'Leswi ku xavisaka swi tirhaka:',split_l1:'🎵 Nxavo wa risimu: 50 MT',split_l2:'💰 U kuma: 40 MT e M-Pesa yawena',split_l3:'🏦 Shynone yi teka: 10 MT',btn:'Tsarisa Sweswi - 500 MT'}
+};
+function setLang(lang){
+ const t=T[lang];
+ document.getElementById('current-lang-name').innerText=t.langName;
+ document.getElementById('searchInput').placeholder=t.search;
+ document.getElementById('nv-h').innerText=t.nv_h;document.getElementById('nv-w').innerText=t.nv_w;document.getElementById('nv-l').innerText=t.nv_l;document.getElementById('nv-n').innerText=t.nv_n;document.getElementById('nv-a').innerText=t.nv_a;
+ document.getElementById('f-t').innerText=t.f_t;document.getElementById('f-sub').innerText=t.f_sub;
+ document.getElementById('reg-label').innerText=t.reg_label;document.getElementById('reg-note').innerText=t.reg_note;
+ document.getElementById('l-name').innerText=t.l_name;document.getElementById('l-phone').innerText=t.l_phone;document.getElementById('l-mpesa').innerText=t.l_mpesa;document.getElementById('l-song').innerText=t.l_song;
+ document.getElementById('split-title').innerText=t.split_title;document.getElementById('split-line1').innerText=t.split_l1;document.getElementById('split-line2').innerText=t.split_l2;document.getElementById('split-line3').innerText=t.split_l3;
+ document.getElementById('btnSub').innerText=t.btn;
+ ['pt','en','ch'].forEach(l=>document.getElementById('lb-'+l).classList.toggle('active',l===lang));
+ localStorage.setItem('shynone_lang',lang);
 }
-</script>
-</body></html>
+function submitArtist(){
+ const n=document.getElementById('artistName').value;
+ const m=document.getElementById('artistMpesa').value;
+ if(!n||!m){alert('Preencha nome e M-Pesa!');return;}
+ document.getElementById('msg').innerText='✓ Pedido recebido! Taxa 500MT - Vamos contactar no M-Pesa: '+m;
+ document.getElementById('msg').style.color='green';
+}
+let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
+</script></body></html>
