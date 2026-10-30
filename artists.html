@@ -1,55 +1,79 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHYNONE MUSIC - All Artists</title>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SHYNONE MUSIC - Vayimbeleli</title>
 <style>
-body{background:#f0f0f0;color:#222;font-family:Arial;margin:0}
-header{background:#000;padding:15px;text-align:center;border-bottom:3px solid #ff0055;position:sticky;top:0;z-index:10}
-header h1{color:#ff0055;margin:0;font-size:20px;letter-spacing:3px}
-.back{color:#ff0055;text-decoration:none;font-size:11px;border:1px solid #ff0055;padding:4px 10px;border-radius:999px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding:15px;max-width:1200px;margin:0 auto}
-.tile{background:#fff;border:1px solid #ddd;border-radius:4px;overflow:hidden;cursor:pointer;transition:0.2s;text-decoration:none;display:block}
-.tile:hover{border-color:#ff0055;box-shadow:0 2px 10px rgba(0,0,0,0.15);transform:translateY(-2px)}
-.tile img{width:100%;height:110px;object-fit:cover;display:block;background:#000}
-.tile-name{padding:6px;text-align:center}
-.tile-name b{font-size:11px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#111}
-.tile-name small{font-size:9px;color:#777;display:block}
-</style>
-</head>
-<body>
-<header>
-<h1>SHYNONE MUSIC</h1>
-<p style="color:#888;font-size:10px">Click tile to see artist albums</p>
-<a class="back" href="index.html">← KAYA</a>
-</header>
-<div class="grid">
-
-<a class="tile" href="artist.html?artist=esmeraldo">
-  <img src="Tate.jpg" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'">
-  <div class="tile-name"><b>Esmeraldo De'Singer</b><small>Soul Power Ballad • 1 Album</small></div>
-</a>
-
-<a class="tile" href="artist.html?artist=shynone">
-  <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200">
-  <div class="tile-name"><b>SHYNONE</b><small>Hip Hop • 2 Albums</small></div>
-</a>
-
-<a class="tile" href="artist.html?artist=dilon">
-  <img src="https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=200">
-  <div class="tile-name"><b>Dilon</b><small>Afro • 1 Album</small></div>
-</a>
-
-<a class="tile" href="artist.html?artist=lizha">
-  <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200">
-  <div class="tile-name"><b>Lizha James</b><small>Marrabenta</small></div>
-</a>
-
-<a class="tile" href="artist.html?artist=kuka">
-  <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200">
-  <div class="tile-name"><b>Mr. Kuka</b><small>Pandza</small></div>
-</a>
-
+*{margin:0;padding:0;box-sizing:border-box}body{background:#f5f5f5;font-family:Arial,sans-serif;padding-top:108px}
+.fixed-header{position:fixed;top:0;left:0;right:0;z-index:1000;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.topbar{background:#fff;border-bottom:1px solid #e5e5e5;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;max-width:1200px;margin:0 auto}
+.logo-box{background:#4a6da7;color:#fff;width:58px;height:58px;display:flex;align-items:center;justify-content:center;font-weight:900}
+.right{display:flex;align-items:center;gap:16px;margin-left:auto}
+.lang-widget{display:flex;flex-direction:column;align-items:center;gap:2px}
+.current-lang{display:flex;gap:4px;font-size:13px}.lang-btns{display:flex;gap:4px}
+.lang-btns button{padding:4px 10px;border-radius:999px;border:1.5px solid #4a6da7;background:#fff;font-size:11px;font-weight:700;cursor:pointer}
+.lang-btns button.active{background:#4a6da7;color:#fff}
+.search{display:flex;border:1px solid #ccc;border-radius:2px;height:32px;overflow:hidden}
+.search input{border:none;padding:6px 10px;width:150px;outline:none;font-size:13px}
+.search button{background:#f1f1f1;border:none;border-left:1px solid #ccc;padding:0 12px;cursor:pointer}
+.navbar{background:#2b2b2b;height:44px;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:0 20px;max-width:1200px;margin:0 auto}
+.navbar a{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600}
+.grid{max-width:1200px;margin:20px auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;padding:15px}
+.tile{background:#fff;border:1px solid #ddd;border-radius:6px;overflow:hidden;text-decoration:none;color:#111;transition:0.2s}
+.tile:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+.tile img{width:100%;height:110px;object-fit:cover;display:block}
+.tile-name{padding:8px;text-align:center}.tile-name b{font-size:11px;display:block}.tile-name small{font-size:10px;color:#666}
+footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center;margin-top:30px}
+.hidden{display:none !important}
+@media(max-width:700px){.search input{width:90px}}
+</style></head><body>
+<div class="fixed-header">
+<div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava" oninput="filterTiles()"><button onclick="filterTiles()">🔍</button></div></div></div>
+<div class="navbar"><a href="index.html"><span id="nv-h">KAYA</span></a><a href="artists.html"><span id="nv-w">VAYIMBELELI</span></a><a href="music.html"><span id="nv-l">WUNANGA</span></a><a href="#"><span id="nv-n">MAHUNGU</span></a><a href="#"><span id="nv-a">HI WENA</span></a></div>
 </div>
-</body>
-</html>
+
+<div class="grid" id="grid"></div>
+<footer>© 2026 SHYNONE MUSIC • Moçambique • Tate</footer>
+
+<script>
+const T={
+ pt:{langName:'Português',search:'Pesquisar',nv_h:'INÍCIO',nv_w:'ARTISTAS',nv_l:'MUSICAS',nv_n:'NOTÍCIAS',nv_a:'SOBRE'},
+ en:{langName:'English',search:'Search',nv_h:'HOME',nv_w:'ARTISTS',nv_l:'MUSIC',nv_n:'NEWS',nv_a:'ABOUT'},
+ ch:{langName:'Changana',search:'Lava',nv_h:'KAYA',nv_w:'VAYIMBELELI',nv_l:'WUNANGA',nv_n:'MAHUNGU',nv_a:'HI WENA'}
+};
+function setLang(lang){
+ const t=T[lang];
+ document.getElementById('current-lang-name').innerText=t.langName;
+ document.getElementById('searchInput').placeholder=t.search;
+ document.getElementById('nv-h').innerText=t.nv_h;document.getElementById('nv-w').innerText=t.nv_w;
+ document.getElementById('nv-l').innerText=t.nv_l;document.getElementById('nv-n').innerText=t.nv_n;document.getElementById('nv-a').innerText=t.nv_a;
+ ['pt','en','ch'].forEach(l=>document.getElementById('lb-'+l).classList.toggle('active',l===lang));
+ localStorage.setItem('shynone_lang',lang);
+}
+
+// YOUR ARTISTS - ADD MORE HERE
+const ARTISTS = [
+{id:"esmeraldo", name:"Esmeraldo De'Singer", img:"./Tate.jpg", info:"Xitsonga • 5 Albums"},
+{id:"shynone", name:"SHYNONE", img:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400", info:"Hip Hop"},
+{id:"lizha", name:"Lizha James", img:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400", info:"Marrabenta"},
+{id:"kuka", name:"Mr. Kuka", img:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400", info:"Pandza"},
+{id:"dilon", name:"Dilon Dj", img:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=400", info:"Afro House"},
+{id:"twenty", name:"Twenty Fingers", img:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400", info:"Kizomba"},
+{id:"ubakka", name:"Ubakka", img:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400", info:"Hip Hop"},
+{id:"ziqo", name:"Ziqo", img:"https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=400", info:"Pandza"},
+{id:"liloca", name:"Liloca", img:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400", info:"Afro Diva"},
+{id:"hernani", name:"Hernani", img:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400", info:"Hip Hop"}
+];
+
+function render(list){
+  document.getElementById('grid').innerHTML = list.map(a=>`
+  <a class="tile" href="music.html#${a.id}" data-name="${a.name.toLowerCase()}">
+    <img src="${a.img}" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'">
+    <div class="tile-name"><b>${a.name}</b><small>${a.info}</small></div>
+  </a>`).join('');
+}
+function filterTiles(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  if(!q){render(ARTISTS);return;}
+  render(ARTISTS.filter(a=>a.name.toLowerCase().includes(q)));
+}
+render(ARTISTS);
+let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
+</script></body></html>
