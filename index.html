@@ -113,4 +113,40 @@ const T={
  ch:{
   langName:'Changana',
   search:'Lava',
-  nv_h:'KAYA', nv_w:'VAYIMBELELI', nv_l
+  nv_h:'KAYA', nv_w:'VAYIMBELELI', nv_l:'WUNANGA', nv_n:'MAHUNGU', nv_a:'HINA',
+  k:'',
+  h1:'Swoswi U Xava Wunanga Hi M-Pesa / eMola',
+  p:'Aswihluphi! Hlawula ngoma leyi uyirhandzaku u hakela hiku hatlisa.<br><br>📱 M-Pesa: <b>84 033 1635</b><br>📱 eMola: <b>86 940 1491</b>',
+  b:'Vona Vayimbeleli',
+  ab_t:'Hi Wunanga la Moçambique',
+  ab_p:'SHYNONE MUSIC i platform ya #1 ya Wunanga la Moçambique',
+  ct1:'🎤Ka Vayimbeleli', ct2:'🎵 Xava Wunanga',
+  next:'Mahlweni →',
+  sis_t:'Tate', sis_d:'Xowani, Himina Tate Wawena.',
+  sis_vt:'Lumela ritu - Tate atalitolovela', sis_vd:'Gindlisa 3 sec: "Hiswona"', sis_rec:'🎙️ Gindlisa ritu lamina (3s)',
+  sis_a:'Activate Tate', sis_da:'Deactivate', sis_note:'Ya xihundla. Atirha hambi foni litimiwile.',
+  opt1:'Nahalintirhweni', opt2:'Nahakhomekile, thlela ufona', opt3:'Xava wunanga a Shynone Music'
+ }
+};
+function setLang(lang){
+ const t=T[lang];
+ document.getElementById('current-lang-name').innerText=t.langName;
+ document.getElementById('searchInput').placeholder=t.search;
+ document.getElementById('nv-h').innerText=t.nv_h;document.getElementById('nv-w').innerText=t.nv_w;
+ document.getElementById('nv-l').innerText=t.nv_l;document.getElementById('nv-n').innerText=t.nv_n;document.getElementById('nv-a').innerText=t.nv_a;
+ document.getElementById('k').innerText=t.k;document.getElementById('h1').innerText=t.h1;document.getElementById('p').innerHTML=t.p;
+ document.getElementById('b').innerText=t.b;document.getElementById('ab-t').innerText=t.ab_t;document.getElementById('ab-p').innerText=t.ab_p;document.getElementById('ct1').innerText=t.ct1;document.getElementById('ct2').innerText=t.ct2;
+ document.getElementById('next').innerText=t.next;document.getElementById('sis-title').innerText=t.sis_t;document.getElementById('sis-desc').innerText=t.sis_d;
+ document.getElementById('sis-voice-title').innerText=t.sis_vt;document.getElementById('sis-voice-desc').innerText=t.sis_vd;document.getElementById('sis-record').innerText=t.sis_rec;
+ document.getElementById('sis-activate').innerText=t.sis_a;document.getElementById('sis-deactivate').innerText=t.sis_da;document.getElementById('sis-note').innerText=t.sis_note;
+ document.getElementById('opt1').innerText=t.opt1;document.getElementById('opt2').innerText=t.opt2;document.getElementById('opt3').innerText=t.opt3;
+ ['pt','en','ch'].forEach(l=>document.getElementById('lb-'+l).classList.toggle('active',l===lang));
+ localStorage.setItem('shynone_lang',lang);
+}
+function toggleSis(){document.getElementById('sisPanel').classList.toggle('open')}
+function activateSis(){localStorage.setItem('sis_active','1');localStorage.setItem('sis_mode',document.getElementById('sisMode').value);alert('Tate activada! Modo: ' + document.getElementById('sisMode').value);}
+function deactivateSis(){localStorage.removeItem('sis_active');alert('Tate desactivada!');}
+function recordVoice(){const s=document.getElementById('voiceStatus');s.style.display='block';s.innerHTML='● Tate listening...';setTimeout(()=>{s.innerHTML='✓ Voice saved!';localStorage.setItem('voice_saved','1');},2500);}
+let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
+if(localStorage.getItem('voice_saved')){document.getElementById('voiceStatus').style.display='block';document.getElementById('voiceStatus').innerText='✓ Voice saved';}
+</script></body></html>
