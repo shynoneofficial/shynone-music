@@ -44,13 +44,13 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
 .sis-btn2{width:100%;background:#fff;color:#4a6da7;border:2px solid #4a6da7;padding:10px;border-radius:999px;font-weight:700;cursor:pointer;margin-top:8px}
 .record-box{background:#f5f7ff;border:1px dashed #4a6da7;padding:12px;border-radius:10px;margin:12px 0;text-align:center}
 </style></head><body>
-<div class="fixed-header"><div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava"><button>🔍</button></div></div></div><div class="navbar"><a href="index.html"><span id="nv-h">KAYA</span></a><a href="artists.html"><span id="nv-w">VAYIMBELELI</span></a><a href="music.html"><span id="nv-l">WUNANGA</span></a><a href="#"><span id="nv-n">MAHUNGU</span></a><a href="#"><span id="nv-a">HI WENA</span></a></div></div>
-<div class="hero"><div class="hero-text"><div id="k" style="font-size:11px;font-weight:700;color:#6ea8fe"></div><h1 id="h1"></h1><p id="p"></p><a id="b" class="btn-blue" href="artists.html"></a></div><div class="hero-img"></div></div>
+<div class="fixed-header"><div class="topbar"><div class="logo-box">SM</div><b>SHYNONE MUSIC</b><div class="right"><div class="lang-widget"><div class="current-lang">🌐 <span id="current-lang-name">Changana</span></div><div class="lang-btns"><button id="lb-pt" onclick="setLang('pt')">PT</button><button id="lb-en" onclick="setLang('en')">EN</button><button id="lb-ch" class="active" onclick="setLang('ch')">CH</button></div></div><div class="search"><input id="searchInput" placeholder="Lava"><button>🔍</button></div></div></div><div class="navbar"><a href="index.html"><span id="nv-h">KAYA</span></a><a href="artists.html"><span id="nv-w">VAYIMBELELI</span></a><a href="music.html"><span id="nv-l">WUNANGA</span></a><a href="tati.html" style="color:#6ea8fe"><span>🤖 TATI AI</span></a><a href="#"><span id="nv-n">MAHUNGU</span></a><a href="#"><span id="nv-a">HI WENA</span></a></div></div>
+<div class="hero"><div class="hero-text"><div id="k" style="font-size:11px;font-weight:700;color:#6ea8fe"></div><h1 id="h1"></h1><p id="p"></p><a id="b" class="btn-blue" href="artists.html"></a><div style="margin-top:12px"><a href="tati.html" class="btn-blue" style="background:#ff3b6e">🎤 Talk to TATI - No Typing, Just Talking!</a></div></div><div class="hero-img"></div></div>
 <div class="about"><h2 id="ab-t"></h2><p id="ab-p"></p></div>
 <div class="cta-two"><a id="ct1" href="artist-signup.html"></a><a id="ct2" href="music.html"></a></div>
 <div id="artists" class="artists-wrap"><div class="artists-grid"><div class="artist-card"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400"><div class="artist-info"><b>SHYNONE</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1516450360452-9312abbf6f7e?w=400"><div class="artist-info"><b>Dilon</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400"><div class="artist-info"><b>Lizha James</b></div></div><div class="artist-card"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400"><div class="artist-info"><b>Mr. Kuka</b></div></div></div></div>
 <div class="next-wrap"><a id="next" class="next-btn" href="artists.html"></a></div>
-<footer>© 2026 SHYNONE MUSIC • Moçambique • Tate</footer>
+<footer>© 2026 SHYNONE MUSIC • Moçambique • Tate • <a href="tati.html" style="color:#6ea8fe">TATI AI Talking</a></footer>
 <div class="sister-float">
   <div class="sister-panel" id="sisPanel">
     <div class="sis-header"><b id="sis-title">Tate</b><span onclick="toggleSis()" style="cursor:pointer">✕</span></div>
@@ -61,6 +61,7 @@ footer{background:#2b2b2b;color:#999;padding:35px 20px;text-align:center}
         <div id="sis-voice-desc" style="font-size:11px;color:#555;margin:4px 0"></div>
         <button class="sis-btn2" onclick="recordVoice()" id="sis-record"></button>
         <div id="voiceStatus" style="font-size:11px;margin-top:6px;color:#2e7d32;display:none">✓ Voice saved</div>
+        <audio id="voicePlayback" controls style="width:100%;margin-top:8px;display:none"></audio>
       </div>
       <select id="sisMode" style="width:100%;padding:9px;margin:6px 0;border-radius:8px;border:1px solid #ccc">
         <option value="ok" id="opt1"></option>
@@ -88,9 +89,9 @@ const T={
   ab_p:'SHYNONE MUSIC é a plataforma nº1 de música moçambicana. Apoiamos artistas locais e levamos a nossa cultura ao mundo.',
   ct1:'🎤   Para Artistas', ct2:'🎵 Compre Músicas',
   next:'Próximo →',
-  sis_t:'Tate', sis_d:'Olá! Eu sou a Tate, tua irmã.',
+  sis_t:'Tate', sis_d:'Olá! Eu sou a Tate, tua irmã. Grava tua voz e activa-me!',
   sis_vt:'Configurar voz - Tate vai aprender a tua voz', sis_vd:'Grava 3 seg: "Alô"', sis_rec:'🎙️ Gravar a minha voz (3s)',
-  sis_a:'Activar Tate', sis_da:'Desactivar', sis_note:'Privado e seguro.',
+  sis_a:'✅ Activar Tate & Falar com TATI', sis_da:'Desactivar', sis_note:'Privado e seguro. Voz fica no teu telefone.',
   opt1:'Estou a trabalhar - com a minha voz', opt2:'Estou ocupada, liga depois', opt3:'Compra música na Shynone Music'
  },
  en:{
@@ -105,9 +106,9 @@ const T={
   ab_p:'SHYNONE MUSIC is the #1 platform for Mozambican music. We support local artists and bring our culture to the world.',
   ct1:'🎤 For Artists', ct2:'🎵 Buy Music',
   next:'Next →',
-  sis_t:'Tate', sis_d:"Hi, I'm Tate, your sister.",
+  sis_t:'Tate', sis_d:"Hi, I'm Tate, your sister. Record voice & activate me!",
   sis_vt:'Setup voice - Tate will learn your voice', sis_vd:'Record 3 sec: "Hello"', sis_rec:'🎙️ Record my voice (3s)',
-  sis_a:'Activate Tate', sis_da:'Deactivate', sis_note:'Private and secure.',
+  sis_a:'✅ Activate Tate & Talk to TATI', sis_da:'Deactivate', sis_note:'Private and secure. Voice stays in your phone.',
   opt1:'I am working - with my voice', opt2:'I am busy, call later', opt3:'Buy music at Shynone Music'
  },
  ch:{
@@ -122,9 +123,9 @@ const T={
   ab_p:'SHYNONE MUSIC i platform ya #1 ya Wunanga la Moçambique',
   ct1:'🎤Ka Vayimbeleli', ct2:'🎵 Xava Wunanga',
   next:'Mahlweni →',
-  sis_t:'Tate', sis_d:'Xowani, Himina Tate Wawena.',
+  sis_t:'Tate', sis_d:'Xowani, Himina Tate Wawena. Gindlisa ritu u ni activate!',
   sis_vt:'Lumela ritu - Tate atalitolovela', sis_vd:'Gindlisa 3 sec: "Hiswona"', sis_rec:'🎙️ Gindlisa ritu lamina (3s)',
-  sis_a:'Activate Tate', sis_da:'Deactivate', sis_note:'Ya xihundla. Atirha hambi foni litimiwile.',
+  sis_a:'✅ Activate Tate & Vulavula na TATI', sis_da:'Deactivate', sis_note:'Ya xihundla. Atirha hambi foni litimiwile. Ritu ri tshama efonini ya wena.',
   opt1:'Nahalintirhweni', opt2:'Nahakhomekile, thlela ufona', opt3:'Xava wunanga a Shynone Music'
  }
 };
@@ -144,9 +145,58 @@ function setLang(lang){
  localStorage.setItem('shynone_lang',lang);
 }
 function toggleSis(){document.getElementById('sisPanel').classList.toggle('open')}
-function activateSis(){localStorage.setItem('sis_active','1');localStorage.setItem('sis_mode',document.getElementById('sisMode').value);alert('Tate activada! Modo: ' + document.getElementById('sisMode').value);}
+function activateSis(){
+  localStorage.setItem('sis_active','1');
+  localStorage.setItem('sis_mode',document.getElementById('sisMode').value);
+  // NOW CONNECT TO TATI.HTML - THIS IS THE ROAD!
+  if(!localStorage.getItem('voice_saved')){
+    alert('⚠️ First record your voice! Gindlisa ritu first!');
+    return;
+  }
+  // Go to TATI talking page
+  window.location.href = 'tati.html';
+}
 function deactivateSis(){localStorage.removeItem('sis_active');alert('Tate desactivada!');}
-function recordVoice(){const s=document.getElementById('voiceStatus');s.style.display='block';s.innerHTML='● Tate listening...';setTimeout(()=>{s.innerHTML='✓ Voice saved!';localStorage.setItem('voice_saved','1');},2500);}
+async function recordVoice(){
+  const s=document.getElementById('voiceStatus');
+  const playback=document.getElementById('voicePlayback');
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    const recorder = new MediaRecorder(stream);
+    let chunks=[];
+    s.style.display='block';
+    s.style.color='#ff3b6e';
+    s.innerHTML='● REC - Fala 3 segundos! - Tate listening...';
+    recorder.ondataavailable=e=>chunks.push(e.data);
+    recorder.onstop=()=>{
+      const blob = new Blob(chunks,{type:'audio/webm'});
+      const url = URL.createObjectURL(blob);
+      playback.src=url;
+      playback.style.display='block';
+      // Save for TATI
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend=()=>{
+        localStorage.setItem('tati_voice', reader.result);
+        localStorage.setItem('voice_saved','1');
+        s.style.color='#2e7d32';
+        s.innerHTML='✓ Voice saved! Agora clica Activar para falar com TATI!';
+      };
+    };
+    recorder.start();
+    setTimeout(()=>{recorder.stop(); stream.getTracks().forEach(t=>t.stop());}, 3500);
+  }catch(err){
+    s.style.display='block';
+    s.style.color='#c00';
+    s.innerHTML='❌ Precisa permitir microfone!';
+  }
+}
 let saved=localStorage.getItem('shynone_lang')||'ch';setLang(saved);
-if(localStorage.getItem('voice_saved')){document.getElementById('voiceStatus').style.display='block';document.getElementById('voiceStatus').innerText='✓ Voice saved';}
+if(localStorage.getItem('voice_saved')){
+  document.getElementById('voiceStatus').style.display='block';
+  document.getElementById('voiceStatus').innerText='✓ Voice saved - Pronto para TATI!';
+  let pb=document.getElementById('voicePlayback');
+  let savedVoice=localStorage.getItem('tati_voice');
+  if(savedVoice){ pb.src=savedVoice; pb.style.display='block'; }
+}
 </script></body></html>
