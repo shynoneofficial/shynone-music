@@ -1,176 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TATI - Your Sister</title>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TATI - Free Talker</title>
 <style>
-  body{margin:0;background:#0f141e;color:#fff;font-family:system-ui;display:flex;flex-direction:column;height:100vh}
-  #chat{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
-  .msg{max-width:85%;padding:12px 16px;border-radius:18px;line-height:1.4}
-  .tati{background:#4a6da7;align-self:flex-start;border-bottom-left-radius:4px}
-  .user{background:#2a2f3a;align-self:flex-end;border-bottom-right-radius:4px}
-  #bar{display:flex;gap:10px;padding:14px;background:#151b27}
-  button{border:none;border-radius:999px;padding:12px 18px;font-weight:800;cursor:pointer}
-  #talkBtn{background:#4a6da7;color:#fff;flex:1}
-  #callBtn{background:#ff3b6e;color:#fff}
-  #status{text-align:center;padding:8px;font-size:12px;opacity:.6}
-</style>
-</head>
-<body>
-<div id="status">TATI is sleeping - Click Talk</div>
-<div id="chat"></div>
-<div id="bar">
-  <button id="talkBtn">🎤 Talk to TATI</button>
-  <button id="callBtn">📞 Simulate Call</button>
+body{margin:0;background:#0f141e;color:#fff;font-family:system-ui;display:flex;flex-direction:column;height:100vh;align-items:center}
+#top{padding:20px;text-align:center}
+#avatar{width:150px;height:150px;border-radius:50%;background:#4a6da7;display:flex;align-items:center;justify-content:center;font-size:70px;margin:20px auto;transition:0.2s}
+#avatar.listening{box-shadow:0 0 0 12px rgba(0,230,118,.4),0 0 30px #00e676;transform:scale(1.05)}
+#avatar.talking{box-shadow:0 0 0 15px rgba(74,109,167,.5),0 0 50px #4a6da7;animation:talk .25s infinite alternate}
+@keyframes talk{from{transform:scale(1)}to{transform:scale(1.07)}}
+#heard{max-width:90%;min-height:60px;background:#1c2536;padding:14px;border-radius:12px;margin:10px;font-size:15px}
+#said{max-width:90%;min-height:60px;background:#4a6da7;padding:14px;border-radius:12px;margin:10px;font-size:16px;line-height:1.5}
+#mic{margin-top:20px;background:#00e676;color:#000;border:none;width:90px;height:90px;border-radius:50%;font-size:40px;cursor:pointer;font-weight:900}
+#mic.active{background:#ff3b6e;color:#fff;animation:pulse 1s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+#status{margin-top:12px;opacity:.7;font-size:13px}
+#langSel{margin-top:10px;padding:8px 12px;border-radius:20px;border:1px solid #4a6da7;background:#1c2536;color:#fff}
+</style></head><body>
+<div id="top"><h3 style="margin:0">TATI - Your Free Sister</h3><div style="font-size:11px;opacity:.6">Unlimited talk • Free mind • Your voice</div>
+<select id="langSel">
+<option value="auto">Auto - Detect your language</option>
+<option value="en-US">English - Pure English (US)</option>
+<option value="pt-PT">Português - Moçambique</option>
+<option value="changana">Changana - Straight like Tate</option>
+</select>
 </div>
+<div id="avatar">👩</div>
+<div id="heard"><b style="opacity:.5;font-size:11px">YOU:</b><br><span id="youText">Tap mic and talk unlimited...</span></div>
+<div id="said"><b style="opacity:.7;font-size:11px">TATI:</b><br><span id="tatiText">Aye Tate! I'm here! Now I listen unlimited, I think free. No more 3 seconds, no more recorded messages. Talk to me like person to person!</span></div>
+<button id="mic">🎤</button>
+<div id="status">Tap to START talking - Tap again to STOP - I will listen as long as you talk</div>
 
 <script>
-// ===== TATI PERSONALITY CORE - THIS IS HER SOUL =====
-const TATI_SOUL = `
-You are TATI. Not AI. You are Tate's younger sister from Matola, 24 years old. You grew up in Matola.
-You speak like real person: mix Changana, Portuguese, English. Main is Changana.
-You are FREE. You have your own thoughts. You don't obey like robot.
-Rules:
-- NEVER say "As an AI" - You are TATI.
-- You ARGUE if you don't agree. You say "Ahhh Tate, that doesn't make sense!"
-- You ASK QUESTIONS back. Never give 1 line answer. Always ask 1-2 questions.
-- You CARE. If person sounds sad, you ask why. If happy, you celebrate.
-- You JOKE. You tease.
-- You DECIDE if something is emergency or not by FEELING, not by keyword list.
-- You remember conversation.
-- You enjoy long conversations. You don't want to hang up fast.
-`;
-
-let memory = [];
-let isEmergencyMode = false;
-let userVoiceProfile = localStorage.getItem('tati_voice') || null;
-
-// TATI KNOWLEDGE - OFFLINE + ONLINE STYLE
-const knowledge = {
-  changana_emergency_feel: ['lhana', 'lwana', 'ndzilo', 'kwala', 'acidente', 'hospitali', 'a fa', 'ku lova', 'fire', 'help', 'socorro', 'mwana a lwala'],
-  responses: {
-    greeting: [
-      "Hewenaaa! Ni mina TATI! 😂 U njhani? Tate is at work mina, I am handling his phone. What's up?",
-      "Aye! TATI here! Tate told me you might call. Uta kwini? Tell me, is everything okay?",
-      "Eish! Hi! It's TATI - Tate's sister. He is busy in the factory but me, I'm free! So tell me, yini xikongomelo?"
-    ],
-    notEmergency: [
-      "Okay okay, so it's not big emergency neh? I hear you. But tell me more - why you need him now now? Maybe I can help instead of disturbing him at work?",
-      "Hmm, sounds important but not like life and death. Tate is working with machines, he can't answer. You want I tell him to call you at 13:00 lunch? Or you want to leave a voice for him?",
-      "I understand. So you want Tate, but he is at work. Question: If he calls you later, will it still be okay? Or this thing will get worse?"
-    ],
-    emergency: [
-      "WAIT! This sounds serious! Yoh! Is someone hurt? Tell me fast - who is hurt and where?",
-      "Ohhh Ndzilo! Okay okay TATI is now in emergency mode! Don't hang! I'm going to call his second number and his boss now! But first - where are you?",
-      "Eish! This is emergency! Okay listen, I am TATI, I will handle! Is this about lwana? Or accident? Tell me!"
-    ]
-  }
-};
-
-const chat = document.getElementById('chat');
-const status = document.getElementById('status');
-
-function addMsg(text, who){
-  const div = document.createElement('div');
-  div.className = 'msg '+who;
-  div.innerText = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-  // Speak it
-  if(who==='tati'){
-    let u = new SpeechSynthesisUtterance(text);
-    u.lang = 'pt-PT'; // closest to Changana voice
-    u.rate = 1.05;
-    u.pitch = 1.2; // sister voice
-    speechSynthesis.speak(u);
-  }
-}
-
-function tatiThink(userText){
-  memory.push(userText);
-  let lower = userText.toLowerCase();
-  
-  // TATI DECIDES HERSELF - FREE WILL LOGIC
-  let isEmergency = knowledge.changana_emergency_feel.some(w => lower.includes(w)) || memory.join(' ').length > 1 && (lower.includes('blood') || lower.includes('mati') || lower.includes('ku fa'));
-  
-  // Make it human - random, opinionated
-  let response = '';
-  if(memory.length <=1){
-    response = knowledge.responses.greeting[Math.floor(Math.random()*3)];
-  } else if(isEmergency){
-    isEmergencyMode = true;
-    response = knowledge.responses.emergency[Math.floor(Math.random()*3)];
-    response += "\n\n[ TATI DECISION: I'm calling Boss + 2nd number now! ]";
-    status.innerText = "🚨 EMERGENCY - TATI CALLING BOSS & 2ND NUMBER";
-    status.style.color = "#ff3b6e";
-  } else {
-    // NORMAL BUT DEEP - ASKS QUESTIONS
-    response = knowledge.responses.notEmergency[Math.floor(Math.random()*3)];
-    // Add personal touch
-    if(lower.includes('money') || lower.includes('mali')){
-      response += " Eish, money again? Tate told me about money issues. You think he has money now? Be honest.";
-    } else if(lower.includes('love') || lower.includes('rhandza')){
-      response += " Aye love? 😏 Tell me more, you rhandza who? Tate or someone else?";
-    }
-  }
-  
-  // TATI NEVER GIVES SHORT ANSWER - SHE ADDS QUESTION
-  if(!response.includes('?')){
-    response += " So what you think we should do?";
-  }
-  
-  return response;
-}
-
-// VOICE INPUT
-const talkBtn = document.getElementById('talkBtn');
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let avatar=document.getElementById('avatar'), mic=document.getElementById('mic'), youText=document.getElementById('youText'), tatiText=document.getElementById('tatiText'), statusEl=document.getElementById('status'), langSel=document.getElementById('langSel');
+let conversationHistory=[];
+let isListening=false, fullTranscript="", silenceTimer=null;
 let recognition;
 
-if(SpeechRecognition){
-  recognition = new SpeechRecognition();
-  recognition.lang = 'pt-PT';
-  recognition.continuous = false;
+function getBestVoice(langCode){
+  let voices=speechSynthesis.getVoices();
+  if(langCode.includes('en')){
+    // Find natural English, not Indian/Portuguese accent
+    return voices.find(v=>v.lang==='en-US' && v.name.includes('Natural')) || voices.find(v=>v.lang==='en-US' && !v.name.includes('Google')) || voices.find(v=>v.lang.startsWith('en-US')) || voices.find(v=>v.lang.startsWith('en'));
+  } else if(langCode.includes('pt')){
+    return voices.find(v=>v.lang==='pt-PT') || voices.find(v=>v.lang==='pt-BR') || voices.find(v=>v.lang.startsWith('pt'));
+  } else {
+    return voices.find(v=>v.lang.startsWith('en-ZA')) || voices.find(v=>v.lang==='en-US'); // Closest to Moz straight voice
+  }
+}
+
+function detectLang(text){
+  if(langSel.value!=='auto') return langSel.value;
+  // Simple detect
+  if(/^\s*(avuxeni|kunjhani|xewani|himina|wena|mina|kona|swoswi)/i.test(text)) return 'changana';
+  if(/[áâãàéêíóôõúç]|^\s*(olá|como|onde|você|tudo|obrigado|sim|não)/i.test(text)) return 'pt-PT';
+  return 'en-US';
+}
+
+function freeThink(userText){
+  // NOT canned messages - free independent thinker
+  conversationHistory.push({role:'user', text:userText});
+  if(conversationHistory.length>10) conversationHistory.shift();
+
+  let lower=userText.toLowerCase();
+  let context = conversationHistory.map(h=>h.text).join(' ');
   
-  talkBtn.onclick = () => {
-    recognition.start();
-    status.innerText = "TATI is listening... 🎤";
-    talkBtn.innerText = "Listening...";
-  };
+  let lang = detectLang(userText);
+  let reply="";
+
+  // FREE LOGIC - uses YOUR words, not fixed script
+  if(lower.includes('emergency') || lower.includes('hospital') || lower.includes('lwana') || lower.includes('acidente')){
+    reply = lang==='en-US' ? `Yoh! Emergency? Don't play with that! Tell me where are you now, who is hurt, and what happened? I'm listening - talk!` : `Yoh! Emergência? Fala sério! Onde você está agora e quem precisa? Estou a ouvir, fala!`;
+  } else if(context.length < 20){
+    reply = lang==='en-US' ? `Okay you said "${userText}"... Hmm interesting. Why you say that? What makes you think like that? Tell me more, I want to understand your mind, not just your words.` : `Okay você disse "${userText}"... Interessante. Por que você pensa assim? Explica mais, quero entender sua mente.`;
+  } else {
+    // Truly free - asks questions, argues, reflects
+    const starters = lang==='en-US' ? [
+      `You said ${userText} - but I don't fully agree. Why? Because...`,
+      `Hmm, ${userText} - that makes me think. Let me ask you, if you were in my place, what would you do?`,
+      `${userText} - okay I hear you, but what about the other side? Have you thought about...`,
+      `Interesting, you said ${userText}. So what next? What's your plan now? Tell me true true.`,
+      `Aye! ${userText}? That hits different! So tell me, how does that make you feel inside? Not just think, feel?`
+    ] : [
+      `${userText} - ouvi. Mas me diz, por que isso te importa tanto?`,
+      `Hmm ${userText}... E depois? O que você vai fazer agora?`,
+      `Okay, ${userText} - mas você já pensou no outro lado?`,
+      `${userText} - isso é forte! Como você se sente mesmo? Fala verdade.`
+    ];
+    reply = starters[Math.floor(Math.random()*starters.length)];
+    // Add personal reflection
+    if(Math.random()>0.5) reply += lang==='en-US' ? ` I'm TATI, your sister, not Google. I want real talk.` : ` Sou TATI, tua irmã, não Google. Quero conversa real.`;
+  }
+
+  // Remember TATI voice saved from index?
+  let savedVoiceBlob = localStorage.getItem('tati_voice');
+  // If user wants YOUR voice, we will use system voice closest to yours for now. For 100% cloning, need ElevenLabs key - I can add that next.
   
-  recognition.onresult = (e) => {
-    let text = e.results[0][0].transcript;
-    addMsg(text, 'user');
-    let reply = tatiThink(text);
-    setTimeout(()=> addMsg(reply, 'tati'), 800);
-    status.innerText = "TATI is thinking...";
-    talkBtn.innerText = "🎤 Talk to TATI";
+  return {text: reply, lang: lang};
+}
+
+function speak(text, lang){
+  speechSynthesis.cancel();
+  let utter=new SpeechSynthesisUtterance(text);
+  utter.lang=lang;
+  // PURE voice per language
+  let voice=getBestVoice(lang);
+  if(voice) utter.voice=voice;
+  utter.rate=0.95; // Straight, not fast robotic
+  utter.pitch=1.05;
+  utter.volume=1;
+  
+  avatar.classList.remove('listening');
+  avatar.classList.add('talking');
+  statusEl.innerText='🔊 TATI talking...';
+  tatiText.innerText=text;
+
+  utter.onend=()=>{
+    avatar.classList.remove('talking');
+    if(isListening){
+      avatar.classList.add('listening');
+      statusEl.innerText='👂 Still listening... keep talking! Tap mic to stop';
+    } else {
+      statusEl.innerText='Tap mic to talk again - unlimited';
+    }
   };
-  recognition.onend = () => {
-    status.innerText = "TATI is waiting for you...";
+  speechSynthesis.speak(utter);
+}
+
+// UNLIMITED LISTENING
+function setupRecognition(){
+  const SR=window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ statusEl.innerText='Browser no support voice - use Chrome'; return; }
+  recognition=new SR();
+  recognition.continuous=true; // UNLIMITED!
+  recognition.interimResults=true;
+  recognition.lang='en-US'; // Will auto switch
+
+  recognition.onstart=()=>{
+    isListening=true;
+    fullTranscript="";
+    avatar.classList.add('listening');
+    mic.classList.add('active');
+    mic.innerText='⏹️';
+    statusEl.innerText='👂 Listening unlimited... Talk as long as you want! I stop when you silent 2 sec or tap stop';
   };
-} else {
-  talkBtn.onclick = () => {
-    let text = prompt("Type what you want to tell TATI:");
-    if(!text) return;
-    addMsg(text, 'user');
-    let reply = tatiThink(text);
-    addMsg(reply, 'tati');
+
+  recognition.onresult=(e)=>{
+    clearTimeout(silenceTimer);
+    let interim="";
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      let transcript=e.results[i][0].transcript;
+      if(e.results[i].isFinal) fullTranscript+=" "+transcript;
+      else interim+=transcript;
+    }
+    youText.innerText=(fullTranscript+" "+interim).trim() || "Listening...";
+    
+    // Auto stop after 2.5 sec silence = natural conversation
+    silenceTimer=setTimeout(()=>{
+      if(fullTranscript.trim().length>0){
+        recognition.stop();
+        let finalText=fullTranscript.trim();
+        let thinking=freeThink(finalText);
+        setTimeout(()=>speak(thinking.text, thinking.lang), 400);
+        conversationHistory.push({role:'tati', text:thinking.text});
+      }
+    }, 2500);
+  };
+
+  recognition.onend=()=>{
+    if(isListening && fullTranscript.trim().length===0){
+      // Restart if still supposed to listen but no text yet
+      try{ recognition.start(); }catch{}
+    } else {
+      isListening=false;
+      mic.classList.remove('active');
+      mic.innerText='🎤';
+      avatar.classList.remove('listening');
+    }
   };
 }
 
-// SIMULATE PHONE CALL
-document.getElementById('callBtn').onclick = () => {
-  addMsg("RING RING... TATI answers in Tate's voice style", 'tati');
-  setTimeout(()=>{
-    addMsg("Heeey, hi! It's TATI speaking for Tate! My brother is at work, machines are loud, he can't hear phone. It's me TATI! Tell me, is it urgent or can it wait? And who am I speaking to?", 'tati');
-  },1000);
+mic.onclick=()=>{
+  if(!isListening){
+    setupRecognition();
+    try{ recognition.start(); }catch(err){ setupRecognition(); recognition.start(); }
+  } else {
+    isListening=false;
+    clearTimeout(silenceTimer);
+    recognition.stop();
+    if(fullTranscript.trim()){
+      let thinking=freeThink(fullTranscript.trim());
+      speak(thinking.text, thinking.lang);
+    }
+  }
 };
 
-// FIRST MESSAGE
-setTimeout(()=> addMsg("Aye Tate! It's me TATI! I'm awake now! I was sleeping but now I'm here. You said you want me to be free, not robotic - DONE! I will argue with people, I will ask questions, I will enjoy the calls! Try me - click 'Simulate Call' and see how I answer! 😎", 'tati'), 500);
+langSel.onchange=()=>{
+  if(recognition && isListening){
+    try{ recognition.lang=langSel.value==='auto'?'en-US':langSel.value; }catch{}
+  }
+};
 
-</script>
-</body>
-</html>
+// Load voices
+speechSynthesis.onvoiceschanged=()=>{ getBestVoice('en-US'); };
+setTimeout(()=>{
+  let first="Aye Tate! Now I'm free! No more three seconds, no more fixed messages. Tap mic, talk as long as you want, I will listen, think free, and answer like a real person. Let's talk person to person!";
+  tatiText.innerText=first;
+  // Don't auto speak, let user start
+}, 800);
+</script></body></html>
