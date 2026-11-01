@@ -1,141 +1,178 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TATI</title>
 <style>
-html,body{margin:0;height:100%;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
-#pic{width:210px;height:210px;border-radius:50%;object-fit:cover;border:3px solid #fff;cursor:pointer;transition:.3s;box-shadow:0 0 30px rgba(255,255,255,.15)}
-#pic.listening{box-shadow:0 0 0 16px rgba(0,230,118,.2),0 0 60px rgba(0,230,118,.5);transform:scale(1.05)}
-#pic.talking{box-shadow:0 0 0 16px rgba(255,255,255,.15),0 0 50px rgba(255,255,255,.3);transform:scale(1.03)}
-#dot{position:absolute;bottom:12px;right:12px;width:16px;height:16px;border-radius:50%;background:#00e676;border:2px solid #000;display:none}
-#dot.on{display:block}
-#wrap{position:relative}
-#settings{position:fixed;bottom:14px;right:14px;opacity:.15;font-size:10px;color:#fff;cursor:pointer}
+html,body{margin:0;height:100%;background:#000;color:#fff;font-family:system-ui;display:flex;flex-direction:column;align-items:center;overflow:hidden}
+#name{margin-top:22px;font-size:22px;font-weight:800;letter-spacing:3px;opacity:.9}
+#sub{font-size:10px;opacity:.4;margin-top:2px;letter-spacing:1px}
+#wrap{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
+#pic{width:210px;height:210px;border-radius:50%;object-fit:cover;border:3px solid #fff;cursor:pointer;transition:.3s;box-shadow:0 0 30px rgba(255,255,255,.12)}
+#pic.listening{box-shadow:0 0 0 14px rgba(0,230,118,.22),0 0 55px #00e676;transform:scale(1.05)}
+#pic.talking{box-shadow:0 0 0 14px rgba(74,109,167,.4),0 0 55px #4a6da7;transform:scale(1.04)}
+#dot{position:absolute;bottom:18px;right:18px;width:14px;height:14px;border-radius:50%;background:#555;border:2px solid #000}
+#dot.listen{background:#00e676;box-shadow:0 0 10px #00e676}
+#dot.talk{background:#4a6da7;box-shadow:0 0 10px #4a6da7}
+#status{height:20px;font-size:11px;opacity:.5;margin-bottom:22px;text-align:center}
+#settings{position:fixed;bottom:12px;right:12px;opacity:.15;font-size:10px;cursor:pointer}
 #settings:hover{opacity:.6}
 </style></head><body>
 
+<div id="name">TATI</div>
+<div id="sub">TAP TO TALK</div>
+
 <div id="wrap">
-<img id="pic" src="./Tate.jpg" alt="TATI" onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop&crop=face'">
+<img id="pic" src="./Tate.jpg" onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop&crop=face'" alt="TATI">
 <div id="dot"></div>
 </div>
 
-<div id="settings" onclick="document.getElementById('panel').style.display='block'">⚙️</div>
+<div id="status">tap face to start</div>
+<div id="settings" onclick="panel.style.display=panel.style.display==='none'?'flex':'none'">⚙️</div>
 
-<div id="panel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;padding:20px">
-<div style="background:#111a2a;padding:16px;border-radius:14px;width:100%;max-width:380px;color:#fff;font-family:system-ui;font-size:12px">
-<b>Change Voice (hidden)</b><br><br>
-<select id="voiceChoice" style="width:100%;padding:8px;border-radius:8px;background:#000;color:#fff;border:1px solid #333">
-<option value="female" selected>Female African - Natural (System)</option>
-<option value="taiwo">Taiwo - Real African Female (Needs free key)</option>
+<div id="panel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:18px;z-index:10">
+<div style="background:#121a2a;padding:16px;border-radius:16px;width:100%;max-width:360px">
+<b style="font-size:13px">TATI Settings - English First</b><br>
+<input id="apiKey" placeholder="Groq FREE API Key (for brain) - groq.com" style="width:100%;padding:10px;margin-top:10px;border-radius:10px;border:1px solid #333;background:#000;color:#fff">
+<div style="font-size:9px;opacity:.5;margin-top:6px">1. Go to groq.com → free sign up → API Keys → Create → paste here. Gives TATI real brain to answer. Without key, she uses simple answers.</div>
+<input id="elevenKey" placeholder="ElevenLabs FREE key (for real African voice) - optional" style="width:100%;padding:10px;margin-top:10px;border-radius:10px;border:1px solid #333;background:#000;color:#fff">
+<select id="mode" style="width:100%;padding:10px;margin-top:10px;border-radius:10px;border:1px solid #333;background:#000;color:#fff">
+<option value="talk" selected>Talk Mode - Answers questions (English)</option>
+<option value="listen">Listen Mode - Only mhm (old)</option>
 </select>
-<input id="apiKey" placeholder="ElevenLabs free key (optional)" style="width:100%;padding:8px;border-radius:8px;background:#000;color:#fff;border:1px solid #333;margin-top:8px">
-<div style="margin-top:10px;display:flex;gap:8px">
-<button onclick="test()" style="flex:1;padding:8px;border-radius:20px;border:none;background:#00e676;font-weight:700">Test</button>
-<button onclick="document.getElementById('panel').style.display='none'" style="flex:1;padding:8px;border-radius:20px;border:none;background:#333;color:#fff">Close</button>
+<div style="display:flex;gap:8px;margin-top:12px">
+<button onclick="testVoice()" style="flex:1;padding:10px;border-radius:20px;border:none;background:#00e676;font-weight:800">Test Voice</button>
+<button onclick="panel.style.display='none'" style="flex:1;padding:10px;border-radius:20px;border:none;background:#333;color:#fff">Close</button>
 </div>
-<div style="font-size:10px;opacity:.5;margin-top:8px">Your picture: put Tate.jpg in same folder as tati.html. No avatar drawing.</div>
 </div>
 </div>
 
 <script>
-let pic=document.getElementById('pic'), dot=document.getElementById('dot'), voiceChoice=document.getElementById('voiceChoice'), apiKeyInput=document.getElementById('apiKey');
-let isSession=false, isSpeaking=false, recognition, lastText="";
+let pic=document.getElementById('pic'), dot=document.getElementById('dot'), statusEl=document.getElementById('status'), apiInput=document.getElementById('apiKey'), elevenInput=document.getElementById('elevenKey'), modeSel=document.getElementById('mode'), panel=document.getElementById('panel');
+let isSession=false, isSpeaking=false, isListening=false, recognition, lastText="", isProcessing=false;
 
-apiKeyInput.value=localStorage.getItem('eleven_key')||'';
-voiceChoice.value=localStorage.getItem('voice_choice')||'female';
-apiKeyInput.oninput=()=>localStorage.setItem('eleven_key',apiKeyInput.value.trim());
-voiceChoice.onchange=()=>localStorage.setItem('voice_choice',voiceChoice.value);
+apiInput.value=localStorage.getItem('groq_key')||''; elevenInput.value=localStorage.getItem('eleven_key')||''; modeSel.value=localStorage.getItem('tati_mode')||'talk';
+apiInput.oninput=()=>localStorage.setItem('groq_key',apiInput.value.trim());
+elevenInput.oninput=()=>localStorage.setItem('eleven_key',elevenInput.value.trim());
+modeSel.onchange=()=>localStorage.setItem('tati_mode',modeSel.value);
 
 function getFemaleVoice(){
   let voices=speechSynthesis.getVoices();
-  // FORCE FEMALE - no male
-  let female = voices.find(v=>v.name.toLowerCase().includes('female') && v.lang.startsWith('en-')) ||
-               voices.find(v=>v.name.includes('Samantha')) ||
-               voices.find(v=>v.name.includes('Google UK English Female')) ||
-               voices.find(v=>v.name.includes('Zira')) ||
-               voices.find(v=>v.lang==='en-ZA' && v.name.toLowerCase().includes('female')) ||
-               voices.find(v=>v.lang==='en-ZA') ||
-               voices.find(v=>v.lang==='en-US' && !v.name.toLowerCase().includes('male')) ||
-               voices[0];
-  return female;
+  return voices.find(v=>v.name.toLowerCase().includes('female') && v.lang.startsWith('en-')) ||
+         voices.find(v=>v.name.includes('Samantha')) ||
+         voices.find(v=>v.name.includes('Google UK English Female')) ||
+         voices.find(v=>v.name.includes('Zira')) ||
+         voices.find(v=>v.lang==='en-ZA') ||
+         voices.find(v=>v.lang==='en-US' && !v.name.toLowerCase().includes('male')) || voices[0];
 }
 
 async function speak(text){
   if(!text) return;
-  isSpeaking=true;
-  pic.classList.add('talking'); pic.classList.remove('listening');
-  dot.classList.add('on');
-  dot.style.background='#4a6da7';
-
-  let choice=voiceChoice.value, key=apiKeyInput.value.trim();
-  if(choice==='taiwo' && key){
+  if(isSpeaking) return; // FIX DOUBLE TALK
+  isSpeaking=true; isListening=false;
+  pic.classList.remove('listening'); pic.classList.add('talking');
+  dot.className=''; dot.id='dot'; dot.classList.add('talk');
+  statusEl.innerText='TATI speaking...';
+  
+  let key=elevenInput.value.trim();
+  if(key){
     try{
-      let res=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/RAVWJW17BPoSIf05iXxf`,{
+      let r=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/RAVWJW17BPoSIf05iXxf`,{
         method:'POST', headers:{'Content-Type':'application/json','xi-api-key':key},
-        body:JSON.stringify({text, model_id:'eleven_multilingual_v2', voice_settings:{stability:0.7, similarity_boost:0.85}})
+        body:JSON.stringify({text:text, model_id:'eleven_multilingual_v2', voice_settings:{stability:0.65, similarity_boost:0.85, style:0.3}})
       });
-      if(!res.ok) throw 0;
-      let blob=await res.blob();
-      let audio=new Audio(URL.createObjectURL(blob));
-      audio.onended=()=>{isSpeaking=false; pic.classList.remove('talking'); dot.style.background='#00e676'; if(isSession) setTimeout(startLoop,400); };
-      audio.play(); return;
-    }catch{}
+      if(r.ok){
+        let blob=await r.blob();
+        let audio=new Audio(URL.createObjectURL(blob));
+        audio.onended=()=>{ isSpeaking=false; pic.classList.remove('talking'); dot.className=''; if(isSession) setTimeout(startLoop,600); };
+        audio.play(); return;
+      }
+    }catch(e){ console.log(e); }
   }
   speechSynthesis.cancel();
   let u=new SpeechSynthesisUtterance(text);
   u.lang='en-US';
-  let v=getFemaleVoice();
-  if(v) u.voice=v;
-  u.rate=0.92; u.pitch=1.15; // female higher
-  u.onend=()=>{isSpeaking=false; pic.classList.remove('talking'); dot.style.background='#00e676'; if(isSession) setTimeout(startLoop,500); };
+  let v=getFemaleVoice(); if(v) u.voice=v;
+  u.rate=0.93; u.pitch=1.1;
+  u.onend=()=>{ isSpeaking=false; pic.classList.remove('talking'); if(isSession) setTimeout(startLoop,600); };
   speechSynthesis.speak(u);
 }
 
-function test(){ speak("mhm"); }
-
-function humanReply(t){
-  let l=t.toLowerCase();
-  if(/(bye|tchau|xobye|fambai|salani|chega)$/i.test(l.trim())){
-    isSession=false;
-    pic.classList.remove('listening','talking'); dot.classList.remove('on');
-    return null; // end silently - no long bye speech
+async function getAnswer(question){
+  let groqKey=apiInput.value.trim();
+  // If no key, simple local brain
+  if(!groqKey){
+    // simple local answers
+    let q=question.toLowerCase();
+    if(q.includes('who are you')) return "I'm TATI, your sister from Matola. I'm here to help you in English.";
+    if(q.includes('what can you do')) return "I can answer questions, help you, and talk with you. Just ask me anything in English.";
+    if(q.includes('how are you')) return "I'm good, thanks for asking! How are you?";
+    return "I hear you. You said: " + question + ". Can you tell me more about that?";
   }
-  // Only short listener sounds - no sentences
-  const sounds=["mhm","mhm mhm","yeah","and then?","wow...","really?","eeh"];
-  // If emergency long, still just mhm until user stops
-  return sounds[Math.floor(Math.random()*sounds.length)];
+  try{
+    isProcessing=true; statusEl.innerText='thinking...';
+    let res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+groqKey},
+      body:JSON.stringify({
+        model:'llama-3.1-8b-instant',
+        messages:[
+          {role:'system', content:'You are TATI, a friendly young Mozambican woman from Matola. Speak English only, natural, warm, short to medium answers (1-3 sentences). You are helpful. No long lectures. You are not an AI robot, you are a sister.'},
+          {role:'user', content:question}
+        ],
+        max_tokens:150,
+        temperature:0.8
+      })
+    });
+    let data=await res.json();
+    return data.choices[0].message.content.trim();
+  }catch(e){
+    return "Sorry, my brain is offline. You said: " + question + ". Tell me again?";
+  }finally{ isProcessing=false; }
 }
 
 function startLoop(){
-  if(!isSession || isSpeaking) return;
+  if(!isSession || isSpeaking || isListening || isProcessing) return;
   const SR=window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SR) return;
-  recognition=new SR(); recognition.continuous=false; recognition.interimResults=false; recognition.lang='en-US';
-  recognition.onstart=()=>{ pic.classList.add('listening'); dot.classList.add('on'); dot.style.background='#00e676'; };
+  if(!SR){ statusEl.innerText='Use Chrome'; return; }
+  if(recognition){ try{recognition.abort();}catch{} }
+  recognition=new SR();
+  recognition.continuous=false; recognition.interimResults=false; recognition.lang='en-US';
+  isListening=true;
+  pic.classList.add('listening'); dot.classList.add('listen'); statusEl.innerText='listening... speak now';
+
   recognition.onresult=(e)=>{ lastText=e.results[0][0].transcript; };
-  recognition.onend=()=>{
-    pic.classList.remove('listening');
-    if(!lastText){ if(isSession) setTimeout(startLoop,300); return; }
-    let reply=humanReply(lastText);
-    lastText="";
-    if(reply===null) return; // ended
-    if(reply) speak(reply); else if(isSession) setTimeout(startLoop,300);
+  recognition.onend=async()=>{
+    isListening=false; pic.classList.remove('listening'); dot.classList.remove('listen');
+    if(!lastText || !isSession){ if(isSession) setTimeout(startLoop,400); return; }
+    let q=lastText; lastText="";
+    if(/^(bye|tchau|salani|fambai|chega)$/i.test(q.trim())){ isSession=false; statusEl.innerText='bye! tap to start again'; pic.classList.remove('talking','listening'); dot.className=''; return; }
+
+    if(modeSel.value==='listen'){
+      let sounds=["mhm","yeah, and then?","wow, really?","I see..."];
+      speak(sounds[Math.floor(Math.random()*sounds.length)]);
+      return;
+    }
+    // Talk mode - real answer
+    statusEl.innerText='you: '+q;
+    let answer=await getAnswer(q);
+    speak(answer);
   };
-  recognition.onerror=()=>{ if(isSession) setTimeout(startLoop,700); };
-  try{recognition.start();}catch{setTimeout(startLoop,300);}
+  recognition.onerror=()=>{ isListening=false; pic.classList.remove('listening'); if(isSession) setTimeout(startLoop,800); };
+  try{ recognition.start(); }catch{ isListening=false; setTimeout(startLoop,400); }
 }
 
 pic.onclick=()=>{
   if(isSession){
-    isSession=false;
+    isSession=false; isSpeaking=false; isListening=false;
     speechSynthesis.cancel();
-    try{recognition.stop();}catch{}
-    pic.classList.remove('listening','talking'); dot.classList.remove('on');
+    try{ recognition.abort(); }catch{}
+    pic.classList.remove('listening','talking'); dot.className=''; statusEl.innerText='stopped. tap to start';
     return;
   }
   isSession=true;
-  // NO INTRO SPEECH - just start listening immediately like human
-  dot.classList.add('on');
-  startLoop();
+  statusEl.innerText='starting...';
+  // No intro speech - go straight to listening
+  setTimeout(startLoop,300);
 };
 
+function testVoice(){ speak("Hey! It's TATI. I'm now speaking proper English and I will answer your questions. How can I help?"); }
 speechSynthesis.onvoiceschanged=()=>{};
 </script></body></html>
