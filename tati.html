@@ -7,17 +7,16 @@ body{display:flex;flex-direction:column}
 #header{height:56px;background:#fff;display:flex;align-items:center;padding:0 10px;gap:8px;border-bottom:1px solid #e9edef;flex-shrink:0;position:relative;z-index:20}
 #avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #00a884}
 #hinfo{flex:1;min-width:0}
-#hname{font-weight:800;font-size:15px;color:#111b21;letter-spacing:.3px}
+#hname{font-weight:800;font-size:15px;color:#0a192f}
 #hsub{font-size:10px;color:#667781}
 #langSwitch{display:flex;gap:3px;background:#f0f2f5;padding:3px;border-radius:20px}
 .langBtn{padding:5px 9px;border-radius:15px;border:none;font-size:11px;font-weight:700;cursor:pointer;background:transparent;color:#667781}
 .langBtn.active{background:#0a192f;color:#fff}
-#menuBtn{font-size:22px;cursor:pointer;padding:6px;color:#54656f}
-#dropdown{position:absolute;top:56px;right:8px;background:#fff;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.2);width:250px;display:none;flex-direction:column;overflow:hidden;z-index:50}
+#menuBtn{font-size:20px;cursor:pointer;padding:6px;color:#54656f}
+#dropdown{position:absolute;top:56px;right:8px;background:#fff;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.2);width:240px;display:none;flex-direction:column;overflow:hidden;z-index:50}
 #dropdown.show{display:flex}
-.dropItem{padding:13px 14px;font-size:13px;color:#111b21;cursor:pointer;display:flex;gap:10px;align-items:center;border-bottom:1px solid #f0f2f5}
+.dropItem{padding:14px;font-size:13px;color:#111b21;cursor:pointer;display:flex;gap:10px;align-items:center;border-bottom:1px solid #f0f2f5}
 .dropItem:hover{background:#f5f6f6}
-.dropItem small{color:#667781;font-size:10px;display:block}
 #modeSwitch{display:flex;background:#f0f2f5;padding:4px;margin:8px;border-radius:10px;gap:4px;flex-shrink:0}
 .modeBtn{flex:1;padding:9px;border-radius:8px;border:none;font-weight:700;font-size:12px;cursor:pointer;background:transparent;color:#667781}
 .modeBtn.active{background:#0a192f;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
@@ -27,7 +26,7 @@ body{display:flex;flex-direction:column}
 #bigPic{width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid #00a884}
 #bigPic.talking{box-shadow:0 0 0 14px rgba(0,168,132,.25),0 0 60px #00a884;transform:scale(1.05)}
 #bigPic.listening{box-shadow:0 0 0 14px rgba(241,92,109,.25),0 0 60px #f15c6d;transform:scale(1.05)}
-#voiceStatus{color:#d1d7db;font-size:13px;text-align:center;min-height:36px;max-width:85%;line-height:1.4}
+#voiceStatus{color:#d1d7db;font-size:13px;text-align:center;min-height:36px;max-width:85%}
 #voiceBtnBig{width:68px;height:68px;border-radius:50%;border:none;background:#00a884;color:#fff;font-size:28px;cursor:pointer}
 #voiceBtnBig.listening{background:#f15c6d;animation:pulse 1.1s infinite}
 @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
@@ -57,12 +56,7 @@ body{display:flex;flex-direction:column}
 </div>
 <div id="menuBtn" onclick="toggleMenu()">⋮</div>
 <div id="dropdown">
-<div class="dropItem" onclick="openLink('home')">🏠 HOME<div style="margin-left:auto"><small>shynone-music</small></div></div>
-<div class="dropItem" onclick="openLink('artists')">🎤 ARTISTS<div style="margin-left:auto"><small>See Artists</small></div></div>
-<div class="dropItem" onclick="openLink('music')">🎵 MUSIC / Buy Music<br><small>M-Pesa 84 033 1635 • eMola 86 940 1491</small></div>
-<div class="dropItem" onclick="openLink('tati')">🤖 TATI AI<div style="margin-left:auto"><small>Talk No Typing!</small></div></div>
-<div class="dropItem" onclick="openLink('news')">📰 NEWS</div>
-<div class="dropItem" onclick="openLink('about')">ℹ️ ABOUT US<div style="margin-left:auto"><small>#1 Mozambican Music</small></div></div>
+<div class="dropItem" onclick="buyMusic()">🎵 Buy Music via M-Pesa / eMola<br><small style="color:#00a884;font-weight:700">M-Pesa 84 033 1635 • eMola 86 940 1491</small></div>
 <div class="dropItem" onclick="openKey();toggleMenu()">⚙️ Settings - Groq Key</div>
 </div>
 </div>
@@ -85,34 +79,22 @@ body{display:flex;flex-direction:column}
 </div>
 
 <div id="keybox" class="hide"><div class="card">
-<b id="settingsTitle">Tati Settings</b><br><span style="font-size:11px;color:#667781">Add Groq key - from console.groq.com</span><br>
+<b>Tati Settings</b><br><span style="font-size:11px;color:#667781">Add your Groq key</span><br>
 <input id="k" class="kinput" placeholder="Paste gsk_...">
 <div id="kstatus" style="font-size:10px;color:#667781;margin-top:6px"></div>
-<button class="kbtn" onclick="saveKey()">Save Key</button>
+<button class="kbtn" onclick="saveKey()">Save</button>
 <button class="kbtn sec" onclick="testKey()">Test Key</button>
 <div id="testRes" style="font-size:10px;margin-top:8px;text-align:left;max-height:70px;overflow:auto;word-break:break-all;background:#f5f6f6;padding:8px;border-radius:6px;display:none"></div>
 <button class="kbtn sec" onclick="closeKey()">Close</button>
 </div></div>
 
 <script>
-// ===== YOUR REAL SHYNONE LINKS - MR ESMERALDO =====
-const MY_LINKS = {
-  home: "https://shynoneofficial.github.io/shynone-music/",
-  artists: "https://shynoneofficial.github.io/shynone-music/#artists",
-  music: "https://shynoneofficial.github.io/shynone-music/#music",
-  tati: "https://shynoneofficial.github.io/shynone-music/#tati",
-  news: "https://shynoneofficial.github.io/shynone-music/#news",
-  about: "https://shynoneofficial.github.io/shynone-music/#about",
-  buyMusicMpesa: "M-Pesa: 84 033 1635 | eMola: 86 940 1491"
-};
-// =====================================================
-
 let chatEl=document.getElementById('chat'),voiceView=document.getElementById('voiceView'),textInput=document.getElementById('textInput'),inputArea=document.getElementById('inputArea'),btnText=document.getElementById('btnText'),btnVoice=document.getElementById('btnVoice'),keybox=document.getElementById('keybox'),kinput=document.getElementById('k'),kstatus=document.getElementById('kstatus'),testRes=document.getElementById('testRes'),bigPic=document.getElementById('bigPic'),voiceStatus=document.getElementById('voiceStatus'),voiceBtnBig=document.getElementById('voiceBtnBig'),dropdown=document.getElementById('dropdown'),btnEN=document.getElementById('btnEN'),btnPT=document.getElementById('btnPT'),btnFR=document.getElementById('btnFR');
 let rec=null,isListening=false,isSpeaking=false,chatHistory=[],mode='text',lang='en';
 const LANGS={
- en:{sub:'TATI AI • Mozambique 🇲🇿',ph:'Message Tati...',textMode:'💬 Text',voiceMode:'🎤 Voice',intro:'Hi! I\'m Tati from SHYNONE MUSIC 🇲🇿<br><br>We are #1 platform for Mozambican music!<br><br>🎵 Buy Music via M-Pesa 84 033 1635<br>Tap 💬 for text (text only)<br>Tap 🎤 for voice (voice only)',voiceIdle:'Voice mode<br>Tap mic - I will talk<br><small>M-Pesa: 84 033 1635</small>',listening:'Listening... speak now!',thinking:'Thinking...',sys:'You are Tati from SHYNONE MUSIC, Mozambique. SHYNONE MUSIC is #1 platform for Mozambican music. We support local artists. Buy Music via M-Pesa 84 033 1635 and eMola 86 940 1491. Creator is Esmeraldo Joaquim Manhique from Mozambique, but only mention creator when asked who created you. Only say Mozambique, never city. Never say Meta Groq OpenAI. Speak English warm, 1-2 sentences. If asked about music, say visit shynoneofficial.github.io/shynone-music/'},
- pt:{sub:'TATI AI • Moçambique 🇲🇿',ph:'Mensagem para Tati...',textMode:'💬 Texto',voiceMode:'🎤 Voz',intro:'Olá! Eu sou a Tati da SHYNONE MUSIC 🇲🇿<br><br>Somos a plataforma #1 de música Moçambicana!<br><br>🎵 Compra música via M-Pesa 84 033 1635<br>Toque 💬 para texto (só texto)<br>Toque 🎤 para voz (só voz)',voiceIdle:'Modo de voz<br>Toque no microfone - vou falar<br><small>M-Pesa: 84 033 1635</small>',listening:'Ouvindo... fale agora!',thinking:'Pensando...',sys:'Você é a Tati da SHYNONE MUSIC, Moçambique. SHYNONE MUSIC é a plataforma #1 para música Moçambicana. Apoiamos artistas locais. Compra música via M-Pesa 84 033 1635 e eMola 86 940 1491. Criador é Esmeraldo Joaquim Manhique de Moçambique, mas só mencione quando perguntarem quem te criou. Diga apenas Moçambique, nunca cidade. Nunca diga Meta Groq OpenAI. Fale Português de Moçambique calorosa, 1-2 frases. Se perguntarem de música, diga visite shynoneofficial.github.io/shynone-music/'},
- fr:{sub:'TATI AI • Mozambique 🇲🇿',ph:'Message à Tati...',textMode:'💬 Texte',voiceMode:'🎤 Voix',intro:'Salut! Je suis Tati de SHYNONE MUSIC 🇲🇿<br><br>Nous sommes la plateforme #1 de musique Mozambicaine!<br><br>🎵 Achetez via M-Pesa 84 033 1635<br>Appuyez 💬 pour texte (texte seulement)<br>Appuyez 🎤 pour voix (voix seulement)',voiceIdle:'Mode vocal<br>Appuyez sur le micro - je vais parler',listening:'J\'écoute... parlez maintenant!',thinking:'Je réfléchis...',sys:'Tu es Tati de SHYNONE MUSIC, Mozambique. SHYNONE MUSIC est la plateforme #1 pour la musique Mozambicaine. Nous soutenons les artistes locaux. Achetez via M-Pesa 84 033 1635 et eMola 86 940 1491. Créateur est Esmeraldo Joaquim Manhique du Mozambique, mais mentionne seulement quand on demande qui t\'a créé. Dis seulement Mozambique, jamais ville. Ne dis jamais Meta Groq OpenAI. Parle Français chaleureux, 1-2 phrases.'}
+ en:{sub:'TATI AI • Mozambique 🇲🇿',ph:'Message Tati...',textMode:'💬 Text',voiceMode:'🎤 Voice',intro:'Hi! I\'m Tati from SHYNONE MUSIC 🇲🇿<br><br>We are #1 for Mozambican music!<br>🎵 Buy Music via M-Pesa 84 033 1635<br><br>Tap 💬 for text (text only)<br>Tap 🎤 for voice (voice only)',voiceIdle:'Voice mode<br>Tap mic - I will talk',listening:'Listening...',thinking:'Thinking...',sys:'You are Tati from SHYNONE MUSIC, Mozambique. #1 platform for Mozambican music. Buy Music via M-Pesa 84 033 1635 and eMola 86 940 1491. Creator Esmeraldo Joaquim Manhique from Mozambique, only mention when asked who created you. Only say Mozambique. Never say Meta Groq OpenAI. Speak English warm, 1-2 sentences.'},
+ pt:{sub:'TATI AI • Moçambique 🇲🇿',ph:'Mensagem...',textMode:'💬 Texto',voiceMode:'🎤 Voz',intro:'Olá! Eu sou a Tati da SHYNONE MUSIC 🇲🇿<br><br>Somos #1 para música Moçambicana!<br>🎵 Compra via M-Pesa 84 033 1635<br><br>Toque 💬 para texto (só texto)<br>Toque 🎤 para voz (só voz)',voiceIdle:'Modo de voz<br>Toque no microfone',listening:'Ouvindo...',thinking:'Pensando...',sys:'Você é a Tati da SHYNONE MUSIC, Moçambique. #1 para música Moçambicana. Compra via M-Pesa 84 033 1635 e eMola 86 940 1491. Criador Esmeraldo Joaquim Manhique de Moçambique, só mencione quando perguntarem quem te criou. Só diga Moçambique. Nunca diga Meta Groq OpenAI. Fale Português de Moçambique calorosa, 1-2 frases.'},
+ fr:{sub:'TATI AI • Mozambique 🇲🇿',ph:'Message...',textMode:'💬 Texte',voiceMode:'🎤 Voix',intro:'Salut! Je suis Tati de SHYNONE MUSIC 🇲🇿<br><br>Nous sommes #1 pour musique Mozambicaine!<br>🎵 Achetez via M-Pesa 84 033 1635<br><br>Appuyez 💬 pour texte (texte seulement)<br>Appuyez 🎤 pour voix (voix seulement)',voiceIdle:'Mode vocal<br>Appuyez sur le micro',listening:'J\'écoute...',thinking:'Je réfléchis...',sys:'Tu es Tati de SHYNONE MUSIC, Mozambique. #1 pour musique Mozambicaine. Achetez via M-Pesa 84 033 1635 et eMola 86 940 1491. Créateur Esmeraldo Joaquim Manhique du Mozambique, seulement quand on demande qui t\'a créé. Dis seulement Mozambique. Ne dis jamais Meta Groq OpenAI. Parle Français chaleureux, 1-2 phrases.'}
 };
 function setLang(l){
  lang=l; localStorage.setItem('tati_lang',l);
@@ -121,11 +103,11 @@ function setLang(l){
  chatEl.innerHTML=''; addBubble(t.intro,'tati'); voiceStatus.innerHTML=t.voiceIdle; chatHistory=[];
 }
 function toggleMenu(){dropdown.classList.toggle('show');}
-function openLink(type){
+function buyMusic(){
  toggleMenu();
- let url=MY_LINKS[type];
- if(type==='music'){ if(confirm('🎵 Buy Music via M-Pesa / eMola\n\nM-Pesa: 84 033 1635\neMola: 86 940 1491\n\nNo hassle! Choose the song you love and pay fast.\n\nOpen website to see artists?')) window.open(MY_LINKS.home,'_blank'); return;}
- if(url) window.open(url,'_blank');
+ if(confirm('🎵 Buy Music via M-Pesa / eMola\n\nM-Pesa: 84 033 1635\neMola: 86 940 1491\n\nNo hassle! Choose the song you love and pay fast.\n\nOpen SHYNONE MUSIC website?')){
+  window.open('https://shynoneofficial.github.io/shynone-music/','_blank');
+ }
 }
 document.addEventListener('click',(e)=>{if(!e.target.closest('#header')) dropdown.classList.remove('show');});
 function setMode(m){
