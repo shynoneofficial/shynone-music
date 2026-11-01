@@ -1,183 +1,141 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TATI V7 - Real African Voice</title>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TATI</title>
 <style>
-body{margin:0;background:#0a0f1a;color:#fff;font-family:system-ui;height:100vh;display:flex;flex-direction:column;align-items:center}
-#top{padding:12px;text-align:center;width:100%;background:#111a2a}
-#avatar{width:165px;height:165px;border-radius:50%;background:#4a6da7 url('https://i.imgur.com/8Km9tLL.png') center/cover;display:flex;align-items:center;justify-content:center;font-size:70px;margin:16px auto;transition:.3s;cursor:pointer;border:3px solid #fff}
-#avatar.listening{box-shadow:0 0 0 18px rgba(0,230,118,.25),0 0 60px #00e676;transform:scale(1.06)}
-#avatar.talking{box-shadow:0 0 0 18px rgba(74,109,167,.5),0 0 60px #4a6da7;transform:scale(1.05)}
-#status{margin-top:10px;font-size:13px;opacity:.8;text-align:center;max-width:320px;line-height:1.4;min-height:36px}
-#controls{margin-top:auto;margin-bottom:10px;display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;padding:10px}
-#mic{width:90px;height:90px;border-radius:50%;border:none;background:#00e676;color:#000;font-size:38px;font-weight:900;cursor:pointer}
-#mic.on{background:#ff3b6e;color:#fff;animation:pulse 1.2s infinite}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-#voicePanel{width:92%;max-width:420px;background:#1a2538;border-radius:14px;padding:12px;margin:8px 0;font-size:12px}
-select,input{padding:8px;border-radius:8px;border:1px solid #4a6da7;background:#0f141e;color:#fff;width:100%;margin:4px 0}
-.btn{padding:8px 12px;border-radius:20px;border:none;font-weight:700;cursor:pointer;margin:2px}
-.btn-green{background:#00e676;color:#000}.btn-blue{background:#4a6da7;color:#fff}.btn-red{background:#ff3b6e;color:#fff}
+html,body{margin:0;height:100%;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#pic{width:210px;height:210px;border-radius:50%;object-fit:cover;border:3px solid #fff;cursor:pointer;transition:.3s;box-shadow:0 0 30px rgba(255,255,255,.15)}
+#pic.listening{box-shadow:0 0 0 16px rgba(0,230,118,.2),0 0 60px rgba(0,230,118,.5);transform:scale(1.05)}
+#pic.talking{box-shadow:0 0 0 16px rgba(255,255,255,.15),0 0 50px rgba(255,255,255,.3);transform:scale(1.03)}
+#dot{position:absolute;bottom:12px;right:12px;width:16px;height:16px;border-radius:50%;background:#00e676;border:2px solid #000;display:none}
+#dot.on{display:block}
+#wrap{position:relative}
+#settings{position:fixed;bottom:14px;right:14px;opacity:.15;font-size:10px;color:#fff;cursor:pointer}
+#settings:hover{opacity:.6}
 </style></head><body>
-<div id="top"><b>TATI V7 - Real African Sister</b><div style="font-size:10px;opacity:.6">Taiwo voice • One click • Change anytime</div></div>
 
-<div id="avatar" onclick="toggleSession()">👩🏾</div>
-<div id="status">Tap TATI's face to start. She will greet with real African voice.</div>
+<div id="wrap">
+<img id="pic" src="./Tate.jpg" alt="TATI" onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop&crop=face'">
+<div id="dot"></div>
+</div>
 
-<div id="voicePanel">
-<b style="font-size:11px;opacity:.7">VOICE SETTINGS - CHANGE ANYTIME</b><br>
-<select id="voiceChoice">
-<option value="taiwo" selected>🇲🇿 Taiwo - Young African Female (REAL) - Recommended</option>
-<option value="mama">👩‍👧 Your Mama - Clone from WhatsApp voice note</option>
-<option value="system">🔊 System - Free fallback (no key needed)</option>
+<div id="settings" onclick="document.getElementById('panel').style.display='block'">⚙️</div>
+
+<div id="panel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;padding:20px">
+<div style="background:#111a2a;padding:16px;border-radius:14px;width:100%;max-width:380px;color:#fff;font-family:system-ui;font-size:12px">
+<b>Change Voice (hidden)</b><br><br>
+<select id="voiceChoice" style="width:100%;padding:8px;border-radius:8px;background:#000;color:#fff;border:1px solid #333">
+<option value="female" selected>Female African - Natural (System)</option>
+<option value="taiwo">Taiwo - Real African Female (Needs free key)</option>
 </select>
-<div id="apiBox">
-<input id="apiKey" type="password" placeholder="ElevenLabs API Key - free (paste here) - leave empty for system voice">
-<div style="font-size:10px;opacity:.6;margin-top:4px">Get FREE key: elevenlabs.io → Sign up → Profile → API Key (free 10 min/month). Paste here once. Stays in your phone only.</div>
+<input id="apiKey" placeholder="ElevenLabs free key (optional)" style="width:100%;padding:8px;border-radius:8px;background:#000;color:#fff;border:1px solid #333;margin-top:8px">
+<div style="margin-top:10px;display:flex;gap:8px">
+<button onclick="test()" style="flex:1;padding:8px;border-radius:20px;border:none;background:#00e676;font-weight:700">Test</button>
+<button onclick="document.getElementById('panel').style.display='none'" style="flex:1;padding:8px;border-radius:20px;border:none;background:#333;color:#fff">Close</button>
 </div>
-<div style="display:flex;gap:6px;margin-top:8px">
-<button class="btn btn-green" onclick="testVoice()">🔊 Test Voice</button>
-<button class="btn btn-blue" onclick="document.getElementById('fileInput').click()">+ Upload New Voice (1-2 min)</button>
-<button class="btn btn-red" onclick="clearVoice()">Clear</button>
+<div style="font-size:10px;opacity:.5;margin-top:8px">Your picture: put Tate.jpg in same folder as tati.html. No avatar drawing.</div>
 </div>
-<input type="file" id="fileInput" accept="audio/*" style="display:none">
-<div id="voiceInfo" style="font-size:10px;opacity:.6;margin-top:6px">Current: Taiwo African voice. To use Mama voice, upload her 1-2 min voice note.</div>
-</div>
-
-<div id="controls">
-<button id="mic" onclick="toggleSession()">🎤</button>
-<div style="font-size:10px;opacity:.4">One click start • Say "bye" to end • Auto listens</div>
 </div>
 
 <script>
-let avatar=document.getElementById('avatar'), statusEl=document.getElementById('status'), mic=document.getElementById('mic'), voiceChoice=document.getElementById('voiceChoice'), apiKeyInput=document.getElementById('apiKey'), voiceInfo=document.getElementById('voiceInfo');
-let isSession=false, isSpeaking=false, recognition, lastText="", storyBuffer="", customVoiceBase64=null;
+let pic=document.getElementById('pic'), dot=document.getElementById('dot'), voiceChoice=document.getElementById('voiceChoice'), apiKeyInput=document.getElementById('apiKey');
+let isSession=false, isSpeaking=false, recognition, lastText="";
 
-// Load saved
 apiKeyInput.value=localStorage.getItem('eleven_key')||'';
-customVoiceBase64=localStorage.getItem('custom_voice_base64');
-if(customVoiceBase64) voiceInfo.innerText='✅ Custom Mama voice saved! Select "Your Mama" to use.';
-voiceChoice.value=localStorage.getItem('voice_choice')||'taiwo';
+voiceChoice.value=localStorage.getItem('voice_choice')||'female';
+apiKeyInput.oninput=()=>localStorage.setItem('eleven_key',apiKeyInput.value.trim());
+voiceChoice.onchange=()=>localStorage.setItem('voice_choice',voiceChoice.value);
 
-voiceChoice.onchange=()=>{ localStorage.setItem('voice_choice',voiceChoice.value); updateInfo(); };
-apiKeyInput.oninput=()=>{ localStorage.setItem('eleven_key',apiKeyInput.value.trim()); };
-
-function updateInfo(){
-  if(voiceChoice.value==='taiwo') voiceInfo.innerText='Using Taiwo - Young African Female (Real). Needs free API key for best quality, else fallback to African system voice.';
-  if(voiceChoice.value==='mama') voiceInfo.innerText= customVoiceBase64 ? 'Using YOUR MAMA real voice - cloned style!' : 'No Mama voice uploaded yet. Click + Upload New Voice and select her 1-2 min recording.';
-  if(voiceChoice.value==='system') voiceInfo.innerText='Using phone system voice - free, no key, African accent (en-ZA if available).';
+function getFemaleVoice(){
+  let voices=speechSynthesis.getVoices();
+  // FORCE FEMALE - no male
+  let female = voices.find(v=>v.name.toLowerCase().includes('female') && v.lang.startsWith('en-')) ||
+               voices.find(v=>v.name.includes('Samantha')) ||
+               voices.find(v=>v.name.includes('Google UK English Female')) ||
+               voices.find(v=>v.name.includes('Zira')) ||
+               voices.find(v=>v.lang==='en-ZA' && v.name.toLowerCase().includes('female')) ||
+               voices.find(v=>v.lang==='en-ZA') ||
+               voices.find(v=>v.lang==='en-US' && !v.name.toLowerCase().includes('male')) ||
+               voices[0];
+  return female;
 }
-updateInfo();
 
-document.getElementById('fileInput').onchange=async(e)=>{
-  let file=e.target.files[0];
-  if(!file) return;
-  let reader=new FileReader();
-  reader.onload=()=>{
-    customVoiceBase64=reader.result;
-    localStorage.setItem('custom_voice_base64',customVoiceBase64);
-    voiceInfo.innerText='✅ New voice uploaded! '+file.name+' saved. Now select "Your Mama" voice.';
-    voiceChoice.value='mama';
-    localStorage.setItem('voice_choice','mama');
-    alert('Voice saved! Now TATI will try to sound like this voice. Click Test Voice.');
-  };
-  reader.readAsDataURL(file);
-};
-
-function clearVoice(){ localStorage.removeItem('custom_voice_base64'); customVoiceBase64=null; voiceInfo.innerText='Custom voice cleared.'; }
-
-async function speakReal(text, lang){
+async function speak(text){
   if(!text) return;
   isSpeaking=true;
-  avatar.classList.remove('listening'); avatar.classList.add('talking');
-  statusEl.innerText='🔊 TATI talking...';
-  
-  let choice=voiceChoice.value;
-  let key=apiKeyInput.value.trim();
-  
-  // If Taiwo + key -> use ElevenLabs real African voice
+  pic.classList.add('talking'); pic.classList.remove('listening');
+  dot.classList.add('on');
+  dot.style.background='#4a6da7';
+
+  let choice=voiceChoice.value, key=apiKeyInput.value.trim();
   if(choice==='taiwo' && key){
     try{
-      let voiceId='RAVWJW17BPoSIf05iXxf'; // Taiwo Young African Female
-      let res=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','xi-api-key':key},
-        body:JSON.stringify({text:text, model_id:'eleven_multilingual_v2', voice_settings:{stability:0.6, similarity_boost:0.8, style:0.4}})
+      let res=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/RAVWJW17BPoSIf05iXxf`,{
+        method:'POST', headers:{'Content-Type':'application/json','xi-api-key':key},
+        body:JSON.stringify({text, model_id:'eleven_multilingual_v2', voice_settings:{stability:0.7, similarity_boost:0.85}})
       });
-      if(!res.ok) throw new Error('API fail');
+      if(!res.ok) throw 0;
       let blob=await res.blob();
-      let url=URL.createObjectURL(blob);
-      let audio=new Audio(url);
-      audio.onended=()=>{ isSpeaking=false; avatar.classList.remove('talking'); if(isSession) setTimeout(startLoop,500); };
-      audio.play();
-      return;
-    }catch(err){ console.log('Eleven fail, fallback',err); }
+      let audio=new Audio(URL.createObjectURL(blob));
+      audio.onended=()=>{isSpeaking=false; pic.classList.remove('talking'); dot.style.background='#00e676'; if(isSession) setTimeout(startLoop,400); };
+      audio.play(); return;
+    }catch{}
   }
-  
-  // Fallback system voice - try African
   speechSynthesis.cancel();
-  let utter=new SpeechSynthesisUtterance(text);
-  utter.lang= lang==='pt'?'pt-PT': lang==='ch'?'en-US' : 'en-US';
-  let voices=speechSynthesis.getVoices();
-  let african=voices.find(v=>v.lang==='en-ZA' && v.name.toLowerCase().includes('female')) || voices.find(v=>v.lang==='en-ZA') || voices.find(v=>v.lang==='en-NG') || voices.find(v=>v.lang==='en-US' && v.name.includes('Natural')) || voices.find(v=>v.lang==='en-US');
-  if(african) utter.voice=african;
-  utter.rate=0.9; utter.pitch=1.1;
-  utter.onend=()=>{ isSpeaking=false; avatar.classList.remove('talking'); if(isSession) setTimeout(startLoop,600); };
-  speechSynthesis.speak(utter);
+  let u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';
+  let v=getFemaleVoice();
+  if(v) u.voice=v;
+  u.rate=0.92; u.pitch=1.15; // female higher
+  u.onend=()=>{isSpeaking=false; pic.classList.remove('talking'); dot.style.background='#00e676'; if(isSession) setTimeout(startLoop,500); };
+  speechSynthesis.speak(u);
 }
 
-function testVoice(){
-  let txt= voiceChoice.value==='mama' ? "Avuxeni, mina ndzi mama wa Tate, ndza ku twa, kutani yini?" : "Aye! It's TATI, your African sister. I'm listening, mhm, and then? Tell me everything.";
-  speakReal(txt, 'en');
-}
+function test(){ speak("mhm"); }
 
-function detectLang(t){
+function humanReply(t){
   let l=t.toLowerCase();
-  if(['avuxeni','kunjhani','himina','wena','mina','kona','swoswi','kutani','njhani','mahungu','kaya','a hi','yini'].some(w=>l.includes(w))) return 'ch';
-  if(/[áâãàéêíóôõúç]/.test(l) || ['você','olá','como','onde','obrigado','tudo','bem','não'].some(w=>l.includes(w))) return 'pt';
-  return 'en';
-}
-
-function humanReply(userText){
-  let lang=detectLang(userText);
-  let low=userText.toLowerCase();
-  if(/(bye|tchau|xobye|fambai|salani|chega|that's it)$/i.test(low.trim())) return {text: lang==='en'?'Okay bye, talk later.':lang==='pt'?'Tchau, falamos depois.':'Salani, hi ta vulavula.', lang, end:true};
-  if(['emergency','hospital','socorro','ajuda','help','lwana','acidente','doente','ku fa'].some(w=>low.includes(w))){
-    return {text: lang==='en'?'I hear emergency. Where are you? Tell all.':lang==='pt'?'Ouvi emergência. Onde você está? Conta tudo.':'Ndzi twe emergency. U kwini? Ndziv byela hinkwaswo.', lang, end:false};
+  if(/(bye|tchau|xobye|fambai|salani|chega)$/i.test(l.trim())){
+    isSession=false;
+    pic.classList.remove('listening','talking'); dot.classList.remove('on');
+    return null; // end silently - no long bye speech
   }
-  // Short listener
-  const listener={en:["mhm","yeah, and then?","wow, really?","mhm mhm","I see..."], pt:["mhm","aham, e depois?","sério?","tô ouvindo"], ch:["mhm","eeh, kutani?","ya, ndza ku twa","hehe"]};
-  let arr=listener[lang]||listener.en;
-  if(userText.length>50 || storyBuffer.length>60){
-    storyBuffer+=userText;
-    if(Math.random()>0.4) return {text: arr[Math.floor(Math.random()*arr.length)], lang, end:false};
-  }
-  storyBuffer="";
-  return {text: arr[Math.floor(Math.random()*arr.length)], lang, end:false};
+  // Only short listener sounds - no sentences
+  const sounds=["mhm","mhm mhm","yeah","and then?","wow...","really?","eeh"];
+  // If emergency long, still just mhm until user stops
+  return sounds[Math.floor(Math.random()*sounds.length)];
 }
 
 function startLoop(){
   if(!isSession || isSpeaking) return;
   const SR=window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SR){ statusEl.innerText='Use Chrome browser for voice'; return; }
+  if(!SR) return;
   recognition=new SR(); recognition.continuous=false; recognition.interimResults=false; recognition.lang='en-US';
-  recognition.onstart=()=>{ avatar.classList.add('listening'); statusEl.innerText='👂 Listening... Talk long, I say mhm only'; };
+  recognition.onstart=()=>{ pic.classList.add('listening'); dot.classList.add('on'); dot.style.background='#00e676'; };
   recognition.onresult=(e)=>{ lastText=e.results[0][0].transcript; };
   recognition.onend=()=>{
-    avatar.classList.remove('listening');
-    if(!lastText){ if(isSession) setTimeout(startLoop,400); return; }
-    let r=humanReply(lastText); lastText="";
-    if(r.end){ speakReal(r.text,r.lang); setTimeout(()=>{isSession=false; mic.classList.remove('on'); mic.innerText='🎤'; statusEl.innerText='Ended. Tap face to start again.'; avatar.classList.remove('talking','listening');},1800); }
-    else { speakReal(r.text,r.lang); }
+    pic.classList.remove('listening');
+    if(!lastText){ if(isSession) setTimeout(startLoop,300); return; }
+    let reply=humanReply(lastText);
+    lastText="";
+    if(reply===null) return; // ended
+    if(reply) speak(reply); else if(isSession) setTimeout(startLoop,300);
   };
-  recognition.onerror=()=>{ if(isSession) setTimeout(startLoop,800); };
+  recognition.onerror=()=>{ if(isSession) setTimeout(startLoop,700); };
   try{recognition.start();}catch{setTimeout(startLoop,300);}
 }
 
-function toggleSession(){
-  if(isSession){ isSession=false; speechSynthesis.cancel(); try{recognition.stop();}catch{}; mic.classList.remove('on'); mic.innerText='🎤'; avatar.classList.remove('listening','talking'); statusEl.innerText='Stopped. Tap face to start again.'; return; }
-  isSession=true; mic.classList.add('on'); mic.innerText='⏹️'; statusEl.innerText='Starting...';
-  let greet="Aye! Hey, it's TATI! Your African sister. Tap my face anytime to change voice. What's up? Tell me.";
-  speakReal(greet,'en');
-  setTimeout(()=>{ if(isSession) startLoop(); },1200);
-}
+pic.onclick=()=>{
+  if(isSession){
+    isSession=false;
+    speechSynthesis.cancel();
+    try{recognition.stop();}catch{}
+    pic.classList.remove('listening','talking'); dot.classList.remove('on');
+    return;
+  }
+  isSession=true;
+  // NO INTRO SPEECH - just start listening immediately like human
+  dot.classList.add('on');
+  startLoop();
+};
 
 speechSynthesis.onvoiceschanged=()=>{};
 </script></body></html>
