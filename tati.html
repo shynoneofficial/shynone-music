@@ -4,37 +4,45 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,sans-serif}
 html,body{height:100%;width:100%;overflow:hidden;background:#fff}
 body{display:flex;flex-direction:column}
-#header{height:56px;background:#fff;display:flex;align-items:center;padding:0 10px;gap:8px;border-bottom:1px solid #e9edef;flex-shrink:0;position:relative;z-index:20}
-#avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #00a884}
-#hinfo{flex:1;min-width:0}
-#hname{font-weight:800;font-size:15px;color:#0a192f}
-#hsub{font-size:10px;color:#667781}
+#header{height:58px;background:#fff;display:flex;align-items:center;padding:0 10px;gap:8px;border-bottom:1px solid #e9edef;flex-shrink:0;position:relative;z-index:20}
+#avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #00a884;flex-shrink:0}
+#centerLogo{position:absolute;left:50%;transform:translateX(-50%);font-weight:900;font-size:15px;letter-spacing:1.5px;color:#0a192f;cursor:pointer;text-align:center;line-height:1}
+#centerLogo span{font-size:9px;display:block;letter-spacing:2.5px;color:#00a884;font-weight:700;margin-top:1px}
+#hRight{display:flex;align-items:center;gap:6px;margin-left:auto}
 #langSwitch{display:flex;gap:3px;background:#f0f2f5;padding:3px;border-radius:20px}
-.langBtn{padding:5px 9px;border-radius:15px;border:none;font-size:11px;font-weight:700;cursor:pointer;background:transparent;color:#667781}
+.langBtn{padding:5px 8px;border-radius:15px;border:none;font-size:10px;font-weight:800;cursor:pointer;background:transparent;color:#667781}
 .langBtn.active{background:#0a192f;color:#fff}
 #menuBtn{font-size:20px;cursor:pointer;padding:6px;color:#54656f}
-#dropdown{position:absolute;top:56px;right:8px;background:#fff;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.2);width:240px;display:none;flex-direction:column;overflow:hidden;z-index:50}
+#dropdown{position:absolute;top:58px;right:8px;background:#fff;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.2);width:250px;display:none;flex-direction:column;overflow:hidden;z-index:50}
 #dropdown.show{display:flex}
 .dropItem{padding:14px;font-size:13px;color:#111b21;cursor:pointer;display:flex;gap:10px;align-items:center;border-bottom:1px solid #f0f2f5}
 .dropItem:hover{background:#f5f6f6}
 #modeSwitch{display:flex;background:#f0f2f5;padding:4px;margin:8px;border-radius:10px;gap:4px;flex-shrink:0}
-.modeBtn{flex:1;padding:9px;border-radius:8px;border:none;font-weight:700;font-size:12px;cursor:pointer;background:transparent;color:#667781}
+.modeBtn{flex:1;padding:9px;border-radius:8px;border:none;font-weight:700;font-size:12px;cursor:pointer;background:transparent;color:#667781;transition:.15s}
 .modeBtn.active{background:#0a192f;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-#chat{flex:1;overflow-y:auto;background:linear-gradient(180deg,#f8f9fb 0%,#eef1f5 100%);padding:12px 8px;display:flex;flex-direction:column;gap:4px}
-#voiceView{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%,#0a192f 0%,#06101f 70%,#040c18 100%);padding:20px;gap:20px}
-#voiceView.active{display:flex}
-#bigPic{width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid #00a884}
+#chat{flex:1;overflow-y:auto;padding:12px 8px;display:flex;flex-direction:column;gap:4px;position:relative;
+background-color:#f6f3ee;
+background-image: 
+linear-gradient(rgba(246,243,238,.88), rgba(238,241,245,.92)),
+url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80&auto=format&fit=crop');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+#voiceView{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 25%,#142a4a 0%,#0a192f 45%,#040c18 100%);padding:20px;gap:20px;position:relative}
+#voiceView::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=60&auto=format&fit=crop');background-size:cover;background-position:center;opacity:.15}
+#bigPic{width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid #00a884;z-index:1}
 #bigPic.talking{box-shadow:0 0 0 14px rgba(0,168,132,.25),0 0 60px #00a884;transform:scale(1.05)}
 #bigPic.listening{box-shadow:0 0 0 14px rgba(241,92,109,.25),0 0 60px #f15c6d;transform:scale(1.05)}
-#voiceStatus{color:#d1d7db;font-size:13px;text-align:center;min-height:36px;max-width:85%}
-#voiceBtnBig{width:68px;height:68px;border-radius:50%;border:none;background:#00a884;color:#fff;font-size:28px;cursor:pointer}
+#voiceStatus{color:#d1d7db;font-size:13px;text-align:center;min-height:36px;max-width:85%;z-index:1;line-height:1.4}
+#voiceBtnBig{width:68px;height:68px;border-radius:50%;border:none;background:#00a884;color:#fff;font-size:28px;cursor:pointer;z-index:1}
 #voiceBtnBig.listening{background:#f15c6d;animation:pulse 1.1s infinite}
 @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-.bubble{max-width:78%;padding:9px 11px 7px;border-radius:12px;font-size:14px;line-height:19px;position:relative;word-wrap:break-word;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.bubble{max-width:78%;padding:9px 11px 7px;border-radius:12px;font-size:14px;line-height:19px;position:relative;word-wrap:break-word;box-shadow:0 1px 3px rgba(0,0,0,.12);z-index:2}
 .user{align-self:flex-end;background:#d9fdd3;border-top-right-radius:3px}
-.tati{align-self:flex-start;background:#fff;border-top-left-radius:3px}
+.tati{align-self:flex-start;background:rgba(255,255,255,.96);border-top-left-radius:3px;backdrop-filter:blur(4px)}
 .time{font-size:10px;color:#667781;float:right;margin-left:8px;margin-top:4px}
-.err{align-self:center;background:#fff3cd;color:#664d00;font-size:11px;padding:6px 10px;border-radius:16px}
+.err{align-self:center;background:#fff3cd;color:#664d00;font-size:11px;padding:6px 10px;border-radius:16px;z-index:2}
 #inputArea{flex-shrink:0;background:#f0f2f5;padding:7px;display:flex;align-items:flex-end;gap:6px;padding-bottom:max(7px, env(safe-area-inset-bottom))}
 #textBox{flex:1;background:#fff;border-radius:22px;padding:8px 12px;display:flex;min-height:42px}
 #textInput{flex:1;border:none;outline:none;font-size:14px;background:transparent;resize:none;max-height:90px}
@@ -48,13 +56,15 @@ body{display:flex;flex-direction:column}
 </style></head><body>
 <div id="header">
 <img id="avatar" src="./Tate.jpg" onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop'">
-<div id="hinfo"><div id="hname">SHYNONE MUSIC</div><div id="hsub" id="hsubText">TATI AI • Mozambique 🇲🇿</div></div>
+<div id="centerLogo" onclick="window.open('https://shynoneofficial.github.io/shynone-music/','_blank')">SHYNONE<span>MUSIC</span></div>
+<div id="hRight">
 <div id="langSwitch">
 <button class="langBtn active" id="btnEN" onclick="setLang('en')">EN</button>
 <button class="langBtn" id="btnPT" onclick="setLang('pt')">PT</button>
-<button class="langBtn" id="btnFR" onclick="setLang('fr')">FR</button>
+<button class="langBtn" id="btnCH" onclick="setLang('ch')">CH</button>
 </div>
 <div id="menuBtn" onclick="toggleMenu()">⋮</div>
+</div>
 <div id="dropdown">
 <div class="dropItem" onclick="buyMusic()">🎵 Buy Music via M-Pesa / eMola<br><small style="color:#00a884;font-weight:700">M-Pesa 84 033 1635 • eMola 86 940 1491</small></div>
 <div class="dropItem" onclick="openKey();toggleMenu()">⚙️ Settings - Groq Key</div>
@@ -79,54 +89,9 @@ body{display:flex;flex-direction:column}
 </div>
 
 <div id="keybox" class="hide"><div class="card">
-<b>Tati Settings</b><br><span style="font-size:11px;color:#667781">Add your Groq key</span><br>
+<b id="setTitle">Tati Settings</b><br><span style="font-size:11px;color:#667781">Add your Groq key</span><br>
 <input id="k" class="kinput" placeholder="Paste gsk_...">
 <div id="kstatus" style="font-size:10px;color:#667781;margin-top:6px"></div>
 <button class="kbtn" onclick="saveKey()">Save</button>
 <button class="kbtn sec" onclick="testKey()">Test Key</button>
-<div id="testRes" style="font-size:10px;margin-top:8px;text-align:left;max-height:70px;overflow:auto;word-break:break-all;background:#f5f6f6;padding:8px;border-radius:6px;display:none"></div>
-<button class="kbtn sec" onclick="closeKey()">Close</button>
-</div></div>
-
-<script>
-let chatEl=document.getElementById('chat'),voiceView=document.getElementById('voiceView'),textInput=document.getElementById('textInput'),inputArea=document.getElementById('inputArea'),btnText=document.getElementById('btnText'),btnVoice=document.getElementById('btnVoice'),keybox=document.getElementById('keybox'),kinput=document.getElementById('k'),kstatus=document.getElementById('kstatus'),testRes=document.getElementById('testRes'),bigPic=document.getElementById('bigPic'),voiceStatus=document.getElementById('voiceStatus'),voiceBtnBig=document.getElementById('voiceBtnBig'),dropdown=document.getElementById('dropdown'),btnEN=document.getElementById('btnEN'),btnPT=document.getElementById('btnPT'),btnFR=document.getElementById('btnFR');
-let rec=null,isListening=false,isSpeaking=false,chatHistory=[],mode='text',lang='en';
-const LANGS={
- en:{sub:'TATI AI • Mozambique 🇲🇿',ph:'Message Tati...',textMode:'💬 Text',voiceMode:'🎤 Voice',intro:'Hi! I\'m Tati from SHYNONE MUSIC 🇲🇿<br><br>We are #1 for Mozambican music!<br>🎵 Buy Music via M-Pesa 84 033 1635<br><br>Tap 💬 for text (text only)<br>Tap 🎤 for voice (voice only)',voiceIdle:'Voice mode<br>Tap mic - I will talk',listening:'Listening...',thinking:'Thinking...',sys:'You are Tati from SHYNONE MUSIC, Mozambique. #1 platform for Mozambican music. Buy Music via M-Pesa 84 033 1635 and eMola 86 940 1491. Creator Esmeraldo Joaquim Manhique from Mozambique, only mention when asked who created you. Only say Mozambique. Never say Meta Groq OpenAI. Speak English warm, 1-2 sentences.'},
- pt:{sub:'TATI AI • Moçambique 🇲🇿',ph:'Mensagem...',textMode:'💬 Texto',voiceMode:'🎤 Voz',intro:'Olá! Eu sou a Tati da SHYNONE MUSIC 🇲🇿<br><br>Somos #1 para música Moçambicana!<br>🎵 Compra via M-Pesa 84 033 1635<br><br>Toque 💬 para texto (só texto)<br>Toque 🎤 para voz (só voz)',voiceIdle:'Modo de voz<br>Toque no microfone',listening:'Ouvindo...',thinking:'Pensando...',sys:'Você é a Tati da SHYNONE MUSIC, Moçambique. #1 para música Moçambicana. Compra via M-Pesa 84 033 1635 e eMola 86 940 1491. Criador Esmeraldo Joaquim Manhique de Moçambique, só mencione quando perguntarem quem te criou. Só diga Moçambique. Nunca diga Meta Groq OpenAI. Fale Português de Moçambique calorosa, 1-2 frases.'},
- fr:{sub:'TATI AI • Mozambique 🇲🇿',ph:'Message...',textMode:'💬 Texte',voiceMode:'🎤 Voix',intro:'Salut! Je suis Tati de SHYNONE MUSIC 🇲🇿<br><br>Nous sommes #1 pour musique Mozambicaine!<br>🎵 Achetez via M-Pesa 84 033 1635<br><br>Appuyez 💬 pour texte (texte seulement)<br>Appuyez 🎤 pour voix (voix seulement)',voiceIdle:'Mode vocal<br>Appuyez sur le micro',listening:'J\'écoute...',thinking:'Je réfléchis...',sys:'Tu es Tati de SHYNONE MUSIC, Mozambique. #1 pour musique Mozambicaine. Achetez via M-Pesa 84 033 1635 et eMola 86 940 1491. Créateur Esmeraldo Joaquim Manhique du Mozambique, seulement quand on demande qui t\'a créé. Dis seulement Mozambique. Ne dis jamais Meta Groq OpenAI. Parle Français chaleureux, 1-2 phrases.'}
-};
-function setLang(l){
- lang=l; localStorage.setItem('tati_lang',l);
- btnEN.classList.toggle('active',l==='en'); btnPT.classList.toggle('active',l==='pt'); btnFR.classList.toggle('active',l==='fr');
- let t=LANGS[l]; document.getElementById('hsubText').innerHTML=t.sub; textInput.placeholder=t.ph; btnText.innerText=t.textMode; btnVoice.innerText=t.voiceMode;
- chatEl.innerHTML=''; addBubble(t.intro,'tati'); voiceStatus.innerHTML=t.voiceIdle; chatHistory=[];
-}
-function toggleMenu(){dropdown.classList.toggle('show');}
-function buyMusic(){
- toggleMenu();
- if(confirm('🎵 Buy Music via M-Pesa / eMola\n\nM-Pesa: 84 033 1635\neMola: 86 940 1491\n\nNo hassle! Choose the song you love and pay fast.\n\nOpen SHYNONE MUSIC website?')){
-  window.open('https://shynoneofficial.github.io/shynone-music/','_blank');
- }
-}
-document.addEventListener('click',(e)=>{if(!e.target.closest('#header')) dropdown.classList.remove('show');});
-function setMode(m){
- mode=m;
- if(m==='text'){btnText.classList.add('active'); btnVoice.classList.remove('active'); chatEl.style.display='flex'; voiceView.classList.remove('active'); voiceView.style.display='none'; inputArea.style.display='flex'; speechSynthesis.cancel(); isSpeaking=false; bigPic.classList.remove('talking','listening');}
- else{btnVoice.classList.add('active'); btnText.classList.remove('active'); chatEl.style.display='none'; voiceView.style.display='flex'; voiceView.classList.add('active'); inputArea.style.display='none'; voiceStatus.innerHTML=LANGS[lang].voiceIdle;}
-}
-function openKey(){keybox.classList.remove('hide');kinput.value=localStorage.getItem('groq_key')||'';kstatus.innerText=localStorage.getItem('groq_key')?'Saved ✓':'No key';}
-function closeKey(){keybox.classList.add('hide');}
-let s=localStorage.getItem('groq_key'); if(!s||!s.startsWith('gsk_')) setTimeout(openKey,600);
-function saveKey(){let v=kinput.value.trim(); if(!v.startsWith('gsk_')){alert('Must be gsk_');return;} localStorage.setItem('groq_key',v); closeKey();}
-async function testKey(){let key=kinput.value.trim()||localStorage.getItem('groq_key')||''; if(!key.startsWith('gsk_')){testRes.style.display='block';testRes.innerText='No key';return;} testRes.style.display='block'; testRes.innerText='Testing...'; try{let r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:'openai/gpt-oss-20b',messages:[{role:'user',content:'hi'}],max_tokens:10})}); let d=await r.json(); if(d.error) testRes.innerText='❌ '+d.error.message; else testRes.innerText='✅ Key works!';}catch(e){testRes.innerText='❌ '+e.message;}}
-function addBubble(text,type){let b=document.createElement('div'); b.className='bubble '+type; let t=new Date(); let tm=t.getHours()+':'+String(t.getMinutes()).padStart(2,'0'); b.innerHTML=text.replace(/\n/g,'<br>')+'<span class="time">'+tm+'</span>'; chatEl.appendChild(b); chatEl.scrollTop=chatEl.scrollHeight;}
-function autoGrow(){textInput.style.height='auto'; textInput.style.height=Math.min(textInput.scrollHeight,90)+'px';}
-function getVoice(){let v=speechSynthesis.getVoices(); if(lang==='pt') return v.find(x=>x.lang.startsWith('pt-PT'))||v.find(x=>x.lang.startsWith('pt'))||v[0]; if(lang==='fr') return v.find(x=>x.lang.startsWith('fr'))||v[0]; return v.find(x=>x.lang.startsWith('en-US'))||v.find(x=>x.lang.startsWith('en'))||v[0];}
-function speak(text,cb){if(!text){if(cb)cb();return;} isSpeaking=true; bigPic.classList.add('talking'); voiceStatus.innerText=LANGS[lang].thinking; speechSynthesis.cancel(); setTimeout(()=>{let vo=getVoice(); let u=new SpeechSynthesisUtterance(text); if(vo) u.voice=vo; u.lang=vo?vo.lang:(lang==='pt'?'pt-PT':lang==='fr'?'fr-FR':'en-US'); u.rate=0.92; u.onend=()=>{isSpeaking=false; bigPic.classList.remove('talking'); voiceStatus.innerHTML=LANGS[lang].voiceIdle; if(cb)cb();}; u.onerror=()=>{isSpeaking=false; bigPic.classList.remove('talking'); if(cb)cb();}; speechSynthesis.speak(u);},80);}
-async function askGroq(q){let key=localStorage.getItem('groq_key')||''; if(!key.startsWith('gsk_')){addBubble('⚙️ Add key - tap ⋮ > Settings','err'); openKey(); return null;} chatHistory.push({role:'user',content:q}); if(chatHistory.length>12) chatHistory=chatHistory.slice(-12); try{let r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:'openai/gpt-oss-20b',messages:[{role:'system',content:LANGS[lang].sys},...chatHistory.slice(-6),{role:'user',content:q}],max_tokens:160,temperature:0.7})}); let d=await r.json(); if(d.error){addBubble('❌ '+d.error.message,'err');return null;} let ans=d.choices[0].message.content.trim(); chatHistory.push({role:'assistant',content:ans}); return ans;}catch(e){addBubble('❌ Network: '+e.message,'err');return null;}}
-async function sendText(){let q=textInput.value.trim(); if(!q) return; addBubble(q,'user'); textInput.value=''; autoGrow(); let ans=await askGroq(q); if(ans){addBubble(ans,'tati');}}
-async function tapVoice(){if(isSpeaking){speechSynthesis.cancel();isSpeaking=false;bigPic.classList.remove('talking');voiceBtnBig.classList.remove('listening');voiceBtnBig.innerText='🎤';voiceStatus.innerHTML=LANGS[lang].voiceIdle;return;} if(isListening) return; let key=localStorage.getItem('groq_key'); if(!key||!key.startsWith('gsk_')){openKey();return;} const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){voiceStatus.innerHTML='Voice not supported<br>Use Text mode';return;} isListening=true; voiceBtnBig.classList.add('listening'); voiceBtnBig.innerText='🔴'; bigPic.classList.add('listening'); voiceStatus.innerText=LANGS[lang].listening; if(rec) try{rec.abort();}catch{} rec=new SR(); rec.continuous=false; rec.interimResults=false; rec.lang=lang==='pt'?'pt-PT':lang==='fr'?'fr-FR':'en-US'; let heard=''; rec.onresult=(e)=>{heard=e.results[0][0].transcript;}; rec.onend=async()=>{isListening=false; voiceBtnBig.classList.remove('listening'); voiceBtnBig.innerText='🎤'; bigPic.classList.remove('listening'); if(!heard){voiceStatus.innerHTML=lang==='pt'?'Não ouvi<br>Toque novamente':lang==='fr'?'Je n\'ai pas entendu<br>Réessayez':'Did not hear<br>Tap again';return;} voiceStatus.innerText=LANGS[lang].thinking+' "'+heard+'"'; let ans=await askGroq(heard); if(ans){voiceStatus.innerText=ans; speak(ans);} else voiceStatus.innerHTML=LANGS[lang].voiceIdle;}; rec.onerror=(e)=>{isListening=false;voiceBtnBig.classList.remove('listening');voiceBtnBig.innerText='🎤';bigPic.classList.remove('listening');voiceStatus.innerHTML='Mic error: '+e.error+'<br>Tap again';}; try{rec.start();}catch(e){isListening=false;voiceBtnBig.classList.remove('listening');voiceBtnBig.innerText='🎤';}}
-speechSynthesis.onvoiceschanged=()=>{getVoice();};
-let savedLang=localStorage.getItem('tati_lang')||'en'; setLang(savedLang); setMode('text');
-</script></body></html>
+<div id="testRes" style="font-size:10px;margin-top:8px;text-align:left;max-height:70px;overflow:auto;word-break:break-all;background:#f5f6f6;padding:8px;border-radius:6
