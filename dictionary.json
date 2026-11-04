@@ -1,0 +1,32 @@
+[
+  {
+    "word": "hello",
+    "changana": "avuxeni",
+    "example_changana": "Avuxeni Boss",
+    "example_english": "Hello Boss"
+  },
+  {
+    "word": "thank you",
+    "changana": "khanimambo",
+    "example_changana": "Khanimambo Boss",
+    "example_english": "Thank you Boss"
+  },
+  {
+    "word": "water",
+    "changana": "mati",
+    "example_changana": "Ndzi lava mati",
+    "example_english": "I want water"
+  },
+  {
+    "word": "music",
+    "changana": "vunanga",
+    "example_changana": "Ndzi lava ku xava vunanga",
+    "example_english": "I want to buy music"
+  },
+  {
+    "word": "how are you",
+    "changana": "u pfukile?",
+    "example_changana": "Avuxeni, u pfukile?",
+    "example_english": "Hello, how are you?"
+  }
+]
