@@ -22,7 +22,6 @@ function findDictEntry(q){
     var it=TATI_DICT[i];
     var eng=(it.word||it.english||'').toLowerCase();
     var cha=(it.changana||it.xichangana||'').toLowerCase();
-    // split "lixile/ alixeni" style
     var chaParts=cha.split('/').map(function(s){return s.trim()});
     if(eng && eng===clean) return it;
     if(chaParts.indexOf(clean)>=0) return it;
@@ -31,42 +30,77 @@ function findDictEntry(q){
   return null;
 }
 function lookupDictionary(q){
-  var it=findDictEntry(q);
-  if(!it) {
-    // also check "what is water in changana" / "water in changana" / "mati in english"
-    var low=q.toLowerCase();
-    for(var i=0;i<TATI_DICT.length;i++){
-      var e=TATI_DICT[i];
-      var eng=(e.word||e.english||'').toLowerCase();
-      if(eng && eng.length>2 && low.indexOf(eng)>=0 && low.indexOf('changana')>=0){
-        it=e; break;
+  if(!TATI_DICT || !TATI_DICT.length) return null;
+  var low = q.toLowerCase().trim();
+  var cleanSingle = low.replace(/[?!.]+$/,'');
+  for(var i=0;i<TATI_DICT.length;i++){
+    var it=TATI_DICT[i];
+    var eng=(it.word||it.english||'').toLowerCase();
+    var cha=(it.changana||it.xichangana||'').toLowerCase();
+    var chaParts=cha.split('/').map(function(s){return s.trim()});
+    if(eng && eng===cleanSingle){
+      if(lang==='ch' || chaParts.indexOf(cleanSingle)>=0){ return it.example_changana || cha + ', Boss.'; }
+      return (it.example_english || "") + " - In xiChangana it is " + cha + ", Boss.";
+    }
+    if(chaParts.indexOf(cleanSingle)>=0){ return it.example_changana || cha + ', Boss.'; }
+  }
+  var words = low.replace(/[?!. ,]/g,' ').split(' ');
+  for(var w=0; w<words.length; w++){
+    var word = words[w].trim(); if(!word) continue;
+    for(var j=0;j<TATI_DICT.length;j++){
+      var e2=TATI_DICT[j];
+      var cha2=(e2.changana||e2.xichangana||'').toLowerCase();
+      var chaParts2=cha2.split('/').map(function(s){return s.trim()});
+      if(chaParts2.indexOf(word)>=0){
+        if(e2.example_changana) return e2.example_changana;
+        return cha2 + ', Boss.';
       }
     }
-    if(!it) return null;
   }
-  var engWord=it.word||it.english||'';
-  var chaWord=it.changana||it.xichangana||'';
-  var exCha=it.example_changana||'';
-  var exEng=it.example_english||'';
-  // BOSS RULE: If user is in CH mode, or typed a Changana word, answer in Changana
-  // If user typed English word and is in EN mode, answer in English, etc.
-  // Detect if input was Changana: input matches changana side
-  var inputLow=q.toLowerCase().trim();
-  var isChanganaInput = (chaWord.toLowerCase().split('/').map(function(s){return s.trim()}).indexOf(inputLow)>=0) || lang==='ch';
-  var isPortuguese = lang==='pt';
-  if(isChanganaInput){
-    // Answer in Changana ONLY - use your example if you gave it, else use the word
-    if(exCha) return exCha;
-    return chaWord + ', Boss.';
+  for(var k=0;k<TATI_DICT.length;k++){
+    var e3=TATI_DICT[k];
+    var eng3=(e3.word||e3.english||'').toLowerCase();
+    if(eng3 && eng3.length>2 && low.indexOf(eng3)>=0 && low.indexOf('changana')>=0){ return e3.example_changana || e3.changana; }
   }
-  if(isPortuguese){
-    // Portuguese mode - answer in Portuguese, but give Changana word
-    if(exEng) return "Em xiChangana, " + engWord + " é " + chaWord + ", Boss.";
-    return "Em xiChangana, " + engWord + " é " + chaWord + ", Boss.";
+  return null;
+}
+
+// === LONG TOPIC MEMORY - REMEMBER YESTERDAY ===
+function getAllTopics(){ try{ return JSON.parse(localStorage.getItem('tati_all_topics')||"[]"); }catch(e){ return []; } }
+function saveTopicMemory(topicName, summary){
+  if(!topicName || topicName.length < 2) return;
+  var all = getAllTopics();
+  var now = new Date().toLocaleDateString('en-GB') + ' ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  var found = null;
+  for(var i=0;i<all.length;i++){ if(all[i].topic.toLowerCase() === topicName.toLowerCase()){ found = all[i]; break; } }
+  if(found){ found.lastTalked = now; found.summary = (found.summary + " | " + summary).slice(-1000); found.count = (found.count||1)+1; }
+  else { all.push({topic: topicName, summary: summary, lastTalked: now, count: 1}); }
+  if(all.length > 50) all = all.slice(-50);
+  localStorage.setItem('tati_all_topics', JSON.stringify(all));
+}
+function findTopicMemory(q){
+  var all = getAllTopics(); if(!all.length) return null;
+  var low = q.toLowerCase();
+  for(var i=0;i<all.length;i++){
+    var t = all[i].topic.toLowerCase();
+    if(low.indexOf(t) >= 0) return all[i];
+    if(low.indexOf('go back')>=0 && low.indexOf(t)>=0) return all[i];
   }
-  // English mode - answer in English
-  if(exEng) return exEng + " - In xiChangana it is " + chaWord + ", Boss.";
-  return "In xiChangana, " + engWord + " is " + chaWord + ", Boss.";
+  return null;
+}
+function detectTopicFromText(q, ans){
+  var low = q.toLowerCase() + " " + (ans||"").toLowerCase();
+  if(low.indexOf('mova')>=0 || low.indexOf('car')>=0 || low.indexOf('toyota')>=0) return 'cars';
+  if(low.indexOf('mati')>=0 || low.indexOf('water')>=0) return 'water';
+  if(low.indexOf('rhandzu')>=0 || low.indexOf('love')>=0) return 'love';
+  if(low.indexOf('wunanga')>=0 || low.indexOf('music')>=0 || low.indexOf('ngoma')>=0) return 'music';
+  if(low.indexOf('trump')>=0) return 'trump';
+  if(low.indexOf('reggae')>=0) return 'reggae';
+  if(low.indexOf('kaya')>=0 || low.indexOf('yindlu')>=0 || low.indexOf('house')>=0) return 'home';
+  if(low.indexOf('xikolwe')>=0 || low.indexOf('school')>=0) return 'school';
+  if(low.indexOf('vagwa')>=0 || low.indexOf('sick')>=0 || low.indexOf('kuvava')>=0) return 'health';
+  if(low.indexOf('xikwembu')>=0 || low.indexOf('god')>=0 || low.indexOf('sonto')>=0) return 'god';
+  return null;
 }
 
 function getVoiceRules(){try{return JSON.parse(localStorage.getItem('tati_voice_rules')||"[]")}catch(e){return[]}}
@@ -149,7 +183,44 @@ function startVoiceLoop(){if(!voiceOn||isSpeaking||recStarting||rec)return;var S
 async function handleVoiceHeard(heard){if(!voiceOn)return;if(isEcho(heard)&&!wasInterrupted)return;wasInterrupted=false;lastHandledHeard=heard.toLowerCase().trim();lastHandledAt=Date.now();lastHeardTime=Date.now();var hf=heard.replace(/shine\s?on/gi,'SHYNONE').replace(/shy\s?none/gi,'SHYNONE').replace(/\bchina\b/gi,'SHYNONE').replace(/\bchinese\b/gi,'SHYNONE').replace(/\bchineese\b/gi,'SHYNONE');if(hf!==heard)heard=hf;if(/that'?s not changana|not changana|isso nao e changana|isso não é changana/.test(heard.toLowerCase())){var corr='You are right Boss, sorry. I invented those words. I do not know xiChangana words yet. Teach me the correct word, Boss, and I will remember only your word. I will not invent again.';addBubble(heard,'user');addBubble(corr,'tati');voiceStatus.innerHTML=stripUgly(corr);speak(corr,function(){if(voiceOn)lastHeardTime=Date.now()});return}if(isStopRequest(heard)){var bye=lang==='pt'?'Tchau Boss! Boa noite, vou dormir também. Toca na Tati quando quiseres falar de novo.':lang==='ch'?'Salani Boss! Ndzi ya etlela na mina. Tsindza Tati loko u lava ku vulavula nakambe.':'Bye Boss! Good night, I am going to sleep too. Tap Tati once when you want to talk again.';addBubble(heard,'user');addBubble(bye,'tati');voiceStatus.innerHTML=stripUgly(bye);if(rec){try{rec.abort()}catch(e){}rec=null;recStarting=false}voiceOn=false;isAway=false;if(keepAliveTimer){clearInterval(keepAliveTimer);keepAliveTimer=null}speak(bye,function(){stopVoiceConversation()});return}var fast=instantAnswer(heard);if(fast){addBubble(heard,'user');addBubble(fast,'tati');voiceStatus.innerHTML=stripUgly(fast);speak(fast,function(){if(voiceOn){lastHeardTime=Date.now();setTimeout(function(){if(voiceOn)safeStartVoiceLoop()},200)}});return}if(isChanganaRequest(heard)&&!getAuth()&&!findDictEntry(heard)){var honest=lang==='pt'?'Boss, eu ainda não sei palavras em xiChangana de verdade. Não quero inventar. Ensina-me uma palavra correta, e eu guardo só a tua palavra.':lang==='ch'?'Boss, a ndzi swi tivi marito ya xiChangana ya ntiyiso. A ndzi lavi ku endla. Ndzi dyondzise rito rinwe ra ntiyiso, ndzi ta ri tsundzuka.':'Boss, I do not know real xiChangana words yet. I do not want to invent. Teach me one correct word, and I will remember only your word.';addBubble(heard,'user');addBubble(honest,'tati');voiceStatus.innerHTML=stripUgly(honest);speak(honest,function(){if(voiceOn)lastHeardTime=Date.now()});return}if(isOfflineRequest(heard)){var off=lang==='pt'?'Boss, para perguntas difíceis eu preciso de internet, porque uso Groq. Mas perguntas simples eu respondo da minha memória, sem internet: o meu nome, como comprar música, preços, quem me criou.':'Boss, for hard questions I need internet, because I use Groq. But simple questions I answer from my memory, no internet needed: my name, how to buy music, prices, who created me.';addBubble(heard,'user');addBubble(off,'tati');voiceStatus.innerHTML=stripUgly(off);speak(off,function(){if(voiceOn)lastHeardTime=Date.now()});return}if(isTrumpRequest(heard)){var ta=lang==='pt'?'Donald Trump é o 47º Presidente dos EUA, desde 20 de Janeiro de 2025 até agora, Boss. Ele também foi o 45º Presidente, de 2017 a 2021.':'Donald Trump is the 47th President of USA, from 20 January 2025 until now, Boss. He was also the 45th President, from 2017 to 2021.';addBubble(heard,'user');addBubble(ta,'tati');voiceStatus.innerHTML=stripUgly(ta);speak(ta,function(){if(voiceOn)lastHeardTime=Date.now()});return}if(isListRulesRequest(heard)){var rules=getVoiceRules();var la=rules.length?('Boss, here are the rules you taught me by voice: '+rules.map(function(x,i){return (i+1)+'. '+x.rule}).join(' ')):'Boss, you have not taught me any voice rules yet. Say: Tati, remember, from now on...';addBubble(heard,'user');addBubble(la,'tati');voiceStatus.innerHTML=stripUgly(la);speak(la,function(){if(voiceOn)lastHeardTime=Date.now()});return}if(isForgetRuleRequest(heard)){var rr=getVoiceRules();if(rr.length){rr.pop();localStorage.setItem('tati_voice_rules',JSON.stringify(rr))}var fa='Ok Boss, I forgot the last rule you taught me. I deleted it.';addBubble(heard,'user');addBubble(fa,'tati');voiceStatus.innerHTML=stripUgly(fa);speak(fa,function(){if(voiceOn)voiceStatus.innerHTML=''});return}if(isLearnRequest(heard)){saveVoiceRule(heard);var lAns=lang==='pt'?'Ok Boss, entendi. Vou lembrar disso a partir de agora. Guardei a tua regra.':'Ok Boss, understood. I will remember that from now on. I saved your rule.';addBubble(heard,'user');addBubble(lAns,'tati');voiceStatus.innerHTML=stripUgly(lAns);speak(lAns,function(){if(voiceOn)voiceStatus.innerHTML=''});return}if(isOwnerNameRequest(heard)){var na=lang==='pt'?'Sim Boss, eu sei o seu nome, Senhor Manhique. O seu nome é Esmeraldo Joaquim Manhique, Fundador da SHYNONE MUSIC, Moçambique. O senhor me criou.':'Yes Boss, I know your name, Mister Manhique. Your name is Esmeraldo Joaquim Manhique, Founder of SHYNONE MUSIC, Mozambique. You created me.';addBubble(heard,'user');addBubble(na,'tati');voiceStatus.innerHTML=stripUgly(na);speak(na,function(){if(voiceOn)voiceStatus.innerHTML=''});return}if(isAwayRequest(heard)){isAway=true;awaySince=Date.now();ambientNotes=[];var wm=lang==='pt'?'Ok Boss, vou esperar por ti aqui. Vai tranquilo, não vou desligar. Quando voltares, continuamos onde parámos.':'Okay Boss, I will wait for you here. Go safely, I will NOT turn off. When you come back, we continue where we stopped.';addBubble(heard,'user');addBubble(wm,'tati');voiceStatus.innerHTML='Waiting...';speak(wm,function(){if(voiceOn)voiceStatus.innerHTML=''});return}if(isBackRequest(heard)){var topic=getTopic();var notes='';if(ambientNotes.length)notes=' While you were away, I heard: '+ambientNotes.map(function(n){return n.note}).join(', ')+'. ';var wb='Welcome back, Boss! I was waiting for you. '+notes+' We were talking about: '+(topic.main||'our chat')+'. Shall we continue?';addBubble(heard,'user');addBubble(wb,'tati');voiceStatus.innerHTML=stripUgly(wb);speak(wb,function(){if(voiceOn)voiceStatus.innerHTML=''});ambientNotes=[];isAway=false;return}if(rec){try{rec.stop()}catch(e){}rec=null;recStarting=false}var ans=await askGroq(heard,false);if(!voiceOn)return;if(ans){ans=stripUgly(ans);addBubble(heard,'user');addBubble(ans,'tati');voiceStatus.innerHTML=stripUgly(ans);speak(ans,function(){if(voiceOn){lastHeardTime=Date.now();setTimeout(function(){if(voiceOn)safeStartVoiceLoop()},200)}})}else if(voiceOn)safeStartVoiceLoop()}
 function speak(text,cb){if(!text){if(cb)cb();return}text=stripUgly(text);lastSpokenText=text;lastSpokenAt=Date.now();wasInterrupted=false;if(rec&&voiceOn){try{rec.abort()}catch(e){}rec=null;recStarting=false}isSpeaking=true;bigPic.classList.add('talking');bigPic.classList.remove('listening');try{speechSynthesis.cancel()}catch(e){}var myToken=++speakToken;var chunks=splitIntoChunks(text);speakIndex=0;var speakCb=cb;function finishSpeak(){stopInterruptListener();isSpeaking=false;bigPic.classList.remove('talking');lastSpokenAt=Date.now();if(speakCb)speakCb();else if(voiceOn){bigPic.classList.add('listening');setTimeout(function(){if(voiceOn&&!isSpeaking)safeStartVoiceLoop()},200)}};startInterruptListener(function(interruptText){if(myToken!==speakToken)return;wasInterrupted=true;var saved=interruptText;stopInterruptListener();try{speechSynthesis.cancel()}catch(e){}speakToken++;isSpeaking=false;bigPic.classList.remove('talking');bigPic.classList.add('listening');lastHeardTime=Date.now();if(saved&&saved.trim().length>2){setTimeout(function(){handleVoiceHeard(saved)},100)}else{setTimeout(function(){if(voiceOn)safeStartVoiceLoop()},100)}});function next(){if(myToken!==speakToken)return;if(speakIndex>=chunks.length){finishSpeak();return}var chunk=chunks[speakIndex];var clean=cleanSpeech(chunk);if(!clean){speakIndex++;setTimeout(next,5);return}var vo=getVoice();var u=new SpeechSynthesisUtterance(clean);if(vo)u.voice=vo;u.lang=(lang==='pt'||lang==='ch')?'pt-PT':'en-US';u.rate=rateForChunk(clean);u.pitch=1;u.volume=1;var done=false;var pause=pauseForChunk(clean);var fb=setTimeout(function(){if(!done&&myToken===speakToken){done=true;speakIndex++;setTimeout(next,pause)}},5000);u.onend=function(){if(done)return;done=true;clearTimeout(fb);speakIndex++;setTimeout(next,pause)};u.onerror=function(){if(done)return;done=true;clearTimeout(fb);if(myToken===speakToken&&wasInterrupted)return;speakIndex++;setTimeout(next,5)};try{speechSynthesis.speak(u)}catch(e){clearTimeout(fb);speakIndex++;setTimeout(next,5)}}setTimeout(next,5)}
 function cleanAnswer(s){s=stripUgly(s);s=cleanFakeChangana(s);if(/mukulu|kuzimba|mavhila/i.test(s)){s='Boss, I do not know real xiChangana words yet. I do not want to invent. Teach me one correct word, and I will remember only your word.'}s=fixChinaWords(s);s=s.replace(/Samsung|Galaxy|iPhone|Apple|Huawei|Tecno|Itel|Infinix|Xiaomi|Vivo|Oppo|Nokia|LG|Sony|HP|Dell|Lenovo|Coca-Cola|Pepsi|Nike|Adidas/gi,'SHYNONE');s=s.replace(/\bcomma\b/gi,'').replace(/\bvirgula\b/gi,'');s=s.replace(/Manhique/gi,'Mah nyeekeh');s=s.replace(/Shine Own/gi,'Shy None').replace(/shine\s?on/gi,'Shy None');s=fixChinaWords(s);s=s.replace(/App Store/gi,'website').replace(/Play Store/gi,'website').replace(/get the app/gi,'go to the website').replace(/download the app/gi,'go to the website').replace(/open the app/gi,'open the website').replace(/on the app/gi,'on the website').replace(/in the app/gi,'on the website');s=s.replace(/your email( address)?/gi,'your phone number').replace(/\bemail\b/gi,'phone number');s=s.replace(/Google Play/gi,'SHYNONE').replace(/iTunes/gi,'SHYNONE').replace(/Apple Music/gi,'SHYNONE').replace(/YouTube Music/gi,'SHYNONE').replace(/YouTube/gi,'SHYNONE').replace(/Spotify/gi,'SHYNONE').replace(/Boomplay/gi,'SHYNONE').replace(/Audiomack/gi,'SHYNONE').replace(/Deezer/gi,'SHYNONE').replace(/Tidal/gi,'SHYNONE').replace(/SoundCloud/gi,'SHYNONE');s=s.replace(/streaming/gi,'buy and download on SHYNONE');s=stripUgly(s);return fixChinaWords(s)}
-async function askGroq(q,isListen){var low=q.toLowerCase();var fast2=instantAnswer(q);if(fast2)return fast2;var dictAns2=lookupDictionary(q);if(dictAns2) return dictAns2;if(/that'?s not changana|not changana|isso nao e changana/.test(low)){return 'You are right Boss, sorry. I invented those words. I do not know xiChangana words yet. Teach me the correct word, Boss, and I will remember only your word. I will not invent again.'}if(isChanganaRequest(q)&&isTeachChangana(q)&&!getAuth()&&!findDictEntry(q)){return lang==='pt'?'Boss, eu ainda não sei palavras em xiChangana de verdade. Não quero inventar. Ensina-me uma palavra correta, e eu guardo só a tua palavra.':lang==='ch'?'Boss, a ndzi swi tivi marito ya xiChangana ya ntiyiso. Ndzi dyondzise rito rinwe.':'Boss, I do not know real xiChangana words yet. I do not want to invent. Teach me one correct word, and I will remember only your word.'}if(isOfflineRequest(q)){return lang==='pt'?'Boss, para perguntas difíceis eu preciso de internet, porque uso Groq. Mas perguntas simples eu respondo da minha memória, sem internet: o meu nome, como comprar música, preços, quem me criou.':'Boss, for hard questions I need internet, because I use Groq. But simple questions I answer from my memory, no internet needed: my name, how to buy music, prices, who created me.'}if(/trump|donald/.test(low)){return lang==='pt'?'Donald Trump é o 47º Presidente dos EUA, desde 20 de Janeiro de 2025 até agora, Boss. Ele também foi o 45º Presidente, de 2017 a 2021.':'Donald Trump is the 47th President of USA, from 20 January 2025 until now, Boss. He was also the 45th President, from 2017 to 2021.'}if(/do you know.*(name|boss)|what.*(my name|boss.*name)|who.*(created you|is your boss)/.test(low)){return lang==='pt'?'Sim Boss, eu sei o seu nome, Senhor Mah nyeekeh. O seu nome é Esmeraldo Joaquim Mah nyeekeh, Fundador da Shy None Music, Moçambique. O senhor me criou.':'Yes Boss, I know your name, Mister Mah nyeekeh. Your name is Esmeraldo Joaquim Mah nyeekeh, Founder of Shy None Music, Mozambique. You created me.'}if(isListRulesRequest(q)){var r2=getVoiceRules();return r2.length?('Boss, here are the rules you taught me by voice: '+r2.map(function(x,i){return (i+1)+'. '+x.rule}).join(' ')):'Boss, you have not taught me any voice rules yet. Say: Tati, remember, from now on...'}if(isForgetRuleRequest(q)){var r3=getVoiceRules();if(r3.length){r3.pop();localStorage.setItem('tati_voice_rules',JSON.stringify(r3))}return 'Ok Boss, I forgot the last rule you taught me. I deleted it.'}if(isLearnRequest(q)){saveVoiceRule(q);return lang==='pt'?'Ok Boss, entendi. Vou lembrar disso a partir de agora. Guardei a tua regra.':'Ok Boss, understood. I will remember that from now on. I saved your rule.'}if(isOwnerNameRequest(q)){return cleanAnswer(lang==='pt'?'Sim Boss, eu sei o seu nome, Senhor Manhique. O seu nome é Esmeraldo Joaquim Manhique, Fundador da SHYNONE MUSIC, Moçambique. O senhor me criou.':'Yes Boss, I know your name, Mister Manhique. Your name is Esmeraldo Joaquim Manhique, Founder of SHYNONE MUSIC, Mozambique. You created me.')}var det=detectLang(q);if(det!==lang && !findDictEntry(q)) lang=det;if(isBusy)return null;isBusy=true;var key=EMBEDDED_KEY||localStorage.getItem('groq_key')||'';var full=getFullHistory();var ctrl=new AbortController();var to=setTimeout(function(){try{ctrl.abort()}catch(e){}},12000);try{var mem=getMemory(),auth=getAuth(),user=getUser();checkTitleChange(q);user=getUser();var topicBefore=getTopic();var lastA=full.length?full[full.length-1].content:"";var exp=q;var isPron=isPronounceRequest(q),isBuyer=isBuyerRequest(q),isArtist=isArtistRequest(q),isForm=isFormCheckRequest(q),isGuide=isGuideRequest(q),isCont=isContinueRequest(q);if(isPron){exp="User asks PRONUNCIATION of SHYNONE: '"+q+"'. Answer: It is SHY-NONE, Boss. SHY like shy child, NONE like none left."}else if(isBuyer){exp="User asks BUYER ONLY: '"+q+"'. ONLY BUYER: Go site, choose song, 30 sec preview, pay 50 MT M-Pesa 84 033 1635 or eMola 86 940 1491, send proof WhatsApp, get link download, 24h, one link one song. NEVER mention artist."}else if(isArtist){exp="User asks ARTIST ONLY: '"+q+"'. ONLY ARTIST: Same website Sign Up Form, fill name phone song genre file cover M-Pesa/eMola 500 MT year, pay proof, team checks puts on SHYNONE. Then buyers buy 50 MT, musician 40 MT, SHYNONE 10 MT, 24h."}else if(isForm){exp="User asks FORM CHECK: '"+q+"'. Check Name Phone Song Genre File Cover M-Pesa/eMola 500 MT. List missing."}else if(isCont){exp="User says CONTINUE. Previous: '"+(topicBefore.main||"")+"'. Previous answer: '"+lastA+"'. Give NEXT STEPS only."}else if(isGuide){exp="User wants GUIDANCE: '"+q+"'. Answer WHOLE question, NEVER explain single words. Step 1,2,3. Practical Mozambique. NEVER INVENT xiChangana words."}else if(isChanganaRequest(q)){exp="User asks about xiChangana: '"+q+"'. AUTHENTIC RULE: You do NOT know xiChangana unless Boss taught you in AUTHENTIC memory: '"+auth+"' OR in dictionary.json. If AUTHENTIC and dictionary do NOT contain word, MUST say: I do not know that word yet, Boss. Teach me. NEVER invent, NEVER guess. NEVER use mukulu, kuzimba, mavhila. Use ONLY words from AUTHENTIC memory or dictionary. IMPORTANT: Answer in SAME language user used. If user used Changana, answer ONLY in Changana."}else{exp="User asks: '"+q+"'. Answer WHOLE question, in full sentences. NEVER explain single words. If you do not know, say I do not know, Boss. NEVER invent. IMPORTANT: Answer in SAME language user used. Changana in = Changana out. English in = English out. Portuguese in = Portuguese out."}var sys=LANGS[lang].sys+"\nFACTS: "+CURRENT_FACTS+"\nRULES: "+getVoiceRulesPrompt()+"\nMEM: "+mem+"\nAUTH: "+auth+"\nUSER: "+user.name+", call "+(user.preferred||"Boss");var msgs=[{role:'system',content:sys}];full.slice(-8).forEach(function(m){msgs.push({role:m.role,content:m.content})});msgs.push({role:'user',content:exp});if(!key.startsWith('gsk_')){isBusy=false;return 'Boss, no Groq key, but I still remember: you are Esmeraldo Joaquim Mah nyeekeh, Founder of Shy None Music.'}var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:MODEL,messages:msgs,max_tokens:450,temperature:0.5}),signal:ctrl.signal});clearTimeout(to);var d=await r.json();isBusy=false;if(d.error){return 'Boss, internet failed now, but I still remember: you are Esmeraldo Joaquim Mah nyeekeh, Founder of Shy None Music. Ask me again.'}var ans=d.choices?.[0]?.message?.content||'';ans=cleanAnswer(ans);if(ans&&!isListen){full.push({role:'user',content:q});full.push({role:'assistant',content:ans});saveFullHistory(full);updateTopic(q,ans)}return ans}catch(e){clearTimeout(to);isBusy=false;return 'Boss, internet failed now, but I still remember: you are Esmeraldo Joaquim Mah nyeekeh, Founder of Shy None Music. Ask me again.'}}
+async function askGroq(q,isListen){
+  var low=q.toLowerCase();var fast2=instantAnswer(q);if(fast2)return fast2;
+  var dictAns2=lookupDictionary(q);if(dictAns2) return dictAns2;
+  if(/that'?s not changana|not changana|isso nao e changana/.test(low)){return 'You are right Boss, sorry. I invented those words. I do not know xiChangana words yet. Teach me the correct word, Boss, and I will remember only your word. I will not invent again.'}
+  if(isChanganaRequest(q)&&isTeachChangana(q)&&!getAuth()&&!findDictEntry(q)){return lang==='pt'?'Boss, eu ainda não sei palavras em xiChangana de verdade. Não quero inventar. Ensina-me uma palavra correta, e eu guardo só a tua palavra.':lang==='ch'?'Boss, a ndzi swi tivi marito ya xiChangana ya ntiyiso. Ndzi dyondzise rito rinwe.':'Boss, I do not know real xiChangana words yet. I do not want to invent. Teach me one correct word, and I will remember only your word.'}
+  if(isOfflineRequest(q)){return lang==='pt'?'Boss, para perguntas difíceis eu preciso de internet, porque uso Groq. Mas perguntas simples eu respondo da minha memória, sem internet: o meu nome, como comprar música, preços, quem me criou.':'Boss, for hard questions I need internet, because I use Groq. But simple questions I answer from my memory, no internet needed: my name, how to buy music, prices, who created me.'}
+  if(/trump|donald/.test(low)){return lang==='pt'?'Donald Trump é o 47º Presidente dos EUA, desde 20 de Janeiro de 2025 até agora, Boss. Ele também foi o 45º Presidente, de 2017 a 2021.':'Donald Trump is the 47th President of USA, from 20 January 2025 until now, Boss. He was also the 45th President, from 2017 to 2021.'}
+  if(/do you know.*(name|boss)|what.*(my name|boss.*name)|who.*(created you|is your boss)/.test(low)){return lang==='pt'?'Sim Boss, eu sei o seu nome, Senhor Mah nyeekeh. O seu nome é Esmeraldo Joaquim Mah nyeekeh, Fundador da Shy None Music, Moçambique. O senhor me criou.':'Yes Boss, I know your name, Mister Mah nyeekeh. Your name is Esmeraldo Joaquim Mah nyeekeh, Founder of Shy None Music, Mozambique. You created me.'}
+  if(isListRulesRequest(q)){var r2=getVoiceRules();return r2.length?('Boss, here are the rules you taught me by voice: '+r2.map(function(x,i){return (i+1)+'. '+x.rule}).join(' ')):'Boss, you have not taught me any voice rules yet. Say: Tati, remember, from now on...'}
+  if(isForgetRuleRequest(q)){var r3=getVoiceRules();if(r3.length){r3.pop();localStorage.setItem('tati_voice_rules',JSON.stringify(r3))}return 'Ok Boss, I forgot the last rule you taught me. I deleted it.'}
+  if(isLearnRequest(q)){saveVoiceRule(q);return lang==='pt'?'Ok Boss, entendi. Vou lembrar disso a partir de agora. Guardei a tua regra.':'Ok Boss, understood. I will remember that from now on. I saved your rule.'}
+  if(isOwnerNameRequest(q)){return cleanAnswer(lang==='pt'?'Sim Boss, eu sei o seu nome, Senhor Manhique. O seu nome é Esmeraldo Joaquim Manhique, Fundador da SHYNONE MUSIC, Moçambique. O senhor me criou.':'Yes Boss, I know your name, Mister Manhique. Your name is Esmeraldo Joaquim Manhique, Founder of SHYNONE MUSIC, Mozambique. You created me.')}
+  var det=detectLang(q);if(det!==lang && !findDictEntry(q)) lang=det;
+  if(isBusy)return null;isBusy=true;
+  var key=EMBEDDED_KEY||localStorage.getItem('groq_key')||'';
+  var full=getFullHistory();var ctrl=new AbortController();var to=setTimeout(function(){try{ctrl.abort()}catch(e){}},12000);
+  try{
+    var mem=getMemory(),auth=getAuth(),user=getUser();checkTitleChange(q);user=getUser();var topicBefore=getTopic();var lastA=full.length?full[full.length-1].content:"";
+    var oldTopic=findTopicMemory(q);var oldTopicText="";
+    if(oldTopic){ oldTopicText="\nOLD TOPIC MEMORY - USER WANTS TO GO BACK: Topic = "+oldTopic.topic+", Last talked: "+oldTopic.lastTalked+", What we said before: "+oldTopic.summary+"\nINSTRUCTION: Continue this old topic. Say: Yes Boss, yesterday we talked about "+oldTopic.topic+" ... and remind Boss what he said. Answer in SAME language user used."; }
+    var currentTopic=detectTopicFromText(q,"");
+    if(currentTopic){ setTimeout(function(){ saveTopicMemory(currentTopic, "User: "+q.slice(0,120)); },100); }
+    var exp=q;var isPron=isPronounceRequest(q),isBuyer=isBuyerRequest(q),isArtist=isArtistRequest(q),isForm=isFormCheckRequest(q),isGuide=isGuideRequest(q),isCont=isContinueRequest(q);
+    if(isPron){exp="User asks PRONUNCIATION of SHYNONE: '"+q+"'. Answer: It is SHY-NONE, Boss. SHY like shy child, NONE like none left."}
+    else if(isBuyer){exp="User asks BUYER ONLY: '"+q+"'. ONLY BUYER: Go site, choose song, 30 sec preview, pay 50 MT M-Pesa 84 033 1635 or eMola 86 940 1491, send proof WhatsApp, get link download, 24h, one link one song. NEVER mention artist."}
+    else if(isArtist){exp="User asks ARTIST ONLY: '"+q+"'. ONLY ARTIST: Same website Sign Up Form, fill name phone song genre file cover M-Pesa/eMola 500 MT year, pay proof, team checks puts on SHYNONE. Then buyers buy 50 MT, musician 40 MT, SHYNONE 10 MT, 24h."}
+    else if(isForm){exp="User asks FORM CHECK: '"+q+"'. Check Name Phone Song Genre File Cover M-Pesa/eMola 500 MT. List missing."}
+    else if(isCont){exp="User says CONTINUE. Previous: '"+(topicBefore.main||"")+"'. Previous answer: '"+lastA+"'. Give NEXT STEPS only."}
+    else if(isGuide){exp="User wants GUIDANCE: '"+q+"'. Answer WHOLE question, NEVER explain single words. Step 1,2,3. Practical Mozambique. NEVER INVENT xiChangana words."}
+    else if(isChanganaRequest(q)){exp="User asks about xiChangana: '"+q+"'. AUTHENTIC RULE: You do NOT know xiChangana unless Boss taught you in AUTHENTIC memory: '"+auth+"' OR in dictionary.json. If AUTHENTIC and dictionary do NOT contain word, MUST say: I do not know that word yet, Boss. Teach me. NEVER invent, NEVER guess. NEVER use mukulu, kuzimba, mavhila. Use ONLY words from AUTHENTIC memory or dictionary. IMPORTANT: Answer in SAME language user used. If user used Changana, answer ONLY in Changana."}
+    else{exp="User asks: '"+q+"'. Answer WHOLE question, in full sentences. NEVER explain single words. If you do not know, say I do not know, Boss. NEVER invent. IMPORTANT: Answer in SAME language user used. Changana in = Changana out. English in = English out. Portuguese in = Portuguese out."}
+    var dictText=""; try{ if(TATI_DICT && TATI_DICT.length){ dictText=TATI_DICT.slice(0,400).map(function(e){ return (e.word||e.english||'')+" = "+(e.changana||e.xichangana||''); }).join(", "); } }catch(e){}
+    var sys=LANGS[lang].sys+"\nFACTS: "+CURRENT_FACTS+"\n"+oldTopicText+"\nRULES: "+getVoiceRulesPrompt()+"\nDICTIONARY FROM BOSS (USE ONLY THESE WORDS FOR CHANGANA, NEVER INVENT): "+dictText+"\n\nTRANSLATION INSTRUCTION - FOLLOW THIS ALWAYS:\n1. User speaks Changana. First TRANSLATE what user said into English in your head to UNDERSTAND it.\n2. Get the ANSWER in English using your knowledge (Groq). You know everything: cars, Trump, reggae, love, music, history.\n3. Then TRANSLATE your English answer back to Changana using ONLY words from DICTIONARY FROM BOSS. If a word is NOT in dictionary, keep it in English, do NOT invent. Example: Jamaica, Trump, Toyota stay in English.\n4. Answer user in SAME language user used. Changana in = Changana out. English in = English out. Portuguese in = Portuguese out.\n5. NEVER say 'I do not know' just because one Changana word is missing. Say the answer with the words you DO know.\n6. REMEMBER TOPIC: If user changes topic, switch topic. If user says 'go back to cars', use OLD TOPIC MEMORY.\nMEM: "+mem+"\nAUTH: "+auth+"\nUSER: "+user.name+", call "+(user.preferred||"Boss");
+    var msgs=[{role:'system',content:sys}];full.slice(-8).forEach(function(m){msgs.push({role:m.role,content:m.content})});msgs.push({role:'user',content:exp});
+    if(!key.startsWith('gsk_')){isBusy=false;return 'Boss, no Groq key, but I still remember: you are Esmeraldo Joaquim Mah nyeekeh, Founder of Shy None Music.'}
+    var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:MODEL,messages:msgs,max_tokens:450,temperature:0.5}),signal:ctrl.signal});clearTimeout(to);var d=await r.json();isBusy=false;if(d.error){return 'Boss, internet failed now, but I still remember: you are Esmeraldo Joaquim Mah nyeekeh, Founder of Shy None Music. Ask me again.'}var ans=d.choices?.[0]?.message?.content||'';ans=cleanAnswer(ans);if(ans&&!isListen){full.push({role:'user',content:q});full.push({role:'assistant',content:ans});saveFullHistory(full);updateTopic(q,ans);var ct2=detectTopicFromText(q,ans); if(ct2) saveTopicMemory(ct2, "User: "+q.slice(0,100)+" | Tati: "+ans.slice(0,120));}return ans
+  }catch(e){clearTimeout(to);isBusy=false;return 'Boss, internet failed now, but I still remember: you are Esmeraldo Joaquim Mah nyeekeh, Founder of Shy None Music. Ask me again.'}
+}
 async function sendText(){var q=textInput.value.trim();if(!q)return;addBubble(q,'user');textInput.value='';textInput.style.height='auto';var ans=await askGroq(q,false);if(ans)addBubble(stripUgly(ans),'tati')}
 window.addEventListener('DOMContentLoaded',init);
 </script></body></html>
