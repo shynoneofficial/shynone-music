@@ -348,4 +348,246 @@ window.addEventListener("DOMContentLoaded",function(){
   }
 })();
 </script>
+<!-- TATI FIX COMBINED - FIX 2 + FIX 3 IN 1 FILE - PASTE BEFORE </body> -->
+<script>
+// ===== FIX 2 - PART 1: DELETE CHAT KEEPS PERSON IN LIST =====
+(function(){
+  var oldBtn = document.getElementById("clearChatBtn");
+  if(!oldBtn) return;
+  var nb = oldBtn.cloneNode(true);
+  oldBtn.parentNode.replaceChild(nb, oldBtn);
+  nb.addEventListener("click", function(){
+    if(typeof currentId === "undefined" || !currentId) return alert("Tap a person first.");
+    var cs = [];
+    try{ cs = JSON.parse(localStorage.getItem("tati_people_contacts")||"[]"); }catch(e){}
+    var c = cs.find(function(x){ return x.id === currentId; });
+    if(!confirm("Clear chat with " + (c ? c.name : "this person") + "? Messages will be cleared, but " + (c ? c.name : "he") + " will STAY in your People list so you can tap him again.")) return;
+    localStorage.removeItem("tati_people_msgs_" + currentId);
+    if(typeof renderMsgs === "function") renderMsgs();
+    if(typeof renderList === "function") renderList();
+    alert("✅ Chat cleared. " + (c ? c.name : "Person") + " is still in your list. Tap him to start new chat.");
+  });
+})();
+
+// ===== FIX 2 - PART 2: SMALL SIMPLE CALL BUTTONS, NO CAMERA ICON =====
+(function(){
+  function fixButtons(){
+    var v = document.getElementById("voiceCallBtn");
+    var vid = document.getElementById("videoCallBtn");
+    var clr = document.getElementById("clearChatBtn");
+    [v, vid, clr].forEach(function(b){
+      if(!b) return;
+      b.style.width = "28px";
+      b.style.height = "28px";
+      b.style.fontSize = "13px";
+      b.style.borderRadius = "50%";
+      b.style.boxShadow = "none";
+      b.style.border = "1px solid #e0e0e0";
+      b.style.background = "#f0f2f5";
+      b.style.color = "#111";
+    });
+    if(v){ v.textContent = "📞"; v.title = "Voice Call"; }
+    if(vid){
+      vid.textContent = "▶";
+      vid.title = "Video Call";
+      vid.style.fontSize = "10px";
+      vid.style.color = "#0a192f";
+      vid.style.fontWeight = "900";
+    }
+    if(clr){ clr.textContent = "🗑️"; clr.style.fontSize = "12px"; }
+  }
+  fixButtons();
+  setInterval(fixButtons, 1000);
+})();
+
+// ===== FIX 2 - PART 3: TATI TEXT CHAT CLEAN, NO DID YOU KNOW INSIDE =====
+(function(){
+  var chat = document.getElementById("chat");
+  if(!chat) return;
+  Array.from(chat.children).forEach(function(b){
+    if(b.textContent && b.textContent.indexOf("DID YOU KNOW") >= 0) b.remove();
+  });
+  var obs = new MutationObserver(function(){
+    Array.from(chat.children).forEach(function(b){
+      if(b.textContent && b.textContent.indexOf("DID YOU KNOW") >= 0) b.remove();
+    });
+  });
+  obs.observe(chat, {childList:true});
+  var inp = document.getElementById("textInput");
+  if(inp) inp.placeholder = "Message Tati...";
+  if(!chat.innerHTML.trim()){
+    var d = document.createElement("div");
+    d.className = "bubble tati";
+    d.innerHTML = "<span>Hi! I am Tati, your SHYNONE assistant. Waiting for you...</span>";
+    chat.appendChild(d);
+  }
+})();
+
+// ===== FIX 3 - PART 1: FIX xiChangana, PUT IT ON TOP, ADD MORE LANGUAGES incl. Tagalog =====
+(function(){
+  if(typeof LANGS !== "undefined" && LANGS.ch){
+    LANGS.ch.greeting = "Avuxeni! Hi mina Tati, mupfuni wa wena wa SHYNONE.";
+    LANGS.ch.langInstruction = "Reply in xiChangana (Changana) mixed with simple Portuguese when needed. Use correct xiChangana words. ";
+    LANGS.ch.regTitle = "👋 Tsarisa - Mahala, Ku hava Code";
+  }
+  var extra = [
+    {code:"ch", name:"xiChangana", builtin:true},
+    {code:"en", name:"English", builtin:true},
+    {code:"pt", name:"Portuguese", builtin:true},
+    {code:"tl", name:"Tagalog", size:"12KB"},
+    {code:"tgl", name:"Tagalog (Filipino)", size:"12KB"},
+    {code:"ceb", name:"Cebuano", size:"12KB"},
+    {code:"ilo", name:"Ilocano", size:"12KB"},
+    {code:"hil", name:"Hiligaynon", size:"12KB"},
+    {code:"war", name:"Waray", size:"12KB"},
+    {code:"bcl", name:"Bicolano", size:"12KB"},
+    {code:"pam", name:"Kapampangan", size:"12KB"},
+    {code:"pag", name:"Pangasinan", size:"12KB"},
+    {code:"zh", name:"Chinese", size:"15KB"},
+    {code:"fr", name:"French", size:"14KB"},
+    {code:"es", name:"Spanish", size:"14KB"},
+    {code:"zu", name:"Zulu", size:"13KB"},
+    {code:"sw", name:"Swahili", size:"13KB"},
+    {code:"de", name:"German", size:"14KB"},
+    {code:"it", name:"Italian", size:"14KB"},
+    {code:"ar", name:"Arabic", size:"15KB"},
+    {code:"hi", name:"Hindi", size:"15KB"},
+    {code:"ru", name:"Russian", size:"15KB"},
+    {code:"ja", name:"Japanese", size:"15KB"},
+    {code:"ko", name:"Korean", size:"15KB"},
+    {code:"yo", name:"Yoruba", size:"13KB"},
+    {code:"ig", name:"Igbo", size:"13KB"},
+    {code:"ha", name:"Hausa", size:"13KB"},
+    {code:"am", name:"Amharic", size:"13KB"},
+    {code:"so", name:"Somali", size:"13KB"},
+    {code:"af", name:"Afrikaans", size:"13KB"},
+    {code:"xh", name:"Xhosa", size:"13KB"},
+    {code:"st", name:"Sesotho", size:"13KB"},
+    {code:"tn", name:"Setswana", size:"13KB"},
+    {code:"ny", name:"Chichewa", size:"13KB"},
+    {code:"sn", name:"Shona", size:"13KB"},
+    {code:"nd", name:"Ndebele", size:"13KB"},
+    {code:"ts", name:"Tsonga / Shangaan", size:"13KB"},
+    {code:"ve", name:"Venda", size:"13KB"},
+    {code:"rn", name:"Kirundi", size:"13KB"},
+    {code:"rw", name:"Kinyarwanda", size:"13KB"},
+    {code:"ln", name:"Lingala", size:"13KB"},
+    {code:"ak", name:"Twi / Akan", size:"13KB"},
+    {code:"ne", name:"Nepali", size:"13KB"},
+    {code:"bn", name:"Bengali", size:"13KB"},
+    {code:"ta", name:"Tamil", size:"13KB"},
+    {code:"te", name:"Telugu", size:"13KB"},
+    {code:"mr", name:"Marathi", size:"13KB"},
+    {code:"ur", name:"Urdu", size:"13KB"},
+    {code:"fa", name:"Persian", size:"14KB"},
+    {code:"tr", name:"Turkish", size:"14KB"},
+    {code:"nl", name:"Dutch", size:"14KB"},
+    {code:"pl", name:"Polish", size:"14KB"},
+    {code:"uk", name:"Ukrainian", size:"14KB"},
+    {code:"vi", name:"Vietnamese", size:"14KB"},
+    {code:"th", name:"Thai", size:"14KB"},
+    {code:"id", name:"Indonesian", size:"13KB"},
+    {code:"ms", name:"Malay", size:"13KB"},
+    {code:"my", name:"Burmese", size:"14KB"},
+    {code:"km", name:"Khmer", size:"14KB"},
+    {code:"lo", name:"Lao", size:"14KB"}
+  ];
+  if(typeof ALL_LANGS !== "undefined"){
+    ALL_LANGS.length = 0;
+    extra.forEach(function(l){ ALL_LANGS.push(l); });
+  }
+  document.querySelectorAll(".langBtn").forEach(function(b){
+    if(b.dataset && b.dataset.lang === "ch"){ b.textContent = "CH"; b.title = "xiChangana"; }
+  });
+  var sub = document.querySelector("#langModal .safeSub");
+  if(sub) sub.textContent = "App stays LIGHT. 3 built-in: xiChangana, English, Portuguese. Others download only 1 time, ~12-15KB. Tagalog + 50 more inside.";
+})();
+
+// ===== FIX 3 - PART 2: DID YOU KNOW - FIND FACTS FROM ONLINE SOURCES =====
+(function(){
+  var chatBox = document.getElementById("factChat");
+  if(!chatBox) return;
+  function addFactBubble(text){
+    var d = document.createElement("div");
+    d.className = "bubble tati";
+    d.style.background = "#fff";
+    d.innerHTML = "<span>" + text + "</span>";
+    chatBox.appendChild(d);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    try{ localStorage.setItem("tati_current_fact", text); }catch(e){}
+    return d;
+  }
+  async function getOnlineFact(){
+    try{
+      var r1 = await fetch("https://uselessfacts.jsph.pl/api/v2/facts/random?language=en");
+      var j1 = await r1.json();
+      if(j1 && j1.text) return {fact: j1.text, source: "Useless Facts API"};
+    }catch(e){}
+    try{
+      var r2 = await fetch("https://en.wikipedia.org/api/rest_v1/page/random/summary");
+      var j2 = await r2.json();
+      if(j2 && j2.extract) return {fact: j2.extract.split(". ")[0] + ".", source: "Wikipedia", full: j2.extract, title: j2.title};
+    }catch(e){}
+    return null;
+  }
+  var nextBtn = document.getElementById("factNextBtn");
+  if(nextBtn){
+    var nb = nextBtn.cloneNode(true);
+    nextBtn.parentNode.replaceChild(nb, nextBtn);
+    nb.addEventListener("click", async function(){
+      addFactBubble("🔍 Tati is searching online for a new fact for you...");
+      var online = await getOnlineFact();
+      if(online){
+        var last = chatBox.lastChild;
+        if(last) last.remove();
+        addFactBubble("💡 DID YOU KNOW (from " + online.source + "):<br><b>" + online.fact + "</b><br><span style='font-size:11px;color:#667781'>Tap How? for thorough explanation.</span>");
+        try{ localStorage.setItem("tati_current_fact_full", JSON.stringify(online)); }catch(e){}
+      } else {
+        addFactBubble("⚠️ Internet slow. Showing a saved fact. Try Again for online fact.");
+      }
+    });
+  }
+  var howBtn = document.getElementById("factHowBtn");
+  if(howBtn){
+    var hb = howBtn.cloneNode(true);
+    howBtn.parentNode.replaceChild(hb, howBtn);
+    hb.addEventListener("click", async function(){
+      var curText = "";
+      try{ curText = localStorage.getItem("tati_current_fact") || ""; }catch(e){}
+      if(!curText) return alert("Tap Another Fact first.");
+      addFactBubble("❓ How? Tell Me More", true);
+      addFactBubble("🔍 Searching online for thorough explanation...");
+      var expl = "";
+      try{
+        var saved = JSON.parse(localStorage.getItem("tati_current_fact_full")||"{}");
+        if(saved && saved.full) expl = saved.full;
+      }catch(e){}
+      try{
+        if(typeof askTati === "function"){
+          var a = await askTati("Explain thoroughly, simply, step by step: " + curText + " Give a long thorough explanation with examples.", false);
+          if(a && a.length > 80) expl = expl ? expl + "<br><br>" + a : a;
+        }
+      }catch(e){}
+      var last2 = chatBox.lastChild;
+      if(last2 && last2.textContent.indexOf("Searching online") >= 0) last2.remove();
+      if(!expl) expl = "This fact is true because of science and history. Ask me Why? and I will explain more.";
+      addFactBubble("👩‍🏫 TATI explains thoroughly (from online + Tati):<br>" + expl);
+    });
+  }
+  var sendBtn = document.getElementById("factSendBtn");
+  if(sendBtn){
+    var sb = sendBtn.cloneNode(true);
+    sendBtn.parentNode.replaceChild(sb, sendBtn);
+    sb.addEventListener("click", async function(){
+      var inp = document.getElementById("factInput");
+      var q = inp.value.trim(); if(!q) return; inp.value="";
+      var d = document.createElement("div"); d.className="bubble user"; d.innerHTML="<span>"+q+"</span>"; chatBox.appendChild(d);
+      try{
+        var a = await askTati("In DID YOU KNOW room, user asks: " + q + ". Search your knowledge and explain thoroughly and simply.", false);
+        addFactBubble(a);
+      }catch(e){ addFactBubble("Internet slow. Ask again."); }
+    });
+  }
+})();
+</script>
 </body></html>
