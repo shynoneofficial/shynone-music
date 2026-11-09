@@ -176,4 +176,176 @@ window.addEventListener("DOMContentLoaded",function(){
   var pInp=el("pInput");if(pInp){pInp.addEventListener("focus",function(){setTimeout(function(){pInp.scrollIntoView({block:"end"});var pc=el("peopleChat");if(pc)pc.scrollTop=pc.scrollHeight;},300)});}
   setMode("text");addBubble((LANGS[CUR_LANG]||LANGS.en).greeting,"tati");refreshUI();if(getMe())startPolling();if(!getUser())setTimeout(function(){el("nameModal").classList.add("show")},800);
 });
-</script></body></html>
+</script>
+<!-- TATI FIX PACK - PASTE BEFORE </body> - DOES NOT REPLACE YOUR GOOD CORD -->
+<script>
+// 1. GLOBE FIX - Globe had same class as EN/PT/CH, so it was overwritten. Give it its own click.
+(function(){
+  var g=document.getElementById("globeBtn");
+  if(!g) return;
+  var ng=g.cloneNode(true); g.parentNode.replaceChild(ng,g);
+  ng.addEventListener("click",function(e){
+    e.preventDefault(); e.stopPropagation();
+    if(typeof renderLangList==="function") renderLangList("");
+    var m=document.getElementById("langModal");
+    if(m) m.classList.add("show");
+  });
+})();
+
+// 2. DID YOU KNOW - OWN ROOM, NO REPEAT, 1 AT A TIME
+(function(){
+  if(document.getElementById("factModal")) return;
+  var html='<div id="factModal" class="safeModal"><div class="safeCard" style="padding:0;overflow:hidden;display:flex;flex-direction:column"><div style="padding:14px;background:#fff7e6;border-bottom:1px solid #f5c542"><div class="safeTitle">💡 DID YOU KNOW - Own Room</div><div class="safeSub">1 fact at a time. Never repeats unless you ask.</div><div style="display:flex;gap:6px;margin-top:8px"><button class="camBtn" id="factClearBtn" style="flex:1">🗑️ Clear</button><button class="camBtn" id="factCloseBtn2" style="flex:1">Close</button></div></div><div id="factChat" style="flex:1;overflow-y:auto;padding:12px;background:#fff7e6;display:flex;flex-direction:column;gap:8px;min-height:200px"></div><div style="display:flex;gap:6px;padding:8px;background:#f0f2f5"><input id="factInput" class="safeInput" style="margin:0;flex:1" placeholder="Ask about this fact..."><button class="kbtn" id="factSendBtn" style="margin:0;width:auto">➤</button></div><div style="padding:8px;display:flex;gap:6px"><button class="kbtn green" id="factHowBtn" style="margin:0;flex:1">❓ How? Tell Me More</button><button class="kbtn" id="factNextBtn" style="margin:0;flex:1">➡️ Another Fact</button></div></div></div>';
+  document.body.insertAdjacentHTML("beforeend",html);
+  var FACTS=[
+    {f:"Honey never goes bad - 3000 year old honey is still good.",how:"Thorough: 1) Bees remove most water. 2) Without water germs cannot grow. 3) Honey has natural acid + hydrogen peroxide. 4) That is why 3000 year old honey in Egypt was still safe."},
+    {f:"Your heart beats about 100,000 times a day.",how:"Thorough: 1) Heart pumps blood everywhere. 2) About 70 beats per minute. 3) 70 x 60 x 24 = about 100,000 per day. 4) In life about 3 billion beats."},
+    {f:"Mozambique flag is the only flag with a gun - AK-47.",how:"Thorough: It does NOT mean we love war. It means: 1) We fought to be free. 2) We defend freedom. 3) Book = education. 4) Hoe = farming. 5) Star = one people."},
+    {f:"Bananas are berries, but strawberries are NOT.",how:"Thorough: 1) True berry = one flower, one ovary. 2) Banana fits that. 3) Strawberry = one flower, MANY ovaries, so not a true berry."},
+    {f:"The Moon moves away 3.8cm every year.",how:"Thorough: 1) Moon pulls sea = tides. 2) Sea pulls back. 3) Moon gets more energy. 4) Moves 3.8cm farther per year."},
+    {f:"Your brain uses 20% of all your energy.",how:"Thorough: 1) Brain is 2% of weight. 2) Uses 20% of energy. 3) Controls everything. 4) Even in sleep it works."},
+    {f:"Octopus has 3 hearts.",how:"Thorough: 1) Two hearts to gills. 2) One heart to body. 3) When it swims fast, body heart stops, so it likes to crawl. 4) Its blood is blue."},
+    {f:"Water can boil and freeze at the same time.",how:"Thorough: Called triple point. At very low pressure and 0.01 degrees, ice, liquid and steam exist together."}
+  ];
+  var cur=null, used=[];
+  function add(t,isUser){
+    var box=document.getElementById("factChat");
+    var d=document.createElement("div"); d.className="bubble "+(isUser?"user":"tati");
+    d.style.background=isUser?"#d9fdd3":"#fff"; d.innerHTML="<span>"+t+"</span>";
+    box.appendChild(d); box.scrollTop=box.scrollHeight;
+  }
+  function nextFact(){
+    var rem=FACTS.filter(function(f){return used.indexOf(f.f)<0});
+    if(!rem.length){used=[]; rem=FACTS.slice();}
+    cur=rem[Math.floor(Math.random()*rem.length)]; used.push(cur.f);
+    try{localStorage.setItem("tati_fact_used",JSON.stringify(used));}catch(e){}
+    add("💡 DID YOU KNOW:<br><b>"+cur.f+"</b>",false);
+  }
+  var oldBtn=document.getElementById("didYouKnowBtn");
+  if(oldBtn){
+    var nb=oldBtn.cloneNode(true); oldBtn.parentNode.replaceChild(nb,oldBtn);
+    nb.addEventListener("click",function(){
+      document.getElementById("factModal").classList.add("show");
+      var box=document.getElementById("factChat");
+      if(!box.innerHTML.trim()){ add("Welcome to DID YOU KNOW room! 1 fact at a time.",false); nextFact(); }
+    });
+  }
+  document.getElementById("factCloseBtn2").addEventListener("click",function(){document.getElementById("factModal").classList.remove("show");});
+  document.getElementById("factNextBtn").addEventListener("click",function(){nextFact();});
+  document.getElementById("factHowBtn").addEventListener("click",async function(){
+    if(!cur) return; add("❓ How? - "+cur.f,true);
+    var expl=cur.how;
+    try{ if(typeof askTati==="function"){ var a=await askTati("Explain thoroughly, simply, step by step: "+cur.f,false); if(a&&a.length>80) expl=a; } }catch(e){}
+    add("👩‍🏫 TATI explains thoroughly:<br>"+expl,false);
+  });
+  async function askFact(){
+    var inp=document.getElementById("factInput"); var q=inp.value.trim(); if(!q||!cur) return; inp.value=""; add(q,true);
+    var a=""; try{ a=await askTati("In DID YOU KNOW room, fact is: "+cur.f+". User asks: "+q+". Explain thoroughly and simply.",false);}catch(e){a=cur.how;}
+    add(a,false);
+  }
+  document.getElementById("factSendBtn").addEventListener("click",askFact);
+  document.getElementById("factInput").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault(); askFact();}});
+  document.getElementById("factClearBtn").addEventListener("click",function(){
+    if(!confirm("Clear all facts chat?")) return;
+    document.getElementById("factChat").innerHTML=""; used=[];
+    try{localStorage.setItem("tati_fact_used","[]");}catch(e){}
+    add("Facts cleared. Starting fresh.",false); nextFact();
+  });
+})();
+
+// 3 + 4. CALL BUTTONS COOL + ONLY INSIDE CHAT + CLEAR CHAT
+(function(){
+  var voiceBtn=document.getElementById("voiceCallBtn");
+  var videoBtn=document.getElementById("videoCallBtn");
+  if(voiceBtn){ voiceBtn.style.background="linear-gradient(135deg,#00c853,#00a884)"; voiceBtn.style.color="#fff"; voiceBtn.style.width="42px"; voiceBtn.style.height="42px"; voiceBtn.style.borderRadius="50%"; voiceBtn.style.boxShadow="0 2px 8px rgba(0,0,0,.25)"; voiceBtn.style.display="none"; }
+  if(videoBtn){ videoBtn.style.background="linear-gradient(135deg,#2979ff,#00b0ff)"; videoBtn.style.color="#fff"; videoBtn.style.width="42px"; videoBtn.style.height="42px"; videoBtn.style.borderRadius="50%"; videoBtn.style.boxShadow="0 2px 8px rgba(0,0,0,.25)"; videoBtn.style.display="none"; }
+  // Show / hide call buttons only when a chat is open
+  var origOpen = window.openChat;
+  // Poll currentId via checking title - simple: show when peopleChat is open
+  setInterval(function(){
+    var pc=document.getElementById("peopleChat");
+    var isOpen = pc && pc.classList.contains("open") && document.getElementById("pChatTitle") && document.getElementById("pChatTitle").textContent.indexOf("Tap a person")<0;
+    var d = isOpen ? "flex" : "none";
+    if(voiceBtn) voiceBtn.style.display=d;
+    if(videoBtn) videoBtn.style.display=d;
+    var clr=document.getElementById("clearChatBtn");
+    if(clr) clr.style.display=d;
+  },500);
+
+  // Add Clear button if not exists
+  if(!document.getElementById("clearChatBtn") && voiceBtn && voiceBtn.parentNode){
+    var b=document.createElement("button"); b.id="clearChatBtn"; b.textContent="🗑️"; b.title="Clear chat / Delete conversation";
+    b.style.cssText="width:42px;height:42px;border-radius:50%;border:none;background:#fff;color:#e03131;border:1px solid #ffd6d6;font-size:16px;cursor:pointer;flex-shrink:0;display:none";
+    voiceBtn.parentNode.insertBefore(b, voiceBtn.nextSibling);
+    b.addEventListener("click",function(){
+      if(typeof currentId==="undefined" || !currentId) return alert("Tap a person first.");
+      var cs=[]; try{cs=JSON.parse(localStorage.getItem("tati_people_contacts")||"[]");}catch(e){}
+      var c=cs.find(function(x){return x.id===currentId});
+      if(!confirm("Clear chat with "+(c?c.name:"this person")+"? This will CLEAR all messages and DELETE this conversation.")) return;
+      localStorage.removeItem("tati_people_msgs_"+currentId);
+      var left=cs.filter(function(x){return x.id!==currentId});
+      localStorage.setItem("tati_people_contacts",JSON.stringify(left));
+      currentId=null;
+      var pv=document.getElementById("peopleView"); if(pv) pv.classList.remove("chatOpen");
+      var pc2=document.getElementById("peopleChat"); if(pc2) pc2.classList.remove("open");
+      document.getElementById("pChatTitle").textContent="Tap a person to chat";
+      if(typeof renderList==="function") renderList();
+      if(typeof renderMsgs==="function") renderMsgs();
+      alert("✅ Chat cleared and conversation deleted.");
+    });
+  }
+
+  // Fix Call status text - Calling -> Ringing -> Connected, no long HD text
+  var origStart = window.startCall;
+  // Patch callStatus after startCall runs
+  ["voiceCallBtn","videoCallBtn"].forEach(function(id){
+    var btn=document.getElementById(id);
+    if(!btn) return;
+    btn.addEventListener("click",function(){
+      setTimeout(function(){
+        var st=document.getElementById("callStatus");
+        if(!st) return;
+        var step=0;
+        var iv=setInterval(function(){
+          step++;
+          if(step===1) st.textContent="Calling...";
+          if(step===2) st.textContent="Ringing...";
+          if(step>=4){ st.textContent="Connected"; clearInterval(iv); }
+        },1200);
+      },300);
+    });
+  });
+})();
+
+// 5. VIEW CONTACTS + VIEW FILES BUTTONS
+(function(){
+  // VIEW CONTACTS inside Contacts modal
+  var cm=document.getElementById("contactsModal");
+  if(cm && !document.getElementById("viewContactsBtn")){
+    var b=document.createElement("button"); b.id="viewContactsBtn"; b.className="kbtn sec"; b.textContent="👁️ VIEW CONTACTS";
+    var box=document.createElement("div"); box.id="viewContactsBox"; box.style.cssText="display:none;margin-top:10px;border:1px solid #eee;border-radius:10px;padding:10px;max-height:220px;overflow:auto;font-size:13px";
+    var closeBtn=document.getElementById("contactsCloseBtn");
+    cm.querySelector(".safeCard").insertBefore(b, closeBtn);
+    cm.querySelector(".safeCard").insertBefore(box, closeBtn);
+    b.addEventListener("click",function(){
+      if(box.style.display==="block"){ box.style.display="none"; return; }
+      box.style.display="block";
+      var c=[]; try{c=JSON.parse(localStorage.getItem("tati_safe_contacts_demo")||"[]");}catch(e){}
+      if(!c.length) box.innerHTML="No contacts yet. Save some first.";
+      else box.innerHTML="<b>"+c.length+" contacts:</b><br>"+c.map(function(x){return "• "+x.name+" - "+x.phone}).join("<br>");
+    });
+  }
+  // VIEW FILES inside Docs modal
+  var dm=document.getElementById("docsModal");
+  if(dm && !document.getElementById("viewFilesBtn")){
+    var b2=document.createElement("button"); b2.id="viewFilesBtn"; b2.className="kbtn sec"; b2.textContent="👁️ VIEW FILES";
+    var dl=document.getElementById("docDownloadAllBtn");
+    dm.querySelector(".safeCard").insertBefore(b2, dl);
+    b2.addEventListener("click",function(){
+      if(typeof renderDocs==="function") renderDocs();
+      var l=document.getElementById("docList"); if(l) l.scrollIntoView({behavior:"smooth"});
+    });
+  }
+})();
+</script>
+</body></html>
